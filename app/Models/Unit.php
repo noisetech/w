@@ -12,11 +12,6 @@ class Unit extends Model
     protected $table = 'unit';
 
     protected $fillable = [
-        'urusan_id', 'kode', 'nomenklatur'
+        'organisasi_id', 'kode', 'nomenklatur'
     ];
-
-    public function urusan()
-    {
-        return $this->belongsTo(Urusan::class, 'urusan_id', 'id');
-    }
 }

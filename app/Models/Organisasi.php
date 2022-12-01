@@ -13,6 +13,6 @@ class Organisasi extends Model
     protected $table = 'organisasi';
 
     protected $fillable = [
-        'kodeOrganisasi', 'urusan', 'nomenklatur'
+        'bidang_id', 'kode', 'nomenklatur'
     ];
 }

@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DinasController;
+use App\Http\Controllers\DpaController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PerencanaanController;
+use App\Http\Controllers\PerencanaanOrganisasiController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SatuanController;
@@ -268,6 +270,75 @@ Route::prefix('dashboard')
             ->name('perencanaan.subKegiatanById');
         Route::post('perencanaan.p_FormEditSubKegiatan', [PerencanaanController::class, 'p_FormEditSubKegiatan'])
             ->name('perencanaan.p_FormEditSubKegiatan');
+
+
+
+        // perencanaan Organisasi
+        // bagian urusan
+        Route::get('perencanaan_organisasi/urusan', [PerencanaanOrganisasiController::class, 'urusan'])
+            ->name('perencanaan_organisasi.urusan');
+        Route::get('perencanaan_organisasi.data_urusan', [PerencanaanOrganisasiController::class, 'data_urusan'])
+            ->name('perencanaan_organisasi.data_urusan');
+        Route::post('perencanaan_organisasi.urusan.p_tambah_urusan', [PerencanaanOrganisasiController::class, 'p_tambah_urusan'])
+            ->name('perencanaan_organisasi.p_tambah_urusan');
+        Route::get('perencanaan_organisasi.formEditUrusanById,', [PerencanaanOrganisasiController::class, 'formEditUrusanById'])
+            ->name('perencanaan_organisasi.formEditUrusanById');
+        Route::post('perencanaan_organisasi.p_formEditUrusanById,', [PerencanaanOrganisasiController::class, 'p_formEditUrusanById'])
+            ->name('perencanaan_organisasi.p_formEditUrusanById');
+        Route::post('perencanaan_organisasi.hapusDataUrusan', [PerencanaanOrganisasiController::class, 'hapusDataUrusan'])
+            ->name('perencanaan_organisasi.hapusDataUrusan');
+
+
+        // perencanaan organisasi
+        // bagian bidang
+        Route::get('perencanaan_organisasi/bidang/urusan/{id}', [PerencanaanOrganisasiController::class, 'bidang'])
+            ->name('perencanaan_organisasi.bidang');
+        Route::get('perencanaan_organisasi.data_bidang', [PerencanaanOrganisasiController::class, 'data_bidang'])
+            ->name('perencanaan_organisasi.data_bidang');
+        Route::post('perencanaan_organisasi.p_form_urusan_bidang', [PerencanaanOrganisasiController::class, 'p_form_urusan_bidang'])
+            ->name('perencanaan_organisasi.p_form_urusan_bidang');
+        Route::get('perencanaan_organisasi.formEditBidangById', [PerencanaanOrganisasiController::class, 'formEditBidangById'])
+            ->name('perencanaan_organisasi.formEditBidangById');
+        Route::post('perencanaan_organisasi.p_formEditBidangById', [PerencanaanOrganisasiController::class, 'p_formEditBidangById'])
+            ->name('perencanaan_organisasi.p_formEditBidangById');
+        Route::post('perencanaan_organisasi.p_hapus_urusan_bidang', [PerencanaanOrganisasiController::class, 'hapusBidangPerencanaan'])
+            ->name('perencanaan_organisasi.hapusBidangPerencanaan');
+
+        // perencanaan organisasi
+        // bagian organisasi
+        Route::get('perencanaan_organisasi/organisasi/bidang/{id}', [PerencanaanOrganisasiController::class, 'organisasi'])
+            ->name('perencanaan_organisasi.organisasi');
+        Route::get('perencanaan_organisasi.data_organisasi', [PerencanaanOrganisasiController::class, 'data_organisasi'])
+            ->name('perencanaan_organisasi.data_organisasi');
+        Route::post('perencanaan_organisasi.p_formTambahOrganisasi', [PerencanaanOrganisasiController::class, 'p_formTambahOrganisasi'])
+            ->name('perencanaan_organisasi.p_formTambahOrganisasi');
+        Route::post('perencanaan_organisasi.hapusOrganisasi', [PerencanaanOrganisasiController::class, 'hapusOrganisasi'])
+            ->name('perencanaan_organisasi.hapusOrganisasi');
+        Route::get('perencanaan_organisasi.formEditBidangById', [PerencanaanOrganisasiController::class, 'formEditBidangById'])
+            ->name('perencanaan_organisasi.formEditBidangById');
+        Route::get('perencanaan_organisasi.formEditOrganisasigById', [PerencanaanOrganisasiController::class, 'formEditOrganisasigById'])
+            ->name('perencanaan_organisasi.formEditOrganisasigById');
+        Route::post('perencanaan_organisasi.p_formEditOrganisasigById', [PerencanaanOrganisasiController::class, 'p_formEditOrganisasigById'])
+            ->name('perencanaan_organisasi.p_formEditOrganisasigById');
+
+        // perencaan unit
+        Route::get('perencanaan_organisasi/unit/organisasi/{id}', [PerencanaanOrganisasiController::class, 'unit'])
+            ->name('perencanaan_organisasi.unit');
+        Route::get('perencanaan_organisasi.data_unit', [PerencanaanOrganisasiController::class, 'data_unit'])
+            ->name('perencanaan_organisasi.data_unit');
+        Route::post('perencanaan_organisasi.p_formTambahUnit', [PerencanaanOrganisasiController::class, 'p_formTambahUnit'])
+            ->name('perencanaan_organisasi.p_formTambahUnit');
+        Route::post('perencanaan_organisasi.hapusUnit', [PerencanaanOrganisasiController::class, 'hapusUnit'])
+            ->name('perencanaan_organisasi.hapusUnit');
+        Route::get('perencanaan_organisasi.formEditUnitById', [PerencanaanOrganisasiController::class, 'formEditUnitById'])
+            ->name('perencanaan_organisasi.formEditUnitById');
+        Route::post('perencanaan_organisasi.p_formEditUnitgById', [PerencanaanOrganisasiController::class, 'p_formEditUnitgById'])
+            ->name('perencanaan_organisasi.p_formEditUnitgById');
+
+        Route::get('dpa', [DpaController::class, 'index'])
+            ->name('dpa');
+        Route::get('dpa/h_tambah', [DpaController::class, 'h_tambah'])
+            ->name('dpa.h_tambah');
     });
 
 Auth::routes(['register' => false]);
