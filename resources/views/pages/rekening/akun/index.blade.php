@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'Urusan')
+@section('title', 'Akun')
 @section('content')
-    {{ navbar('Perencanaan', 'List Perencanaan') }}
+    {{ navbar('Akun Rekening', 'List Akun Rekening') }}
 
     <div class="container-fluid py-4">
         <div class="row my-2">
@@ -9,19 +9,22 @@
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="alert alert-dark">
-                            <strong class="text-white">Urusan</strong>
+                            <strong class="text-white">Akun Rekening</strong>
                         </div>
                         <div class="alert alert-light">
-                            <strong>Bidang</strong>
+                            <strong>Kelompok Rekening</strong>
                         </div>
                         <div class="alert alert-light">
-                            <strong>Progam</strong>
+                            <strong>Jenis Rekening</strong>
                         </div>
                         <div class="alert alert-light">
-                            <strong>Kegiatan</strong>
+                            <strong>Objek Rekening</strong>
                         </div>
                         <div class="alert alert-light">
-                            <strong>Sub Kegiatan</strong>
+                            <strong>Rincian Objek Rekening</strong>
+                        </div>
+                        <div class="alert alert-light">
+                            <strong>Sub Rincian Objek Rekening</strong>
                         </div>
                     </div>
                 </div>
@@ -29,7 +32,7 @@
             <div class="col-lg-9 col-md-9 col-sm-12">
                 <div class="card h-100">
                     <div class="card-header pb-0">
-                        <h6>Urusan</h6>
+                        <h6>Akun Rekening</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive pb-0">
@@ -41,57 +44,63 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode
                                         </th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Nomenklatur</th>
+                                            Uraian Akun</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Deskripsi Akun</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>
+                        <div class="d-flex justify-content-end mt-4">
+                            <a href="javascript:;" class="btn btn-sm btn-success btn-add">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
                     </div>
 
 
                     <div class="container">
-                        <div id="form-create" style="display: none;">
-                            <form action="#" method="post" id="form_urusan_step">
+                        <div id="form-create-show" style="display: none;">
+                            <form action="#" method="post" id="form_create">
                                 @csrf
 
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label for="Kode">Kode</label>
                                             <input type="text" class="form-control" name="kode" placeholder="Kode">
                                         </div>
                                     </div>
-                                    <div class="col-sm-7">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label for="Kode">Nomenklatur</label>
-                                            <input type="text" class="form-control" name="nomenklatur"
-                                                placeholder="Nomenklatur">
+                                            <label for="uraian_akun">Uraian Akun</label>
+                                            <input type="text" class="form-control" name="uraian_akun"
+                                                placeholder="Uraian Akun">
                                         </div>
                                     </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-sm btn-success btn-save"><i
-                                                class="fas fa-save"></i></button>
-                                        <button type="button" class="btn btn-sm btn-danger btn-cancel"><i
-                                                class="fas fa-times"></i></button>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="deskripsi_akun">Deskripsi Akun</label>
+                                            <input type="text" class="form-control" name="deskripsi_akun"
+                                                placeholder="Deskripsi Akun">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="d-flex justify-content-end">
+                                            <button type="button" class="btn btn-sm btn-danger btn-cancel"><i
+                                                    class="fas fa-times"></i></button>
+                                            <button type="submit" class="btn btn-sm btn-success btn-save mx-1"><i
+                                                    class="fas fa-save"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </form>
                         </div>
 
-                        <div id="form-edit">
-
-                        </div>
+                        <div id="form-edit-show"></div>
                     </div>
 
-
-
-
-                    <div class="d-flex justify-content-end mx-4">
-                        <a href="javascript:;" class="btn btn-sm btn-success btn-add">
-                            <i class="fas fa-plus"></i>
-                        </a>
-                    </div>
                 </div>
 
             </div>
@@ -103,11 +112,11 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        $("#form_urusan_step").submit(function(e) {
+        $("#form_create").submit(function(e) {
             e.preventDefault();
             const fd = new FormData(this);
             $.ajax({
-                url: '{{ route('perencanaan.p_tambah_urusan') }}',
+                url: '{{ route('rekening.p_tambah_akun_rekening') }}',
                 method: 'post',
                 data: fd,
                 cache: false,
@@ -129,7 +138,7 @@
                             timer: 1800,
                             showConfirmButton: false,
                         });
-                        $('#form_urusan_step')[0].reset();
+                        $('#form_create')[0].reset();
                         $('#dataTable').DataTable().ajax.reload();
 
                     }
@@ -137,11 +146,11 @@
             });
         });
 
-        $(document).on('submit', '#form_edit_urusan', function(e) {
+        $(document).on('submit', '#form_edit', function(e) {
             e.preventDefault();
             const fd = new FormData(this);
             $.ajax({
-                url: '{{ route('perencanaan.p_formEditUrusanById') }}',
+                url: '{{ route('rekening.p_edit_akun_rekening') }}',
                 method: 'post',
                 data: fd,
                 cache: false,
@@ -163,7 +172,7 @@
                             timer: 1800,
                             showConfirmButton: false,
                         });
-                        $('#form-edit').empty();
+                        $('#form-edit-show').empty();
                         $('.btn-add').show();
                         $('#dataTable').DataTable().ajax.reload();
 
@@ -185,14 +194,14 @@
             // responsive: true,
             order: [],
             ajax: {
-                url: "{{ route('perencanaan.data_urusan') }}"
+                url: "{{ route('rekening.data_akun_rekening') }}"
             },
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
                     className: 'text-secondary text-xs font-weight-bold',
                     render: function(data, type, row) {
-                        return '<a href="/dashboard/perencanaan/bidang/urusan/' + row.id + '" >' + data +
+                        return '<a href="/dashboard/rekening/kelompok/' + encrypsi(row.id) + '" >' + data +
                             '</a>';
                     }
                 },
@@ -202,9 +211,17 @@
                     className: 'text-secondary text-xs font-weight-bold',
                 },
                 {
-                    data: 'nomenklatur',
-                    name: 'nomenklatur',
+                    data: 'uraian_akun',
+                    name: 'uraian_akun',
                     className: 'text-secondary text-xs font-weight-bold',
+                },
+                {
+                    data: 'deskripsi_akun',
+                    name: 'deskripsi_akun',
+                    className: 'text-secondary text-xs font-weight-bold',
+                    render: function(data, type, row) {
+                        return '<span style="white-space:normal;">'+row.deskripsi_akun+'</span>';
+                    }
                 },
                 {
                     data: 'aksi',
@@ -216,41 +233,43 @@
 
     <script>
         $('.btn-add').click(function() {
-            $('#form-create').show();
+            $('#form-create-show').show();
+            $('#form-edit-show').empty();
             $(this).hide();
         });
         $('.btn-cancel').click(function() {
-            $('#form-create').hide();
+            $('#form-create-show').hide();
             $('.btn-add').show();
         })
 
-        $(document).on('click', '.btn-cancel2', function() {
-            $('#form-edit').empty();
+        $(document).on('click', '.btn-cancel', function() {
+            $('#form-edit-show').empty();
             $('.btn-add').show();
         })
 
 
 
-        function formEditUrusanById(data) {
+        function edit(data) {
             let id = $(data).data('id');
 
             $('.btn-add').hide();
+            $('#form-create-show').hide();
 
             $.ajax({
-                url: '{{ route('perencanaan.formEditUrusanById') }}',
+                url: '{{ route('rekening.edit_akun_rekening') }}',
                 method: 'get',
                 data: {
                     id: id,
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    $('#form-edit').html(data);
-                    $('#form-create').hide();
+                    $('#form-edit-show').html(data);
+                    $('#form-create-show').hide();
                 }
             });
         }
 
-        function hapusDataUrusan(data) {
+        function hapus(data) {
             let id = $(data).data('id');
             Swal.fire({
                 title: 'Anda ingin menghapus data?',
@@ -266,7 +285,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('perencanaan.hapusDataUrusan') }}",
+                        url: "{{ route('rekening.hapus_akun_rekening') }}",
                         data: {
                             id: id,
                             _token: "{{ csrf_token() }}"

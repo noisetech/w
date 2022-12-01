@@ -41,7 +41,7 @@
                                     </a>
                                 </li>
 
-                                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                                <li class="nav-item dropdown pe-2 ps-3 d-flex align-items-center">
                                     <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-user cursor-pointer"></i>

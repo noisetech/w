@@ -9,6 +9,46 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
 </script>
 
+<script>
+    function encrypsi(data) {
+        let hasil;
+        $.ajax({
+            url: '{{ route('encrypsi') }}',
+            method: 'post',
+            async: false,
+            dataType: 'json',
+            data: {
+                data: data,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+
+                hasil = data.data;
+            }
+        });
+
+        return hasil;
+    }
+
+    function decrypsi(data) {
+        let hasil;
+        $.ajax({
+            url: '{{ route('decrypsi') }}',
+            method: 'post',
+            async: false,
+            dataType: 'json',
+            data: {
+                data: data,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                hasil = data.data;
+            }
+        });
+        return hasil
+    }
+</script>
+
 @stack('script')
 
 <script>
