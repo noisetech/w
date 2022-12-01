@@ -5,7 +5,7 @@
 
     <div class="container-fluid py-4">
         <div class="row my-2">
-            <div class="col-lg-3 col-md-1 col-sm-12 h-100">
+            <div class="col-lg-3 col-md-3 col-sm-12 h-100">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="alert alert-dark">

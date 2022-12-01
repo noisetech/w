@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\DinasController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\PerencanaanController;
+use App\Http\Controllers\RekeningController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SatuanController;
@@ -35,6 +37,9 @@ Route::prefix('dashboard')
         Route::get('/', [DashboardController::class, 'index'])
             ->name('dashboard');
 
+        // General route
+        Route::post('encrypsi', [GeneralController::class, 'encrypsi'])->name('encrypsi');
+        Route::post('decrypsi', [GeneralController::class, 'decrypsi'])->name('decrypsi');
 
         // permission
         Route::get('/permissions', [PermissionController::class, 'index'])
@@ -268,6 +273,97 @@ Route::prefix('dashboard')
             ->name('perencanaan.subKegiatanById');
         Route::post('perencanaan.p_FormEditSubKegiatan', [PerencanaanController::class, 'p_FormEditSubKegiatan'])
             ->name('perencanaan.p_FormEditSubKegiatan');
+
+
+        // rekening
+        // akun_rekening
+        Route::get('rekening', [RekeningController::class, 'index'])
+            ->name('rekening');
+        Route::get('rekening.data_akun_rekening', [RekeningController::class, 'data_akun'])
+            ->name('rekening.data_akun_rekening');
+        Route::post('rekening.p_tambah_akun_rekening', [RekeningController::class, 'p_tambah_akun_rekening'])
+            ->name('rekening.p_tambah_akun_rekening');
+        Route::get('rekening.edit_akun_rekening', [RekeningController::class, 'edit_akun_rekening'])
+            ->name('rekening.edit_akun_rekening');
+        Route::post('rekening.p_edit_akun_rekening', [RekeningController::class, 'p_edit_akun_rekening'])
+            ->name('rekening.p_edit_akun_rekening');
+        Route::post('rekening.hapus_akun_rekening', [RekeningController::class, 'hapus_akun_rekening'])
+            ->name('rekening.hapus_akun_rekening');
+
+        // rekening
+        // kelompok_rekening
+        Route::get('rekening/kelompok/{id}', [RekeningController::class, 'kelompok'])
+            ->name('rekening.kelompok');
+        Route::get('rekening.data_kelompok_rekening', [RekeningController::class, 'data_kelompok'])
+            ->name('rekening.data_kelompok_rekening');
+        Route::post('rekening.p_tambah_kelompok_rekening', [RekeningController::class, 'p_tambah_kelompok_rekening'])
+            ->name('rekening.p_tambah_kelompok_rekening');
+        Route::get('rekening.edit_kelompok_rekening', [RekeningController::class, 'edit_kelompok_rekening'])
+            ->name('rekening.edit_kelompok_rekening');
+        Route::post('rekening.p_edit_kelompok_rekening', [RekeningController::class, 'p_edit_kelompok_rekening'])
+            ->name('rekening.p_edit_kelompok_rekening');
+        Route::post('rekening.hapus_kelompok_rekening', [RekeningController::class, 'hapus_kelompok_rekening'])
+            ->name('rekening.hapus_kelompok_rekening');
+
+        // rekening
+        // jenis_rekening
+        Route::get('rekening/jenis/{id}', [RekeningController::class, 'jenis'])
+            ->name('rekening.jenis');
+        Route::get('rekening.data_jenis_rekening', [RekeningController::class, 'data_jenis'])
+            ->name('rekening.data_jenis_rekening');
+        Route::post('rekening.p_tambah_jenis_rekening', [RekeningController::class, 'p_tambah_jenis_rekening'])
+            ->name('rekening.p_tambah_jenis_rekening');
+        Route::get('rekening.edit_jenis_rekening', [RekeningController::class, 'edit_jenis_rekening'])
+            ->name('rekening.edit_jenis_rekening');
+        Route::post('rekening.p_edit_jenis_rekening', [RekeningController::class, 'p_edit_jenis_rekening'])
+            ->name('rekening.p_edit_jenis_rekening');
+        Route::post('rekening.hapus_jenis_rekening', [RekeningController::class, 'hapus_jenis_rekening'])
+            ->name('rekening.hapus_jenis_rekening');
+
+        // rekening
+        // objek_rekening
+        Route::get('rekening/objek/{id}', [RekeningController::class, 'objek'])
+            ->name('rekening.objek');
+        Route::get('rekening.data_objek_rekening', [RekeningController::class, 'data_objek'])
+            ->name('rekening.data_objek_rekening');
+        Route::post('rekening.p_tambah_objek_rekening', [RekeningController::class, 'p_tambah_objek_rekening'])
+            ->name('rekening.p_tambah_objek_rekening');
+        Route::get('rekening.edit_objek_rekening', [RekeningController::class, 'edit_objek_rekening'])
+            ->name('rekening.edit_objek_rekening');
+        Route::post('rekening.p_edit_objek_rekening', [RekeningController::class, 'p_edit_objek_rekening'])
+            ->name('rekening.p_edit_objek_rekening');
+        Route::post('rekening.hapus_objek_rekening', [RekeningController::class, 'hapus_objek_rekening'])
+            ->name('rekening.hapus_objek_rekening');
+
+        // rekening
+        // rincian_objek_rekening
+        Route::get('rekening/rincian_objek/{id}', [RekeningController::class, 'rincian_objek'])
+            ->name('rekening.rincian_objek');
+        Route::get('rekening.data_rincian_objek_rekening', [RekeningController::class, 'data_rincian_objek'])
+            ->name('rekening.data_rincian_objek_rekening');
+        Route::post('rekening.p_tambah_rincian_objek_rekening', [RekeningController::class, 'p_tambah_rincian_objek_rekening'])
+            ->name('rekening.p_tambah_rincian_objek_rekening');
+        Route::get('rekening.edit_rincian_objek_rekening', [RekeningController::class, 'edit_rincian_objek_rekening'])
+            ->name('rekening.edit_rincian_objek_rekening');
+        Route::post('rekening.p_edit_rincian_objek_rekening', [RekeningController::class, 'p_edit_rincian_objek_rekening'])
+            ->name('rekening.p_edit_rincian_objek_rekening');
+        Route::post('rekening.hapus_rincian_objek_rekening', [RekeningController::class, 'hapus_rincian_objek_rekening'])
+            ->name('rekening.hapus_rincian_objek_rekening');
+
+        // rekening
+        // sub_rincian_objek_rekening
+        Route::get('rekening/sub_rincian_objek/{id}', [RekeningController::class, 'sub_rincian_objek'])
+            ->name('rekening.sub_rincian_objek');
+        Route::get('rekening.data_sub_rincian_objek_rekening', [RekeningController::class, 'data_sub_rincian_objek'])
+            ->name('rekening.data_sub_rincian_objek_rekening');
+        Route::post('rekening.p_tambah_sub_rincian_objek_rekening', [RekeningController::class, 'p_tambah_sub_rincian_objek_rekening'])
+            ->name('rekening.p_tambah_sub_rincian_objek_rekening');
+        Route::get('rekening.edit_sub_rincian_objek_rekening', [RekeningController::class, 'edit_sub_rincian_objek_rekening'])
+            ->name('rekening.edit_sub_rincian_objek_rekening');
+        Route::post('rekening.p_edit_sub_rincian_objek_rekening', [RekeningController::class, 'p_edit_sub_rincian_objek_rekening'])
+            ->name('rekening.p_edit_sub_rincian_objek_rekening');
+        Route::post('rekening.hapus_sub_rincian_objek_rekening', [RekeningController::class, 'hapus_sub_rincian_objek_rekening'])
+            ->name('rekening.hapus_sub_rincian_objek_rekening');
     });
 
 Auth::routes(['register' => false]);
