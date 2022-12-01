@@ -1,0 +1,5 @@
+[submodule "public/backend"]
+	path = public/backend
+	url = https://github.com/noisetech/emonev-laravel.git
+[submodule "<path>"]
+	ignore = untracked
