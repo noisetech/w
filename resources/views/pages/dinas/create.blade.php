@@ -201,7 +201,7 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ route('organisasi') }}"
+                            window.top.location = "{{ route('dinas') }}"
                         }, 1500);
                     } else {
                         $.each(data.error, function(prefix, val) {

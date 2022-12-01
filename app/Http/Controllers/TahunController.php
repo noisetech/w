@@ -48,7 +48,6 @@ class TahunController extends Controller
 
         $rules = [
             'tahun' => 'required',
-            'jenis' => ' required'
         ];
 
         $text = [
