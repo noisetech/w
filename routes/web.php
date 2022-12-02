@@ -340,10 +340,25 @@ Route::prefix('dashboard')
         Route::post('perencanaan_organisasi.p_formEditUnitgById', [PerencanaanOrganisasiController::class, 'p_formEditUnitgById'])
             ->name('perencanaan_organisasi.p_formEditUnitgById');
 
+
+        // anggaran
+        // bagian dpa
         Route::get('dpa', [DpaController::class, 'index'])
             ->name('dpa');
         Route::get('dpa/h_tambah', [DpaController::class, 'h_tambah'])
             ->name('dpa.h_tambah');
+        Route::get('dpa/sub_dpa/{id}', [DpaController::class, 'sub_dpa'])
+            ->name('dpa.sub_dpa');
+        Route::get('dpa.list_urusan', [DpaController::class, 'listUrusan'])
+            ->name('dpa.listUrusan');
+        Route::get('dpa-list_bidang/{id}', [DpaController::class, 'listBidang']);
+        Route::get('dpa-list_program/{id}', [DpaController::class, 'listProgram']);
+        Route::get('dpa-list_kegiatan/{id}', [DpaController::class, 'listKegiatan']);
+        Route::get('dpa-list_organisasi/{id}', [DpaController::class, 'listOrganisasi']);
+        Route::get('dpa-list_unit/{id}', [DpaController::class, 'listUnit']);
+        Route::post('dpa.insert_dpa_to_session', [DpaController::class, 'insert_dpa_to_session'])
+            ->name('dpa.insert_dpa_to_session');
+
 
         // rekening
         // akun_rekening

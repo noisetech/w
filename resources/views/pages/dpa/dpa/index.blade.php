@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Urusan')
+@section('title', 'DPA')
 @section('content')
     {{ navbar('DPA', 'List DPA') }}
 
@@ -24,7 +24,8 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NO
                                             DPA
                                         </th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Urusan
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Urusan
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Aksi
                                         </th>
                                         <th></th>

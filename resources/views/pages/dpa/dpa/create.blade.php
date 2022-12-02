@@ -3,61 +3,176 @@
 @section('content')
     {{ navbar('DPA', 'Form Tambah DPA') }}
 
+    <style>
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            font-size: 10px !important;
+            font-weight: 600 !important;
+        }
+
+        .form-control {
+            font-size: 12px !important;
+            font-weight: 600px !important;
+        }
+
+        label {
+            font-size: 11px !important;
+        }
+
+        strong{
+            font-size: 12px;
+        }
+    </style>
+
     <div class="container-fluid py-4">
         <div class="row my-2">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card h-100">
-                    <div class="card-header pb-0">
-                        <div class="d-flex justify-content-end align-items-center">
-                            <h6>TAMBAH DPA</h6>
+
+            <div class="col-lg-2 col-md-3 col-sm-12 h-100">
+                <div class="card">
+                    <div class="card-body p-3">
+                        <div class="alert alert-dark">
+                            <strong class="text-white">DPA</strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'bidang' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'bidang' ? 'white' : 'black' }}">SUB DPA
+                            </strong>
+                        </div>
+
+                        <div class="alert alert-{{ isset($active) && $active == 'program' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'program' ? 'white' : 'black' }}">Program
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'kegiatan' ? 'dark' : 'light' }}">
+                            <strong
+                                class="text-{{ isset($active) && $active == 'kegiatan' ? 'white' : 'black' }}">Kegiatan</strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub kegiatan' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub kegiatan' ? 'white' : 'black' }}">Sub
+                                Kegiatan</strong>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <form action="#" method="post" id="form_urusan_step" class="form-inline">
+                </div>
+            </div>
+
+            <div class="col-lg-10 col-md-9 col-sm-12">
+                <div class="card h-100 my-4">
+                    <div class="card-header pb-0">
+                        <div class="d-flex justify-content-end align-items-center">
+                            <div class="btn btn-info">
+                                <span class="text-white font-weight-bold">Bagian tambah dpa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <form action="#" method="post" id="form_dpa" class="form-inline">
                             @csrf
 
 
                             <div class="row">
 
-                                <label class="col-sm-1 my-2">
-                                    No Dpa
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    No Dpa:
                                 </label>
-                                <div class="col-sm-6">
+
+                                <div class="col-sm-12 col-md-9 col-lg-9">
                                     <input type="text" name="no_dpa" class="form-control" placeholder="No Dpa">
+                                    <span class="text-danger error-text no_dpa_error" style="font-size: 12px;"></span>
                                 </div>
                             </div>
 
                             <div class="row mt-4">
 
-                                <label class="col-sm-1 my-2">
-                                    Urusan
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Urusan:
                                 </label>
-                                <div class="col-sm-6">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="urusan_id" id="urusan" class="form-control"></select>
+                                    <span class="text-danger error-text urusan_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Bidang:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="bidang_id" id="bidang" class="form-control" disabled>
+                                        <option value="">--Pilih Urusan Dahulu--</option>
+                                    </select>
+                                    <span class="text-danger error-text bidang_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Program:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="program_id" id="program" class="form-control" disabled>
+                                        <option value="">--Pilih Bidang Dahulu--</option>
+                                    </select>
+                                    <span class="text-danger error-text program_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Kegiatan:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="kegiatan_id" id="kegiatan" class="form-control" disabled>
+                                        <option value="">--Pilih Program Dahulu--</option>
+                                    </select>
                                 </div>
                             </div>
 
 
-                            <div class="row mt-3">
+                            <div class="row mt-4">
+                                <label class="col-sm-12 col-md-2 my-2 mx-0">
+                                    Organisasi
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="organisasi_id" id="organisasi" class="form-control" disabled>
+                                        <option value="">--Pilih Kegiatan Dahulu--</option>
+                                    </select>
+                                    <span class="text-danger error-text organisasi_id_error"
+                                        style="font-size: 12px;"></span>
+                                </div>
+                            </div>
 
-                                <label class="col-sm-2 my-2">
+
+                            <div class="row mt-4">
+                                <label class="col-sm-12 col-md-2 my-2 mx-0">
+                                    Unit
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="unit_id" id="unit" class="form-control" disabled>
+                                        <option value="">--Pilih Organisasi Dahulu--</option>
+                                    </select>
+                                    <span class="text-danger error-text urusan_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-5">
+
+                                <label class="col-sm-3 my-2 mx-0">
                                     Capaian Program
                                 </label>
 
-                                <label class="col-sm-1 my-2" style="font-size: 12px;">
+                                <label class="col-sm-2 my-2" style="font-size: 12px;">
                                     Indikator
                                 </label>
-                                <div class="col-sm-4">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                <div class="col-sm-2">
+                                    <input type="text" name="indikator_capaian_program" class="form-control">
                                 </div>
 
 
 
-                                <label class="col-sm-1 my-2" style="font-size: 12px;">
+                                <label class="col-sm-2 my-2" style="font-size: 12px;">
                                     Target
                                 </label>
                                 <div class="col-sm-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                    <input type="text" name="target_capaian_program" class="form-control">
                                 </div>
                             </div>
 
@@ -77,73 +192,72 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" readonly name="no_dpa" class="form-control" value="">
+                                <div class="col-sm-2 my-2">
+                                    <input type="text" readonly name="indikator[]" class="form-control"
+                                        value="Capaian Kegiatan">
                                 </div>
 
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                <div class="col-sm-6 my-2">
+                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
                                 </div>
 
                                 <div class="col-sm-3 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                    <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
                                 </div>
 
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" readonly name="no_dpa" class="form-control">
+                                <div class="col-sm-2 my-2">
+                                    <input type="text" readonly name="indikator[]" class="form-control"
+                                        value="Masukan">
                                 </div>
 
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                <div class="col-sm-6 my-2">
+                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
                                 </div>
 
                                 <div class="col-sm-3 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                    <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
                                 </div>
 
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" readonly name="no_dpa" class="form-control">
+                                <div class="col-sm-2 my-2">
+                                    <input type="text" readonly name="indikator[]" class="form-control"
+                                        value="Keluaran">
                                 </div>
 
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                <div class="col-sm-6 my-2">
+                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
                                 </div>
 
                                 <div class="col-sm-3 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                    <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
                                 </div>
 
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" readonly name="no_dpa" class="form-control">
+                                <div class="col-sm-2 my-2">
+                                    <input type="text" readonly name="indikator[]" class="form-control"
+                                        value="Hasil">
                                 </div>
 
-                                <div class="col-sm-4 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                <div class="col-sm-6 my-2">
+                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
                                 </div>
 
                                 <div class="col-sm-3 my-2">
-                                    <input type="text" name="no_dpa" class="form-control">
+                                    <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
                                 </div>
 
                             </div>
 
 
 
-                            <div class="row justify-content-end">
-                                <div class="col-sm-1">
-                                    <button type="submit" class="btn btn-sm btn-success btn-save"><i
-                                            class="fas fa-save"></i></button>
-                                </div>
-                            </div>
+                            <button type="submit" class="btn mt-3 btn-sm btn-success btn-save">Selanjutnya</button>
                         </form>
 
                     </div>
@@ -158,29 +272,229 @@
 @endsection
 
 @push('script')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $('.urusan').select2({
+        $('#urusan').select2({
             minimumInputLength: 1,
             // dropdownParent: $('#exampleModal'),
             maximumInputLength: 50,
             allowClear: true,
-            placeholder: '-- Pilih Satuan--',
+            placeholder: '-- Pilih Urusan--',
             width: '100%',
             ajax: {
-                url: "{{ route('perencanaan.listSatuanForKegiatan') }}",
+                url: "{{ route('dpa.listUrusan') }}",
                 dataType: 'json',
                 delay: 500,
                 processResults: function(data) {
                     return {
                         results: $.map(data, function(item) {
                             return {
-                                text: item.satuan,
+                                text: item.kode + " " + item.nomenklatur,
                                 id: item.id
                             }
                         })
+
+
                     };
                 }
             }
+        })
+
+        $('#urusan').change(function() {
+
+            let id = $('#urusan').val();
+
+            $('#bidang').removeAttr('disabled');
+
+            $('#bidang').select2({
+                minimumInputLength: 0,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                placeholder: '-- Pilih Bidang--',
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-list_bidang') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.nomenklatur,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+        });
+
+        $('#bidang').change(function() {
+
+            let id = $('#bidang').val();
+
+            $('#program').removeAttr('disabled');
+
+            $('#program').select2({
+                minimumInputLength: 0,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                placeholder: '-- Pilih Program--',
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-list_program') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.nomenklatur,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+        });
+
+        $('#program').change(function() {
+
+            let id = $('#program').val();
+
+            $('#kegiatan').removeAttr('disabled');
+
+            $('#kegiatan').select2({
+                minimumInputLength: 0,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                placeholder: '-- Pilih Program--',
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-list_kegiatan') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.nomenklatur,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+        });
+
+        $('#kegiatan').change(function() {
+
+            let id = $('#kegiatan').val();
+
+            $('#organisasi').removeAttr('disabled');
+
+            $('#organisasi').select2({
+                minimumInputLength: 0,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                placeholder: '-- Pilih Program--',
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-list_organisasi') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.nomenklatur,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+        });
+
+        $('#organisasi').change(function() {
+
+            let id = $('#organisasi').val();
+
+            $('#unit').removeAttr('disabled');
+
+            $('#unit').select2({
+                minimumInputLength: 0,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                placeholder: '-- Pilih Unit--',
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-list_unit') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.nomenklatur,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            });
+        });
+
+
+
+
+        $("#form_dpa").submit(function(e) {
+            e.preventDefault();
+            const fd = new FormData(this);
+            $.ajax({
+                url: '{{ route('dpa.insert_dpa_to_session') }}',
+                method: 'post',
+                data: fd,
+                cache: false,
+                processData: false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend: function() {
+                    $(document).find('span.error-text').text('');
+                },
+                success: function(data) {
+                    if (data.status == 'success') {
+
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Data telah disimpan',
+                            title: 'Berhasil',
+                            toast: true,
+                            position: 'top-end',
+                            timer: 1800,
+                            showConfirmButton: false,
+                        });
+                        setTimeout(function() {
+                            window.top.location = "{{ route('dpa') }}"
+                        }, 1800);
+                    } else {
+                        $.each(data.error, function(prefix, val) {
+                            $('span.' + prefix + '_error').text(val[0]);
+                        });
+                    }
+
+                }
+            });
         });
     </script>
 @endpush
