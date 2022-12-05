@@ -15,6 +15,7 @@ use App\Http\Controllers\SumberDanaController;
 use App\Http\Controllers\TahunController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\KomponenPembangunanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -459,6 +460,20 @@ Route::prefix('dashboard')
             ->name('rekening.p_edit_sub_rincian_objek_rekening');
         Route::post('rekening.hapus_sub_rincian_objek_rekening', [RekeningController::class, 'hapus_sub_rincian_objek_rekening'])
             ->name('rekening.hapus_sub_rincian_objek_rekening');
+
+        // komponen pembangunan
+        // komponen pembangunan
+        Route::get('komponen_pembangunan', [KomponenPembangunanController::class, 'index'])
+            ->name('komponen.pembangunan');
+        Route::post('komponen_pembangunan/p_tambah', [KomponenPembangunanController::class, 'p_tambah'])->name('komponen.pembangunan.p_tambah');
+        Route::post('komponen_pembangunan/form_edit', [KomponenPembangunanController::class, 'form_edit'])->name('komponen.pembangunan.form_edit');
+        Route::post('komponen_pembangunan/p_edit', [KomponenPembangunanController::class, 'p_edit'])->name('komponen.pembangunan.p_edit');
+
+        // pembangunan
+        // master pembangunan
+        Route::get('pembangunan', [PembangunanController::class, 'index'])
+            ->name('pembangunan');
+
     });
 
 Auth::routes(['register' => false]);
