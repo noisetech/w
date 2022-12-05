@@ -208,7 +208,7 @@
     </script>
 
     <script>
-        
+
     </script>
 
     <script>
@@ -275,11 +275,8 @@
             $('.btn-add').show();
         })
 
-
-
         function edit(data) {
             let id = $(data).data('id');
-
             $('.btn-add').hide();
             $('#form-create-show').hide();
 
