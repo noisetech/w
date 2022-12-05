@@ -131,8 +131,12 @@ class PerencanaanOrganisasiController extends Controller
 
     public function bidang($id)
     {
-        $urusan = Urusan::find($id);
-        $segment = $id;
+
+
+
+
+        $urusan = Urusan::find(decrypsi($id));
+        $segment = decrypsi($id);
         $active = 'bidang';
 
         return view('pages.perencanaan-organisasi.bidang.index', [
@@ -266,8 +270,8 @@ class PerencanaanOrganisasiController extends Controller
     // organisasi
     public function organisasi($id)
     {
-        $bidang = Bidang::find($id);
-        $segment = $id;
+        $bidang = Bidang::find(decrypsi($id));
+        $segment = decrypsi($id);
         $active = 'organisasi';
 
         return view('pages.perencanaan-organisasi.organisasi.index', [
@@ -399,8 +403,8 @@ class PerencanaanOrganisasiController extends Controller
     // unit
     public function unit($id)
     {
-        $organisasi = Organisasi::find($id);
-        $segment = $id;
+        $organisasi = Organisasi::find(decrypsi($id));
+        $segment = decrypsi($id);
         $active = 'unit';
 
         return view('pages.perencanaan-organisasi.unit.index', [

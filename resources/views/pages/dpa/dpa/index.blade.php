@@ -3,6 +3,9 @@
 @section('content')
     {{ navbar('DPA', 'List DPA') }}
 
+
+
+
     <div class="container-fluid py-4">
         <div class="row my-2">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -187,76 +190,6 @@
 @push('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        $("#form_urusan_step").submit(function(e) {
-            e.preventDefault();
-            const fd = new FormData(this);
-            $.ajax({
-                url: '{{ route('perencanaan_organisasi.p_tambah_urusan') }}',
-                method: 'post',
-                data: fd,
-                cache: false,
-                processData: false,
-                dataType: 'json',
-                contentType: false,
-                beforeSend: function() {
-                    $(document).find('span.error-text').text('');
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Data telah disimpan',
-                            title: 'Berhasil',
-                            toast: true,
-                            position: 'top-end',
-                            timer: 1800,
-                            showConfirmButton: false,
-                        });
-                        $('#form_urusan_step')[0].reset();
-                        $('#dataTable').DataTable().ajax.reload();
-
-                    }
-                }
-            });
-        });
-
-        $(document).on('submit', '#form_edit_urusan', function(e) {
-            e.preventDefault();
-            const fd = new FormData(this);
-            $.ajax({
-                url: '{{ route('perencanaan.p_formEditUrusanById') }}',
-                method: 'post',
-                data: fd,
-                cache: false,
-                processData: false,
-                dataType: 'json',
-                contentType: false,
-                beforeSend: function() {
-                    $(document).find('span.error-text').text('');
-                },
-                success: function(data) {
-                    if (data.status == 'success') {
-
-                        Swal.fire({
-                            icon: 'success',
-                            text: 'Data telah diubah',
-                            title: 'Berhasil',
-                            toast: true,
-                            position: 'top-end',
-                            timer: 1800,
-                            showConfirmButton: false,
-                        });
-                        $('#form-edit').empty();
-                        $('.btn-add').show();
-                        $('#dataTable').DataTable().ajax.reload();
-
-                    }
-                }
-            });
-        });
-    </script>
 
     <script>
         $('#dataTable').DataTable();

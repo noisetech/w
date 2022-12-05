@@ -46,13 +46,11 @@ class SumberDanaController extends Controller
     public function p_tambah(Request $request)
     {
         $rules = [
-            'sumber' => 'required',
-            'uraian' => ' required'
+            'sumber_dana' => 'required',
         ];
 
         $text = [
-            'sumber.required' => 'tidak boleh kosong',
-            'uraian.required' => 'tidak boleh kosong'
+            'sumber_dana.required' => 'tidak boleh kosong',
         ];
 
         $validator = Validator::make($request->all(), $rules, $text);

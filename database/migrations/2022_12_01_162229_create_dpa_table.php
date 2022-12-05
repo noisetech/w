@@ -18,7 +18,7 @@ class CreateDpaTable extends Migration
             $table->string('no_dpa')->nullable();
             $table->foreignId('urusan_id')->nullable();
             $table->foreignId('bidang_id')->nullable();
-            $table->foreignId('progaram_id')->nullable();
+            $table->foreignId('program_id')->nullable();
             $table->foreignId('kegiatan_id')->nullable();
             $table->foreignId('organisasi_id')->nullable();
             $table->foreignId('unit_id')->nullable();

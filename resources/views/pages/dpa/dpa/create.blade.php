@@ -9,17 +9,16 @@
             font-weight: 600 !important;
         }
 
-        .form-control {
-            font-size: 12px !important;
-            font-weight: 600px !important;
-        }
-
         label {
-            font-size: 11px !important;
+            font-size: 10px !important;
         }
 
-        strong{
+        strong {
             font-size: 12px;
+        }
+
+        .select2-remove-border {
+            border: 0px !important;
         }
     </style>
 
@@ -69,7 +68,7 @@
 
                             <div class="row">
 
-                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                <label class="no_dpa col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                     No Dpa:
                                 </label>
 
@@ -85,7 +84,7 @@
                                     Urusan:
                                 </label>
                                 <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
-                                    <select name="urusan_id" id="urusan" class="form-control"></select>
+                                    <select name="urusan_id" id="urusan" class="js-states form-control"></select>
                                     <span class="text-danger error-text urusan_id_error" style="font-size: 12px;"></span>
                                 </div>
                             </div>
@@ -95,7 +94,7 @@
                                     Bidang:
                                 </label>
                                 <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
-                                    <select name="bidang_id" id="bidang" class="form-control" disabled>
+                                    <select name="bidang_id" id="bidang" class="js-states form-control" disabled>
                                         <option value="">--Pilih Urusan Dahulu--</option>
                                     </select>
                                     <span class="text-danger error-text bidang_id_error" style="font-size: 12px;"></span>
@@ -122,6 +121,7 @@
                                     <select name="kegiatan_id" id="kegiatan" class="form-control" disabled>
                                         <option value="">--Pilih Program Dahulu--</option>
                                     </select>
+                                    <span class="text-danger error-text kegiatan_id" style="font-size: 12px;"></span>
                                 </div>
                             </div>
 
@@ -153,30 +153,43 @@
                             </div>
 
 
-                            <div class="row mt-5">
+                            <div class="row mt-3">
 
-                                <label class="col-sm-3 my-2 mx-0">
+                                <label class="col-sm-2 my-2 mx-0">
                                     Capaian Program
                                 </label>
+                            </div>
 
-                                <label class="col-sm-2 my-2" style="font-size: 12px;">
-                                    Indikator
-                                </label>
+                            <div class="row">
                                 <div class="col-sm-2">
-                                    <input type="text" name="indikator_capaian_program" class="form-control">
+
                                 </div>
 
-
-
-                                <label class="col-sm-2 my-2" style="font-size: 12px;">
-                                    Target
-                                </label>
-                                <div class="col-sm-2">
-                                    <input type="text" name="target_capaian_program" class="form-control">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="">Indikator</label>
+                                        <input type="text" name="indikator_capaian_program" class="form-control">
+                                        <span class="text-danger error-text indikator_capaian_program_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="">Target</label>
+                                        <input type="text" name="target_capaian_program" class="form-control">
+                                        <span class="text-danger error-text indikator_capaian_program_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row mt-4">
+
+
+                            <div class="col-sm-3">
+
+                            </div>
+
+                            <div class="row mt-3">
                                 <label class="col-sm-4 my-2">
                                     Indikator
                                 </label>
@@ -198,11 +211,15 @@
                                 </div>
 
                                 <div class="col-sm-6 my-2">
-                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
+                                    <input type="text" name="tolak_ukur[]" class="form-control"
+                                        placeholder="Tolak Ukur">
+                                    <span class="text-danger error-text tolak_ukur_0_error"
+                                        style="font-size: 12px;"></span>
                                 </div>
 
                                 <div class="col-sm-3 my-2">
                                     <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
+                                    <span class="text-danger error-text kinerja_0_error" style="font-size: 12px;"></span>
                                 </div>
 
                             </div>
@@ -214,11 +231,15 @@
                                 </div>
 
                                 <div class="col-sm-6 my-2">
-                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
+                                    <input type="text" name="tolak_ukur[]" class="form-control"
+                                        placeholder="Tolak Ukur">
+                                    <span class="text-danger error-text tolak_ukur_1_error"
+                                        style="font-size: 12px;"></span>
                                 </div>
 
                                 <div class="col-sm-3 my-2">
                                     <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
+                                    <span class="text-danger error-text kinerja_1_error" style="font-size: 12px;"></span>
                                 </div>
 
                             </div>
@@ -230,11 +251,15 @@
                                 </div>
 
                                 <div class="col-sm-6 my-2">
-                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
+                                    <input type="text" name="tolak_ukur[]" class="form-control"
+                                        placeholder="Tolak Ukur">
+                                    <span class="text-danger error-text tolak_ukur_2_error"
+                                        style="font-size: 12px;"></span>
                                 </div>
 
                                 <div class="col-sm-3 my-2">
                                     <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
+                                    <span class="text-danger error-text kinerja_2_error" style="font-size: 12px;"></span>
                                 </div>
 
                             </div>
@@ -246,35 +271,57 @@
                                 </div>
 
                                 <div class="col-sm-6 my-2">
-                                    <input type="text" name="tolak_ukur[]" class="form-control" placeholder="Tolak Ukur">
+                                    <input type="text" name="tolak_ukur[]" class="form-control"
+                                        placeholder="Tolak Ukur">
+                                    <span class="text-danger error-text tolak_ukur_3_error"
+                                        style="font-size: 12px;"></span>
                                 </div>
 
                                 <div class="col-sm-3 my-2">
                                     <input type="text" name="kinerja[]" class="form-control" placeholder="Kinerja">
+                                    <span class="text-danger error-text kinerja_3_error" style="font-size: 12px;"></span>
                                 </div>
 
                             </div>
 
 
 
-                            <button type="submit" class="btn mt-3 btn-sm btn-success btn-save">Selanjutnya</button>
-                        </form>
+                            <div class="row mt-5">
+                                <div class="col-sm-2">
+                                    <button type="submit" class="btn btn-sm btn-dark btn-save">Simpan</button>
+                                </div>
 
+                            </div>
                     </div>
-
-
+                    </form>
 
                 </div>
 
+
+
             </div>
+
         </div>
+    </div>
     </div>
 @endsection
 
 @push('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        $(document).ready(function() {
+            styleSelect2();
+        });
+
+        function styleSelect2() {
+            $('.select2-container').addClass('form-control');
+            $('.select2-selection').addClass('select2-remove-border');
+        }
+
+        // $(".select2-container").addClass("form-control");
+
         $('#urusan').select2({
+            // containerCssClass: "form-control",
             minimumInputLength: 1,
             // dropdownParent: $('#exampleModal'),
             maximumInputLength: 50,
@@ -293,16 +340,17 @@
                                 id: item.id
                             }
                         })
-
-
                     };
+
+
                 }
             }
-        })
+        }).addClass('form-control');
 
         $('#urusan').change(function() {
 
             let id = $('#urusan').val();
+
 
             $('#bidang').removeAttr('disabled');
 
@@ -329,6 +377,8 @@
                     }
                 }
             });
+
+            styleSelect2();
         });
 
         $('#bidang').change(function() {
@@ -360,6 +410,8 @@
                     }
                 }
             });
+
+            styleSelect2();
         });
 
         $('#program').change(function() {
@@ -485,11 +537,17 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ route('dpa') }}"
+                            window.top.location = "{{ route('dpa.h_tambah_sub_dpa ') }}"
                         }, 1800);
                     } else {
                         $.each(data.error, function(prefix, val) {
-                            $('span.' + prefix + '_error').text(val[0]);
+                            $.each(data.error, function(prefix, val) {
+                                $('span.' + prefix.replace(/\./g, '_') +
+                                    '_error').text(
+                                    val[0]);
+
+                            });
+
                         });
                     }
 

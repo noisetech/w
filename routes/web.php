@@ -347,8 +347,8 @@ Route::prefix('dashboard')
             ->name('dpa');
         Route::get('dpa/h_tambah', [DpaController::class, 'h_tambah'])
             ->name('dpa.h_tambah');
-        Route::get('dpa/sub_dpa/{id}', [DpaController::class, 'sub_dpa'])
-            ->name('dpa.sub_dpa');
+        Route::get('dpa/h_tambah_sub_dpa', [DpaController::class, 'h_tambah_sub_dpa'])
+            ->name('dpa.h_tambah_sub_dpa ');
         Route::get('dpa.list_urusan', [DpaController::class, 'listUrusan'])
             ->name('dpa.listUrusan');
         Route::get('dpa-list_bidang/{id}', [DpaController::class, 'listBidang']);
@@ -358,6 +358,16 @@ Route::prefix('dashboard')
         Route::get('dpa-list_unit/{id}', [DpaController::class, 'listUnit']);
         Route::post('dpa.insert_dpa_to_session', [DpaController::class, 'insert_dpa_to_session'])
             ->name('dpa.insert_dpa_to_session');
+        Route::post('dpa.insert_lanjutan_dpa', [DpaController::class, 'insert_lanjutan_dpa'])
+            ->name('dpa.insert_lanjutan_dpa');
+
+
+        Route::get('dpa.listSubkegiatan', [DpaController::class, 'listSubkegiatan'])
+            ->name('dpa.listSubkegiatan');
+        Route::get('dpa.listSumberDana', [DpaController::class, 'listSumberDana'])
+            ->name('dpa.listSumberDana');
+        Route::get('dpa.listAkunRekening', [DpaController::class, 'listAkunRekening'])
+            ->name('dpa.listAkunRekening');
 
 
         // rekening
