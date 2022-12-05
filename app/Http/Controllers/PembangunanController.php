@@ -9,7 +9,7 @@ class PembangunanController extends Controller
 {
     public function index()
     {
-        return view('pages.satuan.index');
+        return view('pages.pembangunan.index');
     }
 
     public function data()

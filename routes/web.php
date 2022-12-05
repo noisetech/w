@@ -16,6 +16,8 @@ use App\Http\Controllers\TahunController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\KomponenPembangunanController;
+use App\Http\Controllers\PerencanaanPembangunanController;
+use App\Http\Controllers\PembangunanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -468,6 +470,11 @@ Route::prefix('dashboard')
         Route::post('komponen_pembangunan/p_tambah', [KomponenPembangunanController::class, 'p_tambah'])->name('komponen.pembangunan.p_tambah');
         Route::post('komponen_pembangunan/form_edit', [KomponenPembangunanController::class, 'form_edit'])->name('komponen.pembangunan.form_edit');
         Route::post('komponen_pembangunan/p_edit', [KomponenPembangunanController::class, 'p_edit'])->name('komponen.pembangunan.p_edit');
+
+        // perencanaan pembangunan
+        // perencanaan pembangunan
+        Route::get('perencanaan_pembangunan', [PerencanaanPembangunanController::class, 'index'])
+            ->name('perencanaan.pembangunan');
 
         // pembangunan
         // master pembangunan
