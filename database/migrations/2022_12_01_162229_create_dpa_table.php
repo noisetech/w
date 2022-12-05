@@ -16,6 +16,7 @@ class CreateDpaTable extends Migration
         Schema::create('dpa', function (Blueprint $table) {
             $table->id();
             $table->string('no_dpa')->nullable();
+            $table->foreignId('dinas_id')->nullable();
             $table->foreignId('urusan_id')->nullable();
             $table->foreignId('bidang_id')->nullable();
             $table->foreignId('program_id')->nullable();
@@ -31,6 +32,43 @@ class CreateDpaTable extends Migration
             $table->longText('tim_anggaran')->nullable();
             $table->longText('ttd_dpa')->nullable();
             $table->timestamps();
+
+
+            $table->foreign('dinas_id')->references('id')
+                ->on('dinas')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('urusan_id')->references('id')
+                ->on('urusan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('bidang_id')->references('id')
+                ->on('bidang')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('program_id')->references('id')
+                ->on('program')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('kegiatan_id')->references('id')
+                ->on('kegiatan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('organisasi_id')->references('id')
+                ->on('organisasi')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('unit_id')->references('id')
+                ->on('unit')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
