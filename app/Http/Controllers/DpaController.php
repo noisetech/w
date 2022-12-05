@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\AkunRekening;
 use App\Models\Bidang;
 use App\Models\Dpa;
+use App\Models\JenisRekening;
 use App\Models\Kegiatan;
+use App\Models\KelompokRekening;
+use App\Models\ObjekRekening;
 use App\Models\Organisasi;
 use App\Models\Program;
+use App\Models\RincianObjekRekening;
 use App\Models\SubDpa;
 use App\Models\SubKegiatan;
 use App\Models\SumberDana;
 use App\Models\Unit;
 use App\Models\Urusan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Json;
@@ -91,6 +96,43 @@ class DpaController extends Controller
         return response()->json($data);
     }
 
+    public function listKelompokRekening($id)
+    {
+        $data = KelompokRekening::where('akun_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
+
+
+        return response()->json($data);
+    }
+
+    public function listJenisRekening($id)
+    {
+        $data = JenisRekening::where('kelompok_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
+
+
+        return response()->json($data);
+    }
+
+
+    public function listObjekRekening($id)
+    {
+        $data = ObjekRekening::where('jenis_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
+
+
+        return response()->json($data);
+    }
+
+
+    public function listRincianRekening($id)
+    {
+        $data = RincianObjekRekening::where('objek_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
+
+
+        return response()->json($data);
+    }
+
+
+
+
     // bagian dpa
 
     public function index()
@@ -114,15 +156,24 @@ class DpaController extends Controller
             return redirect()->back();
         }
 
+        $data['sub_kegiatan'] = Session::get('sub_dpa');
+
+
+
         $active = 'sub_dpa';
         return view('pages.dpa.sub_dpa.create', [
-            'active' => $active
+            'active' => $active,
+            'data' => $data
         ]);
     }
 
     public function insert_dpa_to_session(Request $request)
     {
+
+
         if ($request->session()->get('dpa') == null) {
+
+
             $validator = Validator::make($request->all(), [
                 'no_dpa' => 'required',
                 'urusan_id' => 'required',
@@ -157,6 +208,15 @@ class DpaController extends Controller
                 ]);
             }
 
+
+            $get_lates_dpa = Dpa::latest()->first();
+
+            if (empty($get_lates_dpa)) {
+                $dpa_id = 1;
+            } else {
+                $dpa_id = $get_lates_dpa->id;
+            }
+
             $indikator = $request->indikator;
             $tolak_ukur = $request->tolak_ukur;
             $kinerja = $request->kinerja;
@@ -177,6 +237,7 @@ class DpaController extends Controller
             ];
 
             $dpa = [
+                'id' => $dpa_id,
                 'no_dpa' => $request->no_dpa,
                 'urusan_id' => $request->urusan_id,
                 'bidang_id' => $request->bidang_id,
@@ -200,39 +261,57 @@ class DpaController extends Controller
 
     public function insert_lanjutan_dpa(Request $request)
     {
-
-        $data = $request->all();
-
-
-
-        // bagian sub_dpa
-        $sub_kegiatan = $data['sub_kegiatan_id'];
-        $sumber_dana = $data['sumber_dana_id'];
-        $lokasi = $data['lokasi'];
-        $waktu_pelaksanaan = $data['waktu_pelaksanaan'];
-        $keterangan = $data['keterangan'];
-        $count = count($sub_kegiatan);
-
-        for ($i = 0; $i < $count; $i++) {
-            $tempt['sub_kegiatan'] = $sub_kegiatan[$i];
-            $tempt['sumber_dana'] = $sumber_dana[$i];
-            $tempt['lokasi'] = $lokasi[$i];
+        if (empty($request->session()->get('sub_dpa'))) {
+            $data_sub_kegiatan[] = [
+                'sub_kegiatan' => $request->sub_kegiatan_id,
+                'sumber_dana_id' => $request->sumber_dana_id,
+                'lokasi' => $request->lokasi,
+                'target' => $request->target,
+                'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
+                'keterangan' => $request->keterangan,
+            ];
 
 
-            $sub_dpa[] = $tempt;
+            $request->session()->put('sub_dpa', $data_sub_kegiatan);
+        } else {
+            $data_sub_kegiatan = [
+                'sub_kegiatan_id' => $request->sub_kegiatan_id,
+                'sumber_dana_id' => $request->sumber_dana_id,
+                'lokasi' => $request->lokasi,
+                'target' => $request->target,
+                'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
+                'keterangan' => $request->keterangan
+            ];
+
+            $request->session()->push('sub_dpa', $data_sub_kegiatan);
         }
 
+        $data_rincian_uraian = [
+            'akun' => $request->akun,
+            'kelompok' => $request->kelompok,
+            'jenis' => $request->jenis,
+            'objek' => $request->objek,
+            'rincian_objek' => $request->rincian_objek,
+        ];
 
-        $session_dpa =  $request->session()->put('sub_dpa', $sub_dpa);
 
-        
+        $request->session()->put('uraian', $data_rincian_uraian);
 
 
-        // akhir sub_dpa
-        echo "<pre>";
-        var_dump($sub_dpa);
-        echo "</pre>";
-        die;
+
+        $sub_rincian_objek = $request->sub_rincian_objek;
+        $jumlah_anggaran = $request->jumlah_anggaran;
+
+        $data_rincian_uraian = array();
+
+        foreach ($sub_rincian_objek as $item => $value) {
+            $data_rincian_uraian[] = [
+                'sub_rincian_objek' => $sub_rincian_objek[$item],
+                'jumlah_anggaran' => $jumlah_anggaran[$item],
+            ];
+        }
+
+        $request->session()->put('rincian_uraian', $data_rincian_uraian);
     }
 
 

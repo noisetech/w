@@ -142,15 +142,8 @@
 
                             <div class="form-group">
                                 <label for="">Sumber:</label>
-                                <input type="text" class="form-control" name="sumber" placeholder="Sumber">
-                                <span class="text-danger error-text sumber_error"></span>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="">Uraian:</label>
-                                <input type="text" class="form-control" name="uraian" placeholder="Uraian">
-                                <span class="text-danger error-text uraian_error"></span>
+                                <input type="text" class="form-control" name="sumber_dana" placeholder="Sumber Dana">
+                                <span class="text-danger error-text sumber_dana_error"></span>
                             </div>
 
 

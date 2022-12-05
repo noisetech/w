@@ -14,6 +14,7 @@ class DinasController extends Controller
         return view('pages.dinas.index');
     }
 
+
     public function data()
     {
         if (request()->ajax()) {

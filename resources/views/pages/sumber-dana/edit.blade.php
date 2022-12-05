@@ -144,17 +144,9 @@
 
                             <div class="form-group">
                                 <label for="">Sumber:</label>
-                                <input type="text" class="form-control" name="sumber" placeholder="Sumber"
-                                    value="{{ $sumber_dana->sumber }}">
-                                <span class="text-danger error-text sumber_error"></span>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="">Uraian:</label>
-                                <input type="text" class="form-control" name="uraian" placeholder="Uraian"
-                                    value="{{ $sumber_dana->uraian }}">
-                                <span class="text-danger error-text uraian_error"></span>
+                                <input type="text" class="form-control" name="sumber_dana" placeholder="Sumber Dana"
+                                    value="{{ $sumber_dana->sumber_dana }}">
+                                <span class="text-danger error-text sumber_dana_error"></span>
                             </div>
 
 

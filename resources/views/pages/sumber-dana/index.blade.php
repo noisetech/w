@@ -146,8 +146,7 @@
                             <table class="table align-items-center mb-0" cellspacing="0" width="100%" id="dataTable">
                                 <thead>
                                     <tr>
-                                        <th>Sumber</th>
-                                        <th>Uraian</th>
+                                        <th>Sumber Dana</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -178,12 +177,8 @@
                     url: "{{ route('sumber_dana.data') }}"
                 },
                 columns: [{
-                        data: 'sumber',
-                        name: 'sumber'
-                    },
-                    {
-                        data: 'uraian',
-                        name: 'uraian'
+                        data: 'sumber_dana',
+                        name: 'sumber_dana'
                     },
                     {
                         data: 'aksi',

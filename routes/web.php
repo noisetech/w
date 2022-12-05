@@ -368,7 +368,10 @@ Route::prefix('dashboard')
             ->name('dpa.listSumberDana');
         Route::get('dpa.listAkunRekening', [DpaController::class, 'listAkunRekening'])
             ->name('dpa.listAkunRekening');
-
+        Route::get('dpa-listKelompokRekening/{id}', [DpaController::class, 'listKelompokRekening']);
+        Route::get('dpa-listJenisRekening/{id}', [DpaController::class, 'listJenisRekening']);
+        Route::get('dpa-listObjekRekening/{id}', [DpaController::class, 'listObjekRekening']);
+        Route::get('dpa-listRincianRekening/{id}', [DpaController::class, 'listRincianRekening']);
 
         // rekening
         // akun_rekening

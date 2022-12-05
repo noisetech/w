@@ -17,13 +17,30 @@ class CreateSubDpa extends Migration
             $table->id();
             $table->foreignId('dpa_id');
             $table->foreignId('sub_kegiatan_id');
-            $table->foreignId('sumber_dana');
+            $table->foreignId('sumber_dana_id');
             $table->text('lokasi');
             $table->integer('target');
             $table->string('waktu_pelaksanaan');
             $table->text('keterangan');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('dpa_id')->references('id')
+                ->on('dpa')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('sub_kegiatan_id')->references('id')
+                ->on('sub_kegiatan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('sumber_dana_id')->references('id')
+                ->on('sub_kegiatan')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

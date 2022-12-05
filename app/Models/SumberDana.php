@@ -13,6 +13,6 @@ class SumberDana extends Model
     protected $table = 'sumber_dana';
 
     protected $fillable  = [
-        'sumber', 'uraian'
+        'sumber_dana'
     ];
 }
