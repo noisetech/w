@@ -19,4 +19,8 @@ class RincianObjekRekening extends Model
     {
         return $this->hasMany(SubRincianObjekRekening::class, 'rincian_objek_rekening_id');
     }
+
+    public function ket_sub_dpa(){
+        return $this->hasMany(KetSubDpa::class, 'rincian_objek');
+    }
 }

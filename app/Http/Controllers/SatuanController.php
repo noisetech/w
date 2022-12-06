@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Satuan;
 use Illuminate\Http\Request;
 
-class PembangunanController extends Controller
+class SatuanController extends Controller
 {
     public function index()
     {

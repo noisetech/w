@@ -20,6 +20,11 @@ class CreateDetailKetSubDpa extends Migration
             $table->integer('jumlah_anggaran')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('ket_sub_dpa_id')->references('id')
+                ->on('ket_sub_dpa')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

@@ -4,16 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\AkunRekening;
 use App\Models\Bidang;
+use App\Models\DetailKetSubDpa;
 use App\Models\Dpa;
 use App\Models\JenisRekening;
 use App\Models\Kegiatan;
 use App\Models\KelompokRekening;
+use App\Models\KetSubDpa;
 use App\Models\ObjekRekening;
 use App\Models\Organisasi;
 use App\Models\Program;
 use App\Models\RincianObjekRekening;
 use App\Models\SubDpa;
 use App\Models\SubKegiatan;
+use App\Models\SubRincianObjekRekening;
 use App\Models\SumberDana;
 use App\Models\Unit;
 use App\Models\Urusan;
@@ -156,20 +159,21 @@ class DpaController extends Controller
             return redirect()->back();
         }
 
-        $data['sub_kegiatan'] = Session::get('sub_dpa');
+        $sub_dpa = SubDpa::all();
 
 
 
         $active = 'sub_dpa';
         return view('pages.dpa.sub_dpa.create', [
             'active' => $active,
-            'data' => $data
+            'sub_dpa' => $sub_dpa
         ]);
     }
 
     public function insert_dpa_to_session(Request $request)
     {
 
+        // dd($request->session()->get('ket_sub_dpa')['id']);
 
         if ($request->session()->get('dpa') == null) {
 
@@ -209,14 +213,6 @@ class DpaController extends Controller
             }
 
 
-            $get_lates_dpa = Dpa::latest()->first();
-
-            if (empty($get_lates_dpa)) {
-                $dpa_id = 1;
-            } else {
-                $dpa_id = $get_lates_dpa->id;
-            }
-
             $indikator = $request->indikator;
             $tolak_ukur = $request->tolak_ukur;
             $kinerja = $request->kinerja;
@@ -237,7 +233,21 @@ class DpaController extends Controller
             ];
 
             $dpa = [
-                'id' => $dpa_id,
+                'no_dpa' => $request->no_dpa,
+                'urusan_id' => $request->urusan_id,
+                'bidang_id' => $request->bidang_id,
+                'program_id' => $request->program_id,
+                'kegiatan_id' => $request->kegiatan_id,
+                'organisasi_id' => $request->organisasi_id,
+                'unit_id' => $request->unit_id,
+                'capaian_program' => json_encode($data_capaian_program),
+                'indikator_kinerja' => json_encode($data_indikator_kinerja),
+            ];
+
+            $dpa = Dpa::create($dpa);
+
+            $bahan_session_dpa = [
+                'id' => $dpa->id,
                 'no_dpa' => $request->no_dpa,
                 'urusan_id' => $request->urusan_id,
                 'bidang_id' => $request->bidang_id,
@@ -250,8 +260,8 @@ class DpaController extends Controller
             ];
 
 
+            $request->session()->put('dpa', $bahan_session_dpa);
 
-            $request->session()->put('dpa', $dpa);
 
             return response()->json([
                 'status' => 'success'
@@ -261,32 +271,27 @@ class DpaController extends Controller
 
     public function insert_lanjutan_dpa(Request $request)
     {
-        if (empty($request->session()->get('sub_dpa'))) {
-            $data_sub_kegiatan[] = [
-                'sub_kegiatan' => $request->sub_kegiatan_id,
-                'sumber_dana_id' => $request->sumber_dana_id,
-                'lokasi' => $request->lokasi,
-                'target' => $request->target,
-                'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
-                'keterangan' => $request->keterangan,
-            ];
 
 
-            $request->session()->put('sub_dpa', $data_sub_kegiatan);
-        } else {
-            $data_sub_kegiatan = [
-                'sub_kegiatan_id' => $request->sub_kegiatan_id,
-                'sumber_dana_id' => $request->sumber_dana_id,
-                'lokasi' => $request->lokasi,
-                'target' => $request->target,
-                'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
-                'keterangan' => $request->keterangan
-            ];
+        $data = $request->all();
 
-            $request->session()->push('sub_dpa', $data_sub_kegiatan);
-        }
+        // dd($data);
 
-        $data_rincian_uraian = [
+
+        $data_sub_dpa = [
+            'dpa_id' => $request->session()->get('dpa')['id'],
+            'sub_kegiatan_id' => $request->sub_kegiatan_id,
+            'sumber_dana_id' => $request->sumber_dana_id,
+            'lokasi' => $request->lokasi,
+            'target' => $request->target,
+            'waktu_pelaksanaan' => $request->waktu_pelaksanaan,
+            'keterangan' => $request->keterangan,
+        ];
+
+        $bahan_data_sub_dpa = SubDpa::create($data_sub_dpa);
+
+        $data_ket_sub_dpa = [
+            'sub_dpa_id' => $bahan_data_sub_dpa->id,
             'akun' => $request->akun,
             'kelompok' => $request->kelompok,
             'jenis' => $request->jenis,
@@ -294,24 +299,25 @@ class DpaController extends Controller
             'rincian_objek' => $request->rincian_objek,
         ];
 
-
-        $request->session()->put('uraian', $data_rincian_uraian);
-
+        $bahan_data_ket_sub_dpa =  KetSubDpa::create($data_ket_sub_dpa);
 
 
-        $sub_rincian_objek = $request->sub_rincian_objek;
-        $jumlah_anggaran = $request->jumlah_anggaran;
 
-        $data_rincian_uraian = array();
+        if (count($data['sub_rincian']) > 0) {
+            foreach ($data['sub_rincian'] as $key => $value) {
+                $bahan_insert_sub_rincian = [
+                    'ket_sub_dpa_id' => $bahan_data_ket_sub_dpa->id,
+                    'sub_rincian_objek' => $data['sub_rincian'][$key],
+                    'jumlah_anggaran' => $data['jumlah_anggaran'][$key],
+                ];
 
-        foreach ($sub_rincian_objek as $item => $value) {
-            $data_rincian_uraian[] = [
-                'sub_rincian_objek' => $sub_rincian_objek[$item],
-                'jumlah_anggaran' => $jumlah_anggaran[$item],
-            ];
+                DetailKetSubDpa::create($bahan_insert_sub_rincian);
+            }
         }
 
-        $request->session()->put('rincian_uraian', $data_rincian_uraian);
+        // dd($data_sub_rincian_rekening);
+
+        // SubRincianObjekRekening::create($data_sub_rincian_rekening);
     }
 
 

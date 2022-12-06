@@ -55,26 +55,21 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Sub Dpa</th>
 
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jumlah Anggaran</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        </th>
+                                            Employed</th>
+                                        <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($sub_dpa as $sub_dpa)
+                                    @endforeach
 
-                                    {{-- @foreach ($data['sub_kegiatan'] as $key => $d)
-                                    <tr>
-                                        <td>{{ $d['sub_kegiatan_id'] }}</td>
-                                        <td>{{ $d['sub_kegiatan_id'] }}</td>
-                                        <td>{{ $d['sub_kegiatan_id'] }}</td>
-                                    </tr>
-                                @endforeach --}}
                                 </tbody>
                             </table>
                         </div>
@@ -87,7 +82,6 @@
 
         <div class="collapse" id="collapseExample3">
             <div class="row my-2">
-
                 <div class="col-lg-2 col-md-3 col-sm-12 h-100">
 
                 </div>
@@ -263,7 +257,7 @@
                                                 Jenis:
                                             </label>
                                             <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="bidang_id" id="jenis" class="form-control" disabled>
+                                                <select name="jenis" id="jenis" class="form-control" disabled>
                                                     <option value="">--Pilih Kelompok Dahulu--</option>
                                                 </select>
                                                 <span class="text-danger error-text bidang_id_error"
@@ -277,7 +271,7 @@
                                                 Objek:
                                             </label>
                                             <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="bidang_id" id="objek" class="form-control" disabled>
+                                                <select name="objek" id="objek" class="form-control" disabled>
                                                     <option value="">--Pilih Jenis Dahulu--</option>
                                                 </select>
                                                 <span class="text-danger error-text bidang_id_error"
@@ -291,7 +285,7 @@
                                                 Rincian Objek:
                                             </label>
                                             <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="bidang_id" id="rincian_objek" class="form-control"
+                                                <select name="rincian_objek" id="rincian_objek" class="form-control"
                                                     disabled>
                                                     <option value="">--Pilih Objek Dahulu--</option>
                                                 </select>
@@ -324,8 +318,10 @@
                                                     Sub Rincian Objek:
                                                 </label>
                                                 <div class="col-sm-12 col-md-4 col-lg-3 mx-0">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Sub Rincian Objek">
+                                                    <select name="sub_rincian[]" class="sub_rincian form-control"
+                                                        disabled>
+                                                        <option value="">--Pilih Objek Dahulu--</option>
+                                                    </select>
                                                     <span class="text-danger error-text bidang_id_error"
                                                         style="font-size: 12px;"></span>
                                                 </div>
@@ -338,7 +334,8 @@
                                                     Anggaran:
                                                 </label>
                                                 <div class="col-sm-12 col-md-4 col-lg-4 mx-0">
-                                                    <input type="text" class="form-control" placeholder="Anggaran">
+                                                    <input type="text" class="form-control" name="jumlah_anggaran[]"
+                                                        placeholder="Anggaran">
                                                     <span class="text-danger error-text bidang_id_error"
                                                         style="font-size: 12px;"></span>
                                                 </div>
@@ -350,15 +347,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3" style="float: right">
-                                    <button type="submit" class="btn my-5 btn-sm btn-success btn-save">SIMPAN</button>
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn my-2 btn-sm btn-success btn-save">SIMPAN</button>
                                 </div>
                             </form>
+                        </div>
+
+                        <div class="container">
+                            <div class="row justify-content-end">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-dark" href="{{ route('') }}">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+
             </div>
+
+
         </div>
 
 
@@ -373,23 +383,30 @@
 
     <script>
         function dynamic_rincian_uraian() {
-            var rincian_uraian = `  <div class="row mt-4">
-<label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-    Sub Rincian Objek:
-</label>
-<div class="col-sm-12 col-md-4 col-lg-3 mx-0">
-    <input type="text" class="form-control"
-        placeholder="Sub Rincian Objek">
-    <span class="text-danger error-text bidang_id_error"
-        style="font-size: 12px;"></span>
-</div>
+            var rincian_uraian = `      <div class="row mt-4">
+
+                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                                    Sub Rincian Objek:
+                                                </label>
+                                                <div class="col-sm-12 col-md-4 col-lg-3 mx-0">
+                                                    <select name="sub_rincian[]" class="sub_rincian form-control"
+                                                        disabled>
+                                                        <option value="">--Pilih Objek Dahulu--</option>
+                                                    </select>
+                                                    <span class="text-danger error-text bidang_id_error"
+                                                        style="font-size: 12px;"></span>
+                                                </div>
+
 <div class="col-sm-12 col-md-1 col-lg-1">
+
 </div>
+
 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
     Anggaran:
 </label>
 <div class="col-sm-12 col-md-4 col-lg-4 mx-0">
-    <input type="text" class="form-control" placeholder="Anggaran">
+    <input type="text" class="form-control" name="jumlah_anggaran[]"
+        placeholder="Anggaran">
     <span class="text-danger error-text bidang_id_error"
         style="font-size: 12px;"></span>
 </div>
@@ -535,6 +552,38 @@
             $('#rincian_objek').removeAttr('disabled');
 
             $('#rincian_objek').select2({
+                minimumInputLength: 1,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-listRincianRekening') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.uraian_akun,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            })
+
+        });
+
+        $('#rincian_objek').change(function() {
+
+            let id = $('#rincian_objek').val();
+
+
+            $('.sub_rincian').removeAttr('disabled');
+
+            $('.sub_rincian').select2({
                 minimumInputLength: 1,
                 // dropdownParent: $('#exampleModal'),
                 maximumInputLength: 50,

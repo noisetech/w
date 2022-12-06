@@ -37,17 +37,11 @@
                         </div>
 
                         <div class="alert alert-{{ isset($active) && $active == 'program' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'program' ? 'white' : 'black' }}">Program
+                            <strong
+                                class="text-{{ isset($active) && $active == 'program' ? 'white' : 'black' }}">Pengmabilan
                             </strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'kegiatan' ? 'dark' : 'light' }}">
-                            <strong
-                                class="text-{{ isset($active) && $active == 'kegiatan' ? 'white' : 'black' }}">Kegiatan</strong>
-                        </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub kegiatan' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub kegiatan' ? 'white' : 'black' }}">Sub
-                                Kegiatan</strong>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -91,7 +85,7 @@
 
                             <div class="row mt-4">
                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                    Bidang:
+                                    Pengambilan:
                                 </label>
                                 <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
                                     <select name="bidang_id" id="bidang" class="js-states form-control" disabled>

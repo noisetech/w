@@ -375,6 +375,7 @@ Route::prefix('dashboard')
         Route::get('dpa-listJenisRekening/{id}', [DpaController::class, 'listJenisRekening']);
         Route::get('dpa-listObjekRekening/{id}', [DpaController::class, 'listObjekRekening']);
         Route::get('dpa-listRincianRekening/{id}', [DpaController::class, 'listRincianRekening']);
+        Route::get('dpa-listSubRincianRekening/{id}', [DpaController::class, 'listSubRincianRekening']);
 
         // rekening
         // akun_rekening
@@ -483,7 +484,6 @@ Route::prefix('dashboard')
         // master pembangunan
         Route::get('pembangunan', [PembangunanController::class, 'index'])
             ->name('pembangunan');
-
     });
 
 Auth::routes(['register' => false]);

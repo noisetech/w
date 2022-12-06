@@ -20,4 +20,8 @@ class SubDpa extends Model
     {
         return $this->belongsTo(Dpa::class, 'dpa_id', 'id');
     }
+
+    public function ket_sub_dpa(){
+        return $this->hasMany(KetSubDpa::class, 'sub_dpa_id');
+    }
 }
