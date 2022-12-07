@@ -131,12 +131,8 @@ class PerencanaanOrganisasiController extends Controller
 
     public function bidang($id)
     {
-
-
-
-
-        $urusan = Urusan::find(decrypsi($id));
-        $segment = decrypsi($id);
+        $urusan = Urusan::find($id);
+        $segment = $id;
         $active = 'bidang';
 
         return view('pages.perencanaan-organisasi.bidang.index', [
@@ -157,11 +153,11 @@ class PerencanaanOrganisasiController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan.program', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan_organisasi.organisasi', $data->id) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-                    ="' . route('perencanaan.program', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    ="' . route('perencanaan_organisasi.organisasi', $data->id) . '">' . $data->nomenklatur . ' </a>';
                 })
 
                 ->addColumn('aksi', function ($data) {
@@ -270,8 +266,8 @@ class PerencanaanOrganisasiController extends Controller
     // organisasi
     public function organisasi($id)
     {
-        $bidang = Bidang::find(decrypsi($id));
-        $segment = decrypsi($id);
+        $bidang = Bidang::find($id);
+        $segment = $id;
         $active = 'organisasi';
 
         return view('pages.perencanaan-organisasi.organisasi.index', [
@@ -291,11 +287,11 @@ class PerencanaanOrganisasiController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan.program', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan_organisasi.unit', $data->id) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-                    ="' . route('perencanaan.program', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    ="' . route('perencanaan_organisasi.unit', $data->id) . '">' . $data->nomenklatur . ' </a>';
                 })
 
                 ->addColumn('aksi', function ($data) {
@@ -403,8 +399,8 @@ class PerencanaanOrganisasiController extends Controller
     // unit
     public function unit($id)
     {
-        $organisasi = Organisasi::find(decrypsi($id));
-        $segment = decrypsi($id);
+        $organisasi = Organisasi::find($id);
+        $segment = $id;
         $active = 'unit';
 
         return view('pages.perencanaan-organisasi.unit.index', [

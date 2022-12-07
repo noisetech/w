@@ -281,8 +281,8 @@ class PerencanaanController extends Controller
 
     public function program($id)
     {
-        $bidang = Bidang::find(decrypsi($id));
-        $segment = decrypsi($id);
+        $bidang = Bidang::find($id);
+        $segment = $id;
         $active = 'bidang program';
 
         return view('pages.perencanaan.program.index', [

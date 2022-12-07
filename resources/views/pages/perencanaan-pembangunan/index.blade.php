@@ -9,7 +9,7 @@
         <div class="row mt-3">
             <div class="col-sm-12">
                 <div class="card shadow">
-                    <h6 class="mx-4 my-4">Perencanaan Pembangunan</h6>
+                    <h6 class="mx-4 my-4">Kegiatan | Perencanaan Pembangunan</h6>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0" cellspacing="0" width="100%" id="dataTable">
@@ -19,83 +19,102 @@
                                             width="5%">
                                             #</th>
                                         <th class="ps-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
-                                            width="60%">
+                                            width="70%">
                                             Kode & Nomenklatur</th>
                                         <th class="ps-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                                             width="25%">
                                             Anggaran (Rp)</th>
-                                        <th class="ps-2 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center"
-                                            width="10%">
-                                            Aksi
-                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-secondary text-sm">
-                                            <i class="fas fa-plus-circle text-success" role="button" title="Tambah"
-                                                onclick="collapseNomenklatur('#nomenklatur-1', this)"></i>
-                                        </td>
-                                        <td class="text-secondary text-sm">bhh jh hjb</td>
-                                        <td class="text-secondary text-sm">67.900.00</td>
-                                        <td class="text-secondary text-xs font-weight-bold">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="fas fa-plus-circle mx-2 text-success" role="button"
-                                                    title="Tambah"></i>
-                                                <i class="fas fa-edit mx-2 text-info" role="button"
-                                                    title="Edit Pekerjaan"></i>
-                                                <i class="fas fa-trash mx-2 text-danger" role="button" title="Hapus"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="collapse" id="nomenklatur-1">
-                                        <td class="text-secondary text-sm">
-                                            <i class="fas fa-plus-circle text-success" role="button" title="Tambah" onclick="collapseNomenklatur('#nomenklatur-2', this)"></i>
-                                        </td>
-                                        <td class="text-secondary text-sm" style="white-space:normal;">
-                                            <div class="row">
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm-11">
-                                                    white-space:normal;gsjhbshgbdg jhbjhsf hjfbsjhf sfjhbsfshbf shjbsfsbfs
-                                                    fsufbsuhf sjhfbsf ufsf
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-secondary text-sm">67.900.00</td>
-                                        <td class="text-secondary text-xs font-weight-bold">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="fas fa-plus-circle mx-2 text-success" role="button"
-                                                    title="Tambah"></i>
-                                                <i class="fas fa-edit mx-2 text-info" role="button"
-                                                    title="Edit Pekerjaan"></i>
-                                                <i class="fas fa-trash mx-2 text-danger" role="button" title="Hapus"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="collapse" id="nomenklatur-2">
-                                        <td class="text-secondary text-sm">
-                                            <i class="fas fa-plus-circle text-success" role="button" title="Tambah" onclick="collapseNomenklatur('#nomenklatur-2', this)"></i>
-                                        </td>
-                                        <td class="text-secondary text-sm" style="white-space:normal;">
-                                            <div class="row">
-                                                <div class="col-sm-2"></div>
-                                                <div class="col-sm-10">
-                                                    white-space:normal;gsjhbshgbdg jhbjhsf hjfbsjhf sfjhbsfshbf shjbsfsbfs
-                                                    fsufbsuhf sjhfbsf ufsf
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-secondary text-sm">67.900.00</td>
-                                        <td class="text-secondary text-xs font-weight-bold">
-                                            <div class="d-flex justify-content-center">
-                                                <i class="fas fa-plus-circle mx-2 text-success" role="button"
-                                                    title="Tambah"></i>
-                                                <i class="fas fa-edit mx-2 text-info" role="button"
-                                                    title="Edit Pekerjaan"></i>
-                                                <i class="fas fa-trash mx-2 text-danger" role="button" title="Hapus"></i>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @if ($dpa->count() > 0)
+                                        @foreach ($dpa as $dp)
+                                            @php
+                                                $program = DB::table('program')
+                                                    ->select('id', 'kode as kode_program', 'nomenklatur as nama_program')
+                                                    ->where('id', $dp->program_id)
+                                                    ->get();
+                                            @endphp
+                                            @if ($program->count() > 0)
+                                                @foreach ($program as $pr)
+                                                    <tr class="cursor-pointer" onclick="collapseNomenklatur(this)">
+                                                        <td class="text-secondary text-sm">
+                                                            <i class="fas fa-plus-circle text-success" role="button"
+                                                                title="Tambah"></i>
+                                                        </td>
+                                                        <td class="text-secondary text-sm">
+                                                            {{ $pr->kode_program . ' | ' . $pr->nama_program }}</td>
+                                                        <td class="text-primary text-sm">[0]</td>
+                                                    </tr>
+                                                    @php
+                                                        $kegiatan = DB::table('kegiatan')
+                                                            ->select('id', 'kode as kode_kegiatan', 'nomenklatur as nama_kegiatan')
+                                                            ->where('id', $dp->kegiatan_id)
+                                                            ->get();
+                                                    @endphp
+                                                    @if ($kegiatan->count() > 0)
+                                                        @foreach ($kegiatan as $kg)
+                                                            <tr class="cursor-pointer collapse"
+                                                                onclick="collapseNomenklatur(this)">
+                                                                <td class="text-secondary text-sm">
+                                                                    <i class="fas fa-plus-circle text-success"
+                                                                        role="button" title="Tambah"></i>
+                                                                </td>
+                                                                <td class="text-secondary text-sm"
+                                                                    style="white-space:normal;">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-1"></div>
+                                                                        <div class="col-sm-11">
+                                                                            {{ $kg->kode_kegiatan . ' | ' . $kg->nama_kegiatan }}
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="text-primary text-sm">[0]</td>
+                                                            </tr>
+                                                            @if ($dp->dpa_id != null)
+                                                                @php
+                                                                    $sub_kegiatan = DB::table('sub_kegiatan')
+                                                                        ->select('id', 'kode as kode_sub_kegiatan', 'nomenklatur as nama_sub_kegiatan')
+                                                                        ->where('id', $dp->sub_kegiatan_id)
+                                                                        ->get();
+                                                                @endphp
+                                                                @foreach ($sub_kegiatan as $sk)
+                                                                    <tr class="cursor-pointer collapse"
+                                                                        onclick="detailRencanaPembangunan('{{encrypsi($dp->dpa_id)}}', '{{encrypsi($sk->id)}}')">
+                                                                        <td class="text-secondary text-sm">
+                                                                            <i class="fas fa-plus-circle text-success"
+                                                                                role="button" title="Tambah"></i>
+                                                                        </td>
+                                                                        <td class="text-secondary text-sm"
+                                                                            style="white-space:normal;">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-2"></div>
+                                                                                <div class="col-sm-10">
+                                                                                    {{ $sk->kode_sub_kegiatan . ' | ' . $sk->nama_sub_kegiatan }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-primary text-sm">{{($dp->jumlah_anggaran == NULL) ? '0,00' : $dp->jumlah_anggaran}}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @else
+                                                                <tr class="cursor-pointer collapse">
+                                                                    <td colspan="3">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-2"></div>
+                                                                            <div class="col-sm-10">
+                                                                                Pekerjaan belum di tambahkan
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -111,17 +130,22 @@
     <script>
         $(document).ready(function() {});
 
-        function collapseNomenklatur(selector, data) {
-            let check = $(selector).collapse('toggle');
-            if ($(selector).hasClass('terbuka') == false) {
-                $(data).removeClass('fas fa-plus-circle text-success');
-                $(data).addClass('fas fa-minus-circle text-warning');
-                $(selector).addClass('terbuka');
-            }else{
-                $(selector).removeClass('terbuka');
-                $(data).removeClass('fas fa-minus-circle text-warning');
-                $(data).addClass('fas fa-plus-circle text-success');
+        function collapseNomenklatur(data) {
+            let next = $(data).next();
+            next.collapse('toggle');
+            if (next.hasClass('terbuka') == false) {
+                $(data).children().children('i').removeClass('fas fa-plus-circle text-success');
+                $(data).children().children('i').addClass('fas fa-minus-circle text-warning');
+                next.addClass('terbuka');
+            } else {
+                next.removeClass('terbuka');
+                $(data).children().children('i').removeClass('fas fa-minus-circle text-warning');
+                $(data).children().children('i').addClass('fas fa-plus-circle text-success');
             }
+        }
+
+        function detailRencanaPembangunan(id_dpa, id_detail_ket_sub_dpa) {
+            window.location.href = "/dashboard/perencanaan_pembangunan/detail/" + id_dpa +"/"+id_detail_ket_sub_dpa;
         }
     </script>
 @endpush

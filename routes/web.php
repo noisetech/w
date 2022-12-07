@@ -473,11 +473,14 @@ Route::prefix('dashboard')
         Route::post('komponen_pembangunan/p_tambah', [KomponenPembangunanController::class, 'p_tambah'])->name('komponen.pembangunan.p_tambah');
         Route::post('komponen_pembangunan/form_edit', [KomponenPembangunanController::class, 'form_edit'])->name('komponen.pembangunan.form_edit');
         Route::post('komponen_pembangunan/p_edit', [KomponenPembangunanController::class, 'p_edit'])->name('komponen.pembangunan.p_edit');
+        Route::post('komponen_pembangunan/hapus', [KomponenPembangunanController::class, 'hapus'])->name('komponen.pembangunan.hapus');
 
         // perencanaan pembangunan
         // perencanaan pembangunan
         Route::get('perencanaan_pembangunan', [PerencanaanPembangunanController::class, 'index'])
             ->name('perencanaan.pembangunan');
+        Route::get('perencanaan_pembangunan/detail/{id_dpa}/{id_detail_ket_sub_dpa}', [PerencanaanPembangunanController::class, 'formDetail'])
+            ->name('perencanaan.pembangunan.detail');
 
         // pembangunan
         // master pembangunan
