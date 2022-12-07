@@ -85,6 +85,17 @@
                             <div class="row mt-4">
 
                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Tahun:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="tahun_id" id="tahun" class="js-states form-control"></select>
+                                    <span class="text-danger error-text tahun_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                     Urusan:
                                 </label>
                                 <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
@@ -324,6 +335,34 @@
 
         // $(".select2-container").addClass("form-control");
 
+
+        $('#tahun').select2({
+            // containerCssClass: "form-control",
+            minimumInputLength: 1,
+            // dropdownParent: $('#exampleModal'),
+            maximumInputLength: 50,
+            allowClear: true,
+            placeholder: '-- Pilih Tahun--',
+            width: '100%',
+            ajax: {
+                url: "{{ route('dpa.listTahun') }}",
+                dataType: 'json',
+                delay: 500,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.tahun,
+                                id: item.id
+                            }
+                        })
+                    };
+
+
+                }
+            }
+        });
+
         $('#urusan').select2({
             // containerCssClass: "form-control",
             minimumInputLength: 1,
@@ -349,7 +388,7 @@
 
                 }
             }
-        }).addClass('form-control');
+        });
 
         $('#urusan').change(function() {
 

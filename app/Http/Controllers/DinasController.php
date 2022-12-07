@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dinas;
+use App\Models\Tahun;
 use App\Models\Wilayah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -65,6 +66,9 @@ class DinasController extends Controller
         }
         return response()->json($data);
     }
+
+
+
 
 
     public function p_tambah(Request $request)

@@ -18,6 +18,7 @@ use App\Models\SubDpa;
 use App\Models\SubKegiatan;
 use App\Models\SubRincianObjekRekening;
 use App\Models\SumberDana;
+use App\Models\Tahun;
 use App\Models\Unit;
 use App\Models\Urusan;
 use Illuminate\Http\Request;
@@ -49,6 +50,21 @@ class DpaController extends Controller
 
         return response()->json($data);
     }
+
+    public function listTahun(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $data = Tahun::select("id", "tahun")
+                ->Where('tahun', 'LIKE', "%$search%")
+                ->get();
+        }
+        return response()->json($data);
+    }
+
+
 
     public function listProgram($id)
     {
@@ -150,7 +166,7 @@ class DpaController extends Controller
 
             return datatables()->of($data)
                 ->addColumn('urusan', function ($data) {
-                    return $data->urusan->kode . ' '. $data->urusan->nomenklatur;
+                    return $data->urusan->kode . ' ' . $data->urusan->nomenklatur;
                 })
                 ->addColumn('aksi', function ($data) {
                     $button = "
