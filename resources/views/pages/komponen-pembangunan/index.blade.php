@@ -32,24 +32,22 @@
                                     @if ($komponen->count() > 0)
                                         @foreach ($komponen as $kpn)
                                             <tr>
-                                                <td
-                                                    class="text-secondary text-sm {{ $kpn->parent == 0 ? 'fw-bold' : '' }}">
+                                                <td class="text-secondary text-sm {{ $kpn->parent == 0 ? 'fw-bold' : '' }}">
                                                     {{ $no++ }}</td>
-                                                <td
-                                                    class="text-secondary text-sm {{ $kpn->parent == 0 ? 'fw-bold' : '' }}">
+                                                <td class="text-secondary text-sm {{ $kpn->parent == 0 ? 'fw-bold' : '' }}">
                                                     {{ $kpn->komponen }}
                                                 </td>
                                                 <td class="text-secondary text-xs font-weight-bold">
                                                     <div class="d-flex justify-content-center">
                                                         <i class="fas fa-plus-circle mx-2 text-success" role="button"
                                                             title="Tambah"
-                                                            onclick="addFormKomponenPembangunan('{{ $kpn->id }}')"></i>
+                                                            onclick="addFormKomponenPembangunan(this,'{{ $kpn->id }}')"></i>
                                                         <i class="fas fa-edit mx-2 text-info" role="button"
                                                             title="Edit Pekerjaan"
                                                             onclick="editFormKomponenPembangunan('{{ $kpn->id }}', this)"></i>
                                                         <i class="fas fa-trash mx-2 text-danger" role="button"
                                                             title="Hapus"
-                                                            onclick="deleteDetailDataKomponen('{{ $kpn->id }}')"></i>
+                                                            onclick="deleteKomponenPembangunan('{{ $kpn->id }}')"></i>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -75,7 +73,7 @@
                                                                     onclick="editFormKomponenPembangunan('{{ $ch->id }}', this)"></i>
                                                                 <i class="fas fa-trash mx-2 text-danger" role="button"
                                                                     title="Hapus"
-                                                                    onclick="deleteDetailDataKomponen('{{ $ch->id }}')"></i>
+                                                                    onclick="deleteKomponenPembangunan('{{ $ch->id }}')"></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -83,15 +81,13 @@
                                             @endif
                                         @endforeach
                                     @endif
-                                    <tr class="form-input-data">
 
-                                    </tr>
                                     <tr class="form-button-data">
                                         <td colspan="2"></td>
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <i class="fas fa-plus-circle text-success" role="button" title="Tambah"
-                                                    onclick="addFormKomponenPembangunan('0')"></i>
+                                                    onclick="addFormKomponenPembangunan(this, '0')"></i>
                                             </div>
                                         </td>
                                     </tr>
@@ -111,26 +107,30 @@
         $(document).ready(function() {});
         var tr = ``;
 
-        function addFormKomponenPembangunan(parent) {
+        function addFormKomponenPembangunan(data, parent) {
             $('.form-button-data').hide();
-            $('.form-input-data').html(
-                `
-                <td>
-                    <span class="d-none">1000</span><i class="fas fa-window-close text-danger m-1" role="button" title="Batal" onclick="clearForm()"></i>
-                </td>
-                <td>
-                    <input type="hidden" id="parent" name="parent" value="` + parent + `">
-                    <input type="text" class="form-control form-control-sm" id="komponen" name="komponen" placeholder="Komponen pekerjaan">
-                </td>
-                <td>
-                    <div class="d-flex justify-content-center">
-                        <i class="fas fa-save text-center text-success" role="button" title="Save" onclick="createKomponenPembangunan()"></i>
-                    </div>
-                </td>
-                `);
+
+            let html = `
+                <tr class="form-input-data">
+                    <td>
+                        <span class="d-none">1000</span><i class="fas fa-window-close text-danger m-1" role="button" title="Batal" onclick="clearForm()"></i>
+                    </td>
+                    <td>
+                        <input type="hidden" id="parent" name="parent" value="` + parent + `">
+                        <input type="text" class="form-control form-control-sm" id="komponen" name="komponen" placeholder="Komponen pekerjaan">
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <i class="fas fa-save text-center text-success" role="button" title="Save" onclick="createKomponenPembangunan(event)"></i>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            $(data).parents('tr').after(html);
         }
 
-        function createKomponenPembangunan() {
+        function createKomponenPembangunan(e) {
+            e.preventDefault();
             let parent = $('#parent').val();
             let komponen = $('#komponen').val();
             $.ajax({
@@ -162,8 +162,8 @@
             });
         }
 
-        function editFormKomponenPembangunan(id, data) {
-            tr = $(data).parents('tr').hide();
+        function editFormKomponenPembangunan(id, datathis) {
+            tr = $(datathis).parents('tr').hide();
             $.ajax({
                 url: '{{ route('komponen.pembangunan.form_edit') }}',
                 type: "POST",
@@ -174,7 +174,7 @@
                 success: function(data) {
                     if (data.status == 'success') {
                         $('.form-button-data').hide();
-                        $('.form-input-data').html(data.html);
+                        $(datathis).parents('tr').after(data.html);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -183,7 +183,8 @@
             });
         }
 
-        function updateKomponenPembangunan(id) {
+        function updateKomponenPembangunan(id, e) {
+            e.preventDefault();
             let komponen = $('#komponen').val();
             $.ajax({
                 url: '{{ route('komponen.pembangunan.p_edit') }}',
@@ -214,27 +215,38 @@
             });
         }
 
-        function deleteKomponenPembangunan(id, sdCode) {
+        function deleteKomponenPembangunan(id) {
             Swal.fire({
                 title: "Apakah kamu yakin?",
                 text: "Anda tidak akan dapat mengembalikan ini!",
-                type: "warning",
+                icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#084594",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Ya, hapus ini!",
                 cancelButtonText: "Kembali"
             }).then((result) => {
-                if (result.value) {
+                if (result.isConfirmed) {
                     $.ajax({
-                        url: base_url + 'anggaran/ajax/pembangunan/deleteDataPekerjaan/' + id,
+                        url: '{{ route('komponen.pembangunan.hapus') }}',
                         type: "POST",
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
                         success: function(data) {
-                            if (data.status) {
-                                getDataPekerjaan(sdCode);
-                                handleToast("success", data.message);
-                            } else {
-                                handleError(data);
+                            if (data.status = 'success') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Data telah dihapus',
+                                    title: 'Berhasil',
+                                    toast: true,
+                                    position: 'top-end',
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                }).then((result) => {
+                                    window.location.reload();
+                                });
                             }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -252,46 +264,4 @@
         }
     </script>
 
-    <script>
-        $(document).on('click', '.hapus', function(e) {
-            e.preventDefault();
-            let id = $(this).attr('id')
-            Swal.fire({
-                title: 'Anda ingin menghapus data?',
-                text: "Data telah dihapus tidak bisa di kembalikan!",
-                icon: 'warning',
-                confirmButton: true,
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('satuan.hapus') }}",
-                        data: {
-                            id: id,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        success: function(res, status) {
-                            if (status = '200') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    text: 'Data telah dihapus',
-                                    title: 'Berhasil',
-                                    toast: true,
-                                    position: 'top-end',
-                                    timer: 3000,
-                                    showConfirmButton: false,
-                                });
-                                $('#dataTable').DataTable().ajax.reload();
-                            }
-                        },
-                    })
-                }
-            })
-        });
-    </script>
 @endpush

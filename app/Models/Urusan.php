@@ -19,4 +19,9 @@ class Urusan extends Model
     {
         return $this->hasMany(Bidang::class, 'urusan_id');
     }
+
+    public function dpa()
+    {
+        return $this->hasMany(Dpa::class, 'urusan_id');
+    }
 }
