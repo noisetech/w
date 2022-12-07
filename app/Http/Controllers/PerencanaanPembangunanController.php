@@ -20,6 +20,7 @@ class PerencanaanPembangunanController extends Controller
                 ->where('dpa.dinas_id', $id_dinas)
                 ->groupBy('detail_ket_sub_dpa.ket_sub_dpa_id')
                 ->get();
+
         // $urusan = DB::table('dpa')->join('urusan', 'dpa.urusan_id', '=', 'urusan.id')->select('dpa.urusan_id', 'urusan.kode as kode_urusan', 'urusan.nomenklatur as nama_urusan')->where('dpa.dinas_id', $id_dinas)->get();
         // $bidang = DB::table('dpa')->select('dpa.bidang_id', 'bidang.kode as kode_bidang', 'bidang.nomenklatur as nama_bidang')->where('dpa.dinas_id', $id_dinas)->get();
         // $program = DB::table('dpa')->join('program', 'dpa.program_id', '=', 'program.id')->select('dpa.program_id', 'program.kode as kode_program', 'program.nomenklatur as nama_program')->where('dpa.dinas_id', $id_dinas)->get();

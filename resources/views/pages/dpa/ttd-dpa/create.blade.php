@@ -31,7 +31,15 @@
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
                             <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
-                                Pengambilan
+                                Penarikan
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team Anggaran
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda TAngan Dpa
                             </strong>
                         </div>
 
@@ -42,7 +50,9 @@
 
             <div class="col-lg-10 col-md-9 col-sm-12">
                 <div class="card h-100 my-4">
-
+                    <div class="card-header">
+                        <h6 class="mx-2 my-4">DPA | Tanda Tangan Dpa</h6>
+                    </div>
                     <div class="card-body ">
                         <form action="#" method="post" id="form_tambah">
                             @csrf
@@ -50,79 +60,113 @@
 
                             <input type="hidden" name="dpa_id" value="{{ $dpa->id }}">
 
-                            <div id="bahan_dynamic_sub_dpa">
-                                <div class="row justify-content-end my-4">
-                                    <div class="col-sm-3">
-                                        <a href="#" onclick="dynamic_rincian_uraian()" class="btn btn-sm btn-primary">
-                                            Tambah Rincian Uraian</a>
+                            <div class="row mt-4">
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Kota:
+                                        </label>
+                                        <input type="text" name="" class="sub_rincian form-control">
                                     </div>
                                 </div>
 
 
-                                <div class="row mt-4">
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>
-                                                Sub Rincian Objek:
-                                            </label>
-                                            <input type="text" name="" class="sub_rincian form-control">
-                                        </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Tanggal:
+                                        </label>
+                                        <input type="text" class="form-control" name="jumlah_anggaran[]"
+                                            placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
                                     </div>
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>
-                                                Anggaran:
-                                            </label>
-                                            <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                                placeholder="Anggaran">
-                                            <span class="text-danger error-text bidang_id_error"
-                                                style="font-size: 12px;"></span>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>
-                                                Anggaran:
-                                            </label>
-                                            <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                                placeholder="Anggaran">
-                                            <span class="text-danger error-text bidang_id_error"
-                                                style="font-size: 12px;"></span>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>
-                                                Anggaran:
-                                            </label>
-                                            <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                                placeholder="Anggaran">
-                                            <span class="text-danger error-text bidang_id_error"
-                                                style="font-size: 12px;"></span>
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-                                <div id="rincian_uraian_selanjutnya">
-
                                 </div>
 
 
-
-
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn my-5 btn-sm btn-success btn-save">SIMPAN</button>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Jabatan Pejabat:
+                                        </label>
+                                        <input type="text" class="form-control" name="jumlah_anggaran[]"
+                                            placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
                                 </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Nip:
+                                        </label>
+                                        <input type="text" class="form-control" name="jumlah_anggaran[]"
+                                            placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Kota:
+                                        </label>
+                                        <input type="text" name="kota[]" class="sub_rincian form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Tanggal:
+                                        </label>
+                                        <input type="text" class="form-control" name="tanggal[]"
+                                            placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Jabatan Pejabat:
+                                        </label>
+                                        <input type="text" class="form-control" name="jabatan_pejabat[]"
+                                            placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Nip:
+                                        </label>
+                                        <input type="text" class="form-control" name="nip[]"
+                                            placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn my-5 btn-sm btn-success btn-save">SIMPAN</button>
+                            </div>
                         </form>
                     </div>
 
@@ -138,69 +182,7 @@
 @push('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
-        function dynamic_rincian_uraian() {
-            var rincian_uraian = `          <div class="row mt-4">
 
-<div class="col-sm-3">
-    <div class="form-group">
-        <label>
-            Sub Rincian Objek:
-        </label>
-        <input type="text" name="" class="sub_rincian form-control">
-    </div>
-</div>
-
-
-<div class="col-sm-3">
-    <div class="form-group">
-        <label>
-            Anggaran:
-        </label>
-        <input type="text" class="form-control" name="jumlah_anggaran[]"
-            placeholder="Anggaran">
-        <span class="text-danger error-text bidang_id_error"
-            style="font-size: 12px;"></span>
-    </div>
-</div>
-
-
-<div class="col-sm-3">
-    <div class="form-group">
-        <label>
-            Anggaran:
-        </label>
-        <input type="text" class="form-control" name="jumlah_anggaran[]"
-            placeholder="Anggaran">
-        <span class="text-danger error-text bidang_id_error"
-            style="font-size: 12px;"></span>
-    </div>
-</div>
-
-
-<div class="col-sm-3">
-    <div class="form-group">
-        <label>
-            Anggaran:
-        </label>
-        <input type="text" class="form-control" name="jumlah_anggaran[]"
-            placeholder="Anggaran">
-        <span class="text-danger error-text bidang_id_error"
-            style="font-size: 12px;"></span>
-    </div>
-</div>
-
-
-
-</div>
-
-`;
-            $('#rincian_uraian_selanjutnya').append(rincian_uraian);
-            $('.remove').on('click', function() {
-                $(this).parent().parent().remove();
-            })
-        }
-    </script>
 
 
 

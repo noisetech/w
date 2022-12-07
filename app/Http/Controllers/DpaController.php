@@ -143,6 +143,33 @@ class DpaController extends Controller
         return view('pages.dpa.dpa.index');
     }
 
+    public function data_table_dpa()
+    {
+        if (request()->ajax()) {
+            $data = Dpa::all();
+
+            return datatables()->of($data)
+                ->addColumn('urusan', function ($data) {
+                    return $data->urusan->kode . ' '. $data->urusan->nomenklatur;
+                })
+                ->addColumn('aksi', function ($data) {
+                    $button = "
+
+                <div class='d-flex justify-content-start'>
+                <a class='edit btn btn btn-sm mx-1
+                btn-warning ' title='Edit' href='" . route('tahun.edit', $data->id) . "'><i class='fas fa-sm fa-pencil-alt'></i></a>";
+                    $button  .= "<button class='hapus btn btn-sm btn-danger' data-toggle='tooltip' title='Hapus'
+                     id='" . $data->id . "'><i class='fas fa-sm fa-trash-alt'></i></button>
+                </div>
+
+             ";
+                    return $button;
+                })
+                ->rawColumns(['urusan', 'aksi'])
+                ->make('true');
+        }
+    }
+
     public function h_tambah()
     {
 
@@ -472,11 +499,15 @@ class DpaController extends Controller
             ];
         }
 
-        $ubah_ttd_dpa =  Dpa::where('id', $dpa->id)->update($data_ttd_dpa);
+        $ubah = Dpa::where('id', $dpa->id)
+            ->update([
+                'tim_anggaran' => json_encode($data_ttd_dpa)
+            ]);
 
-        if ($ubah_ttd_dpa) {
+        if ($ubah) {
             return response()->json([
-                'status' => 'succes',
+                'status' => 'success',
+                'bahan_id_dpa' => $dpa->id
             ]);
         }
     }

@@ -48,7 +48,34 @@
 
 
     <script>
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 5,
+            lengthMenu: [
+                [5, 10, 20, -1],
+                [5, 10, 20, "50"]
+            ],
+            // responsive: true,
+            order: [],
+            ajax: {
+                url: "{{ route('dpa.data_table_dpa') }}"
+            },
+            columns: [{
+                    data: 'no_dpa',
+                    name: 'no_dpa'
+                },
+                {
+                    data: 'urusan',
+                    name: 'urusan'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
+            ]
+
+        });
     </script>
     <script>
         $('.btn-add').click(function() {

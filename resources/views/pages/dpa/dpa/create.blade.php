@@ -24,23 +24,33 @@
 
     <div class="container-fluid py-4">
         <div class="row my-2">
-
-            <div class="col-lg-2 col-md-3 col-sm-12 h-100">
+            <div class="col-sm-12 col-md-2 col-lg-2">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="alert alert-dark">
                             <strong class="text-white">DPA</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'bidang' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'bidang' ? 'white' : 'black' }}">SUB DPA
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">SUB
+                                DPA
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
+                                Penarikan
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
+                                Anggaran
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
+                                TAngan Dpa
                             </strong>
                         </div>
 
-                        <div class="alert alert-{{ isset($active) && $active == 'program' ? 'dark' : 'light' }}">
-                            <strong
-                                class="text-{{ isset($active) && $active == 'program' ? 'white' : 'black' }}">Pengmabilan
-                            </strong>
-                        </div>
 
                     </div>
                 </div>
@@ -531,7 +541,9 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ url('dashboard/dpa/h_tambah_sub_dpa') }}/"+ data.bahan_dpa_id;
+                            window.top.location =
+                                "{{ url('dashboard/dpa/h_tambah_sub_dpa') }}/" + data
+                                .bahan_dpa_id;
                         }, 1800);
                     } else {
                         $.each(data.error, function(prefix, val) {

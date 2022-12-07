@@ -18,6 +18,7 @@ use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\KomponenPembangunanController;
 use App\Http\Controllers\PerencanaanPembangunanController;
 use App\Http\Controllers\PembangunanController;
+use App\Http\Controllers\PerencanaanPengambilanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -376,6 +377,10 @@ Route::prefix('dashboard')
         Route::get('dpa.p_ttd_dpa', [DpaController::class, 'p_ttd_dpa'])
             ->name('dpa.p_ttd_dpa');
 
+        // datatable index dpa
+        Route::get('dpa.data_table', [DpaController::class, 'data_table_dpa'])
+            ->name('dpa.data_table_dpa');
+
 
         Route::get('dpa.listSubkegiatan', [DpaController::class, 'listSubkegiatan'])
             ->name('dpa.listSubkegiatan');
@@ -499,6 +504,12 @@ Route::prefix('dashboard')
         // master pembangunan
         Route::get('pembangunan', [PembangunanController::class, 'index'])
             ->name('pembangunan');
+
+        // perencanaan pengambilan
+        Route::get('perencanaan_pengambilan', [PerencanaanPengambilanController::class, 'index'])
+            ->name('perencanaan_pengambilan');
+        Route::get('perencanaan_pengambilan/h_tambah/{id_dpa}', [PerencanaanPengambilanController::class, 'h_tambah'])
+            ->name('perencaan_pengambilan.h_tambah');
     });
 
 Auth::routes(['register' => false]);

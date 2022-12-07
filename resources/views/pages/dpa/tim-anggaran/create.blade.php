@@ -31,7 +31,15 @@
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
                             <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
-                                Pengambilan
+                                Penarikan
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team Anggaran
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda TAngan Dpa
                             </strong>
                         </div>
 
@@ -39,7 +47,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-10 col-md-9 col-sm-12">
                 <div class="card h-100 my-4">
 
@@ -54,7 +61,7 @@
                                 <div class="row justify-content-end my-4">
                                     <div class="col-sm-3">
                                         <a href="#" onclick="dynamic_rincian_uraian()" class="btn btn-sm btn-primary">
-                                            Tambah Rincian Uraian</a>
+                                            Tambah Team Anggaran</a>
                                     </div>
                                 </div>
 
@@ -211,7 +218,7 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ url('dashboard/dpa//ttd_dpa') }}/" + data
+                            window.top.location = "{{ url('dashboard/dpa/ttd_dpa') }}/" + data.bahan_id_dpa
 
                         }, 1800);
                     } else {
