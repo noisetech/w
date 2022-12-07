@@ -36,6 +36,11 @@
                                 DPA
                             </strong>
                         </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
+                                Pengambilan
+                            </strong>
+                        </div>
 
 
                     </div>
@@ -67,11 +72,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($sub_dpa as $sub_dpa)
-                                    @endforeach
+                                    <tr>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td></td>
+                                    </tr>
 
                                 </tbody>
                             </table>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="row my-3 justify-content-end">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-dark" href="{{ route('dpa.recana_pengambilan_dpa', $dpa->id) }}">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -92,6 +111,9 @@
                         <div class="card-body ">
                             <form action="#" method="post" id="form_tambah" class="form-inline">
                                 @csrf
+
+
+                                <input type="hidden" name="dpa_id" value="{{ $dpa->id }}">
 
                                 <div id="bahan_dynamic_sub_dpa">
 
@@ -353,15 +375,6 @@
                             </form>
                         </div>
 
-                        <div class="container">
-                            <div class="row justify-content-end">
-                                <div class="col-sm-2">
-                                    <a class="btn btn-dark" href="{{ route('') }}">
-                                        Next
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 

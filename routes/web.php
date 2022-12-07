@@ -350,7 +350,7 @@ Route::prefix('dashboard')
             ->name('dpa');
         Route::get('dpa/h_tambah', [DpaController::class, 'h_tambah'])
             ->name('dpa.h_tambah');
-        Route::get('dpa/h_tambah_sub_dpa', [DpaController::class, 'h_tambah_sub_dpa'])
+        Route::get('dpa/h_tambah_sub_dpa/{id}', [DpaController::class, 'h_tambah_sub_dpa'])
             ->name('dpa.h_tambah_sub_dpa ');
         Route::get('dpa.list_urusan', [DpaController::class, 'listUrusan'])
             ->name('dpa.listUrusan');
@@ -363,6 +363,18 @@ Route::prefix('dashboard')
             ->name('dpa.insert_dpa_to_session');
         Route::post('dpa.insert_lanjutan_dpa', [DpaController::class, 'insert_lanjutan_dpa'])
             ->name('dpa.insert_lanjutan_dpa');
+        Route::get('rencana-pengambilan/dpa/{id}', [DpaController::class, 'recana_pengambilan_dpa'])
+            ->name('dpa.recana_pengambilan_dpa');
+        Route::post('dpa.proses_rencana_pengambilan', [DpaController::class, 'proses_pengambalian'])
+            ->name('dpa.proses_rencana_pengambilan');
+        Route::get('dpa/team_anggaran/{id}', [DpaController::class, 'tim_anggaran'])
+            ->name('dpa.tim_anggaran');
+        Route::post('dpa.team_anggaran', [DpaController::class, 'p_tim_anggaran'])
+            ->name('dpa.p_tim_anggaran');
+        Route::get('dpa/ttd_dpa/{id}', [DpaController::class, 'ttd_dpa'])
+            ->name('dpa.ttd_dpa');
+        Route::get('dpa.p_ttd_dpa', [DpaController::class, 'p_ttd_dpa'])
+            ->name('dpa.p_ttd_dpa');
 
 
         Route::get('dpa.listSubkegiatan', [DpaController::class, 'listSubkegiatan'])

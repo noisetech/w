@@ -531,7 +531,7 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ route('dpa.h_tambah_sub_dpa ') }}"
+                            window.top.location = "{{ url('dashboard/dpa/h_tambah_sub_dpa') }}/"+ data.bahan_dpa_id;
                         }, 1800);
                     } else {
                         $.each(data.error, function(prefix, val) {
