@@ -16,6 +16,7 @@ class CreateRencanaPengambilanTable extends Migration
         Schema::create('rencana_pengambilan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('dpa_id');
+            $table->foreignId('sub_kegiatan_id');
             $table->text('rencana_pengambilan');
             $table->softDeletes();
             $table->timestamps();

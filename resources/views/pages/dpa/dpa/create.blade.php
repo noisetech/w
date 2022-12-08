@@ -58,12 +58,8 @@
 
             <div class="col-lg-10 col-md-9 col-sm-12">
                 <div class="card h-100 my-4">
-                    <div class="card-header pb-0">
-                        <div class="d-flex justify-content-end align-items-center">
-                            <div class="btn btn-info">
-                                <span class="text-white font-weight-bold">Bagian tambah dpa</span>
-                            </div>
-                        </div>
+                    <div class="card-header pb-4">
+                        <h6 class="font">DPA | Bagian Tambah Sub Dpa </h6>
                     </div>
                     <div class="card-body ">
                         <form action="#" method="post" id="form_dpa" class="form-inline">
@@ -81,6 +77,18 @@
                                     <span class="text-danger error-text no_dpa_error" style="font-size: 12px;"></span>
                                 </div>
                             </div>
+
+                            <div class="row mt-4">
+
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Dinas:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="dinas_id" id="dinas" class="js-states form-control"></select>
+                                    <span class="text-danger error-text dinas_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
 
                             <div class="row mt-4">
 
@@ -300,6 +308,36 @@
                             </div>
 
 
+                            <div class="row justify-content-end my-4">
+                                <div class="col-sm-4">
+                                    <a href="#" onclick="dynamic_rincian_uraian()" class="btn btn-sm btn-primary">
+                                        Tambah Alokasi Tahun</a>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-4 justify-content-center">
+                                <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <label for="">Tahun</label>
+                                    <input type="text" id="tahun_alokasi_0" class="form-control"
+                                        name="tahun_alokasi[]">
+                                    <span class="text-danger error-text tahun_alokasi_0_error"
+                                        style="font-size: 12px;"></span>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 col-lg-5">
+                                    <label for="">Jumlah</label>
+                                    <input type="text" id="jumlah_alokasi_dana_0" class="form-control"
+                                        name="jumlah_alokasi_dana[]">
+                                    <span class="text-danger error-text jumlah_alokasi_dana_0_error"
+                                        style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+                            <div id="rincian_uraian_selanjutnya">
+
+                            </div>
+
 
                             <div class="row mt-5">
                                 <div class="col-sm-2">
@@ -323,6 +361,35 @@
 
 @push('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        var angka_awal = 0;
+
+        function dynamic_rincian_uraian() {
+            var bahan_angka_dynamic = ++angka_awal;
+            var rincian_uraian = '<div class="row justify-content-center mt-4">' +
+                '<div class="col-sm-12 col-md-5 col-lg-5">' +
+                '<div class="form-group">' +
+                '<label>' + 'Tahun:' + '</label>' +
+                '<input id="tahun_alokasi_' + bahan_angka_dynamic +
+                '" type="text" name="tahun_alokasi[]" class="form-control">' +
+                ' <span class="text-danger error-text tahun_alokasi_' + bahan_angka_dynamic +
+                '_error" style="font-size: 12px;"></span>' +
+                '</div>' + '</div>' +
+                '<div class="col-sm-12 col-md-5 col-lg-5">' +
+                '<div class="form-group">' +
+                '<label>' + 'Jumlah:' + '</label>' +
+                '<input id="jumlah_alokasi_dana_' + bahan_angka_dynamic +
+                '" type="text" name="jumlah_alokasi_dana[]" class="form-control">' +
+                ' <span class="text-danger error-text jumlah_alokasi_dana_' + bahan_angka_dynamic +
+                '_error" style="font-size: 12px;"></span>' +
+                '</div>' + '</div>' +
+                '</div>';
+
+
+            $('#rincian_uraian_selanjutnya').append(rincian_uraian);
+        }
+    </script>
     <script>
         $(document).ready(function() {
             styleSelect2();
@@ -380,6 +447,33 @@
                         results: $.map(data, function(item) {
                             return {
                                 text: item.kode + " " + item.nomenklatur,
+                                id: item.id
+                            }
+                        })
+                    };
+
+
+                }
+            }
+        });
+
+        $('#dinas').select2({
+            // containerCssClass: "form-control",
+            minimumInputLength: 1,
+            // dropdownParent: $('#exampleModal'),
+            maximumInputLength: 50,
+            allowClear: true,
+            placeholder: '-- Pilih Dinas--',
+            width: '100%',
+            ajax: {
+                url: "{{ route('dpa.listDinas') }}",
+                dataType: 'json',
+                delay: 500,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.dinas,
                                 id: item.id
                             }
                         })

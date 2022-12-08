@@ -144,7 +144,7 @@ class PerencanaanController extends Controller
 
     public function bidang($id)
     {
-        $urusan = Urusan::find($id);
+        $urusan = Urusan::find(decrypsi($id));
         $segment = $id;
         $active = 'bidang';
 
@@ -281,7 +281,10 @@ class PerencanaanController extends Controller
 
     public function program($id)
     {
+
+        $id = decrypsi($id);
         $bidang = Bidang::find($id);
+        // dd($bidang);
         $segment = $id;
         $active = 'bidang program';
 
@@ -416,7 +419,7 @@ class PerencanaanController extends Controller
     // kegiatan
     public function kegiatan($id)
     {
-        $program = Program::find($id);
+        $program = Program::find(decrypsi($id));
         $segment = $id;
         $active = 'kegiatan program';
 
@@ -431,7 +434,10 @@ class PerencanaanController extends Controller
     {
         if (request()->ajax()) {
 
+            // dd(decrypsi($request->id));
+
             $program_id = decrypsi($request->id);
+
 
             $data = Kegiatan::where('program_id', $program_id)->get();
 
@@ -550,7 +556,7 @@ class PerencanaanController extends Controller
     // sub kegiatan
     public function sub_kegiatan($id)
     {
-        $kegiatan = Kegiatan::find($id);
+        $kegiatan = Kegiatan::find(decrypsi($id));
 
         $segment = $id;
         $active = 'sub kegiatan';

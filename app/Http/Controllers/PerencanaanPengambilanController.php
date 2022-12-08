@@ -42,7 +42,16 @@ class PerencanaanPengambilanController extends Controller
             ->join('dpa', 'dpa.id', '=', 'sub_dpa.dpa_id')
             ->where('sub_dpa.dpa_id', decrypsi($id_dpa))->get();
 
-        dd($sub_dpa);
+        $bahan_sub_dpa_id = [];
+        foreach ($sub_dpa as $key_sub_dpa => $value_keb_sub_dpa) {
+            $bahan_sub_dpa_id[] = [
+                'id' => $value_keb_sub_dpa['id'],
+            ];
+        }
+
+        $sub_kegiatan = $bahan_sub_dpa_id;
+
+        dd($bahan_sub_dpa_id);
 
         return view('pages.perencanaan-pengambilan.create');
     }

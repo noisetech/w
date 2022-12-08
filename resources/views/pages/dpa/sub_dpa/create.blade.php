@@ -411,7 +411,7 @@
                                                 </label>
                                                 <div class="col-sm-12 col-md-4 col-lg-3 mx-0">
                                                     <select name="sub_rincian[]" class="sub_rincian form-control"
-                                                        disabled>
+                                                        >
                                                         <option value="">--Pilih Objek Dahulu--</option>
                                                     </select>
                                                     <span class="text-danger error-text bidang_id_error"
@@ -667,7 +667,7 @@
             width: '100%',
             ajax: {
                 url: "{{ route('dpa.listSubkegiatan') }}",
-                dataType: 'json',
+                dataType: 'json',keg
                 delay: 500,
                 processResults: function(data) {
                     return {

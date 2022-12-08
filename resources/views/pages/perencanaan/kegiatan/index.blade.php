@@ -143,7 +143,7 @@
             ajax: {
                 url: "{{ route('perencanaan.data_kegiatan') }}",
                 data: {
-                    id: "{{ encrypsi($segment) }}"
+                    id: "{{ $segment}}"
                 },
             },
             columns: [{
@@ -151,7 +151,7 @@
                     name: 'DT_RowIndex',
                     className: 'text-secondary text-xs font-weight-bold',
                     render: function(data, type, row ) {
-                        return '<a href="/dashboard/perencanaan/sub-kegiatan/kegiatan/' + row.id + '" >' +
+                        return '<a href="/dashboard/perencanaan/sub-kegiatan/kegiatan/' + encrypsi(row.id) + '" >' +
                             data +
                             '</a>';
                     }

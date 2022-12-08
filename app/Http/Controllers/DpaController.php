@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AkunRekening;
 use App\Models\Bidang;
 use App\Models\DetailKetSubDpa;
+use App\Models\Dinas;
 use App\Models\Dpa;
 use App\Models\JenisRekening;
 use App\Models\Kegiatan;
@@ -30,6 +31,19 @@ use Nette\Utils\Json;
 class DpaController extends Controller
 {
 
+
+    public function listDinas(Request $request)
+    {
+        $data = [];
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $data = Dinas::select("id", "dinas")
+                ->Where('dinas', 'LIKE', "%$search%")
+                ->get();
+        }
+        return response()->json($data);
+    }
 
     public function listUrusan(Request $request)
     {
@@ -230,9 +244,13 @@ class DpaController extends Controller
             'kinerja.*' => 'required',
             'indikator_capaian_program' => 'required',
             'target_capaian_program' => 'required',
+            'tahun_alokasi.*' => 'required',
+            'jumlah_alokasi_dana.*' => 'required',
         ], [
             'tolak_ukur.*.required' => 'tidak boleh kosong',
             'kinerja.*.required' => 'tidak boleh kosong',
+            'tahun_alokasi.*.required' => 'tidak boleh kosong',
+            'jumlah_alokasi_dana.*.required' => 'tidak boleh kosong',
             'no_dpa.required' => 'tidak boleh kosong',
             'urusan_id.required' => 'tidak boleh kosong',
             'bidang_id.required' => 'tidak boleh kosong',
@@ -267,12 +285,15 @@ class DpaController extends Controller
             ];
         }
 
+        // dd($data_indikator_kinerja);
+
         $data_capaian_program = [
             'indikator' => $request->indikator_capaian_program,
             'target' => $request->target_capaian_program,
         ];
 
-        $dpa = [
+
+        $dpa = Dpa::create([
             'no_dpa' => $request->no_dpa,
             'urusan_id' => $request->urusan_id,
             'bidang_id' => $request->bidang_id,
@@ -282,25 +303,8 @@ class DpaController extends Controller
             'unit_id' => $request->unit_id,
             'capaian_program' => json_encode($data_capaian_program),
             'indikator_kinerja' => json_encode($data_indikator_kinerja),
-        ];
+        ]);
 
-        $dpa = Dpa::create($dpa);
-
-        $bahan_session_dpa = [
-            'id' => $dpa->id,
-            'no_dpa' => $request->no_dpa,
-            'urusan_id' => $request->urusan_id,
-            'bidang_id' => $request->bidang_id,
-            'program_id' => $request->program_id,
-            'kegiatan_id' => $request->kegiatan_id,
-            'organisasi_id' => $request->organisasi_id,
-            'unit_id' => $request->unit_id,
-            'capaian_program' => json_encode($data_capaian_program),
-            'indikator_kinerja' => json_encode($data_indikator_kinerja),
-        ];
-
-
-        $request->session()->put('dpa', $bahan_session_dpa);
 
 
         return response()->json([
@@ -354,12 +358,6 @@ class DpaController extends Controller
                 DetailKetSubDpa::create($bahan_insert_sub_rincian);
             }
         }
-
-
-
-        // dd($data_sub_rincian_rekening);
-
-        // SubRincianObjekRekening::create($data_sub_rincian_rekening);
     }
 
 

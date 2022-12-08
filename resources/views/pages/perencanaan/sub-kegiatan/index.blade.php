@@ -248,7 +248,7 @@
             ajax: {
                 url: "{{ route('perencanaan.data_sub_kegiatan') }}",
                 data: {
-                    id: "{{ encrypsi($segment) }}"
+                    id: "{{ $segment }}"
                 },
             },
             columns: [{
@@ -256,7 +256,7 @@
                     name: 'DT_RowIndex',
                     className: 'text-secondary text-xs font-weight-bold',
                     render: function(data, type, row, ) {
-                        return '<a href="/dashboard/perencanaan/program/bidang/' + row.id + '" >' + data +
+                        return '<a href="#" >' + data +
                             '</a>';
                     }
                 },

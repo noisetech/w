@@ -378,6 +378,8 @@ Route::prefix('dashboard')
             ->name('dpa.p_ttd_dpa');
         Route::get('dpa.listTahun', [DpaController::class, 'listTahun'])
             ->name('dpa.listTahun');
+        Route::get('dpa.listDinas', [DpaController::class, 'listDinas'])
+            ->name('dpa.listDinas');
 
         // datatable index dpa
         Route::get('dpa.data_table', [DpaController::class, 'data_table_dpa'])
