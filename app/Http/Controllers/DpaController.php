@@ -245,11 +245,10 @@ class DpaController extends Controller
             'indikator_capaian_program' => 'required',
             'target_capaian_program' => 'required',
             'tahun_alokasi.*' => 'required',
-            'jumlah_alokasi_dana.*' => 'required',
+            // 'jumlah_alokasi_dana.*' => 'required',
         ], [
             'tolak_ukur.*.required' => 'tidak boleh kosong',
             'kinerja.*.required' => 'tidak boleh kosong',
-            'tahun_alokasi.*.required' => 'tidak boleh kosong',
             'jumlah_alokasi_dana.*.required' => 'tidak boleh kosong',
             'no_dpa.required' => 'tidak boleh kosong',
             'urusan_id.required' => 'tidak boleh kosong',
@@ -260,6 +259,7 @@ class DpaController extends Controller
             'unit_id.required' => 'tidak boleh kosong',
             'indikator_capaian_program.required' => 'tidak boleh kosong',
             'target_capaian_program.required' => 'tidak boleh kosong',
+            'tahun_alokasi.*.required' => 'tidak boleh kosong',
 
         ]);
 

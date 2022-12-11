@@ -343,31 +343,47 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        var counter = 1; //declare count
+        var inputan_tahun_alokasi = 0;
+        var validasi_tahun_alokasi = 0;
+        // var w = 0;
         $(".addAlokasiTahun").click(function() {
             //add id=galery+counter
             var test = (
-                '<div class="row justify-content-center my-3"><div class="col-sm-4 imgUp"><input id="gallery' +
-                counter +
-                '" class="form-control tahun_anggaran" placeholder="Tahun Alokasi"> <i class="fa fa-times del my-3"></i></div></div>'
+                '<div class="row justify-content-center my-3"><div class="col-sm-4 imgUp"><div class="form-group"><input id="tahun_alokasi_' +
+                inputan_tahun_alokasi +
+                '" class="form-control tahun_alokasi_control" name="tahun_alokasi[]" placeholder="Tahun Alokasi"><span  class="gg text-danger error-text tahun_alokasi_' +
+                validasi_tahun_alokasi +
+                '_error" style="font-size: 12px;"></span><div class="span_baru"></div><br></div></div><div class="col-sm-2"><i class="fa fa-times del my-3"></i> </div></div>'
             );
             $('#wew').append(test);
-            counter++; //increment
+            inputan_tahun_alokasi++;
+            validasi_tahun_alokasi++; //increment
+            // w++; //increment
         });
         $(document).on("click", "i.del", function() {
-            $(this).parent().remove();
-            counter--; //decremnt count
+            $(this).parent().parent().remove();
+            validasi_tahun_alokasi--;
+            inputan_tahun_alokasi--;
+            // w--; //decremnt count
             reset(); //reseting ids
         });
 
 
         function reset() {
-            counter = 1; //start count from 1
-            //loop
-            $(".tahun_anggaran").each(function() {
-                $(this).attr('id', 'gallery' + counter); //change ids
-                counter++; //increment
-            })
+            var inputan_tahun_alokasi = 0; //declare count
+            var validasi_tahun_alokasi = 0;
+            $(".tahun_alokasi_control").each(function() {
+                $(this).attr('id', 'tahun_alokasi_' + inputan_tahun_alokasi); //change ids
+                inputan_tahun_alokasi++; //increment
+            });
+
+            $("span.gg").each(function() {
+                $(this).attr('class', 'gg'+ ' ' + 'tahun_alokasi_' +
+                    validasi_tahun_alokasi + '_error');
+                validasi_tahun_alokasi++;
+            });
+
+            $('span.gg').addClass('text-danger');
         }
     </script>
 
