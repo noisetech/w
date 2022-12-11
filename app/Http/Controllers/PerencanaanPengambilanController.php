@@ -11,7 +11,7 @@ class PerencanaanPengambilanController extends Controller
 {
     public function index()
     {
-        $dpa = DB::table('dpa')
+        $query_dpa = DB::table('dpa')
             ->select(
                 'dpa.id as dpa_id',
                 'dpa.no_dpa as no_dpa',
@@ -26,10 +26,32 @@ class PerencanaanPengambilanController extends Controller
             ->join('kegiatan', 'kegiatan.id', '=', 'dpa.kegiatan_id')->get();
 
 
-        // dd($dpa);
-        // //
+        $bahan_data_dpa = [];
+
+        foreach ($query_dpa as $key_query_dpa => $value_query_dpa) {
+            $bahan_data_dpa[] = $value_query_dpa;
+        }
+
+        $dpa = $bahan_data_dpa;
+
+
+        $query_sub_dpa = DB::table('sub_dpa')
+            ->select('sub_dpa.*')
+            ->join('dpa', 'dpa.id', '=', 'sub_dpa.dpa_id')
+            ->join('sumber_dana', 'sumber_dana.id', '=', 'sub_dpa.sumber_dana_id')
+            ->join('sub_kegiatan', 'sub_kegiatan.id', '=', 'sub_dpa.sub_kegiatan_id')
+            ->where('sub_dpa.dpa_id', $dpa[0]['id'])
+            ->get();
+
+        $bahan_id_sub_dpa = [];
+
+        foreach ($query_sub_dpa as $key_query_sub_dpa => $value_query_sub_dpa) {
+            $bahan_data_sub_dpa[] = $value_query_sub_dpa;
+        }
+
+
         $data = [
-            'dpa' => $dpa
+            'dpa' => $dpa,
         ];
 
         return view('pages.perencanaan-pengambilan.index', $data);

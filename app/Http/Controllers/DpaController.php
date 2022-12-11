@@ -229,9 +229,9 @@ class DpaController extends Controller
     }
 
     public function insert_dpa_to_session(Request $request)
+
     {
 
-        // dd($request->session()->get('ket_sub_dpa')['id']);
         $validator = Validator::make($request->all(), [
             'no_dpa' => 'required',
             'urusan_id' => 'required',
@@ -293,6 +293,19 @@ class DpaController extends Controller
         ];
 
 
+        $tahun_alokasi = $request->tahun_alokasi;
+        $jumlah_alokasi_dana = $request->jumlah_lokasi_dana;
+
+        $data_alokasi_tahun = [];
+
+        foreach ($tahun_alokasi as $key_tahun_alokasi => $value_tahun_alokasi) {
+            $data_alokasi_tahun[] = [
+                'tahun' => $tahun_alokasi,
+                'jumlah' => $jumlah_alokasi_dana[$key_tahun_alokasi]
+            ];
+        }
+
+
         $dpa = Dpa::create([
             'no_dpa' => $request->no_dpa,
             'urusan_id' => $request->urusan_id,
@@ -301,6 +314,7 @@ class DpaController extends Controller
             'kegiatan_id' => $request->kegiatan_id,
             'organisasi_id' => $request->organisasi_id,
             'unit_id' => $request->unit_id,
+            'alokasi_tahun' => json_encode($data_alokasi_tahun),
             'capaian_program' => json_encode($data_capaian_program),
             'indikator_kinerja' => json_encode($data_indikator_kinerja),
         ]);

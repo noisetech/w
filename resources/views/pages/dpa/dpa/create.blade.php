@@ -308,35 +308,15 @@
                             </div>
 
 
-                            <div class="row justify-content-end my-4">
-                                <div class="col-sm-4">
-                                    <a href="#" onclick="dynamic_rincian_uraian()" class="btn btn-sm btn-primary">
-                                        Tambah Alokasi Tahun</a>
-                                </div>
-                            </div>
-
-
-                            <div class="row mt-4 justify-content-center">
-                                <div class="col-sm-12 col-md-5 col-lg-5">
-                                    <label for="">Tahun</label>
-                                    <input type="text" id="tahun_alokasi_0" class="form-control"
-                                        name="tahun_alokasi[]">
-                                    <span class="text-danger error-text tahun_alokasi_0_error"
-                                        style="font-size: 12px;"></span>
-                                </div>
-
-                                <div class="col-sm-12 col-md-5 col-lg-5">
-                                    <label for="">Jumlah</label>
-                                    <input type="text" id="jumlah_alokasi_dana_0" class="form-control"
-                                        name="jumlah_alokasi_dana[]">
-                                    <span class="text-danger error-text jumlah_alokasi_dana_0_error"
-                                        style="font-size: 12px;"></span>
-                                </div>
-                            </div>
-
-                            <div id="rincian_uraian_selanjutnya">
+                            <div class="listAlokasiTahun">
 
                             </div>
+
+                            <div id="wew">
+
+                            </div>
+
+                            <i class="fa fa-plus addAlokasiTahun my-4">ADD</i>
 
 
                             <div class="row mt-5">
@@ -363,33 +343,35 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        var angka_awal = 0;
-
-        function dynamic_rincian_uraian() {
-            var bahan_angka_dynamic = ++angka_awal;
-            var rincian_uraian = '<div class="row justify-content-center mt-4">' +
-                '<div class="col-sm-12 col-md-5 col-lg-5">' +
-                '<div class="form-group">' +
-                '<label>' + 'Tahun:' + '</label>' +
-                '<input id="tahun_alokasi_' + bahan_angka_dynamic +
-                '" type="text" name="tahun_alokasi[]" class="form-control">' +
-                ' <span class="text-danger error-text tahun_alokasi_' + bahan_angka_dynamic +
-                '_error" style="font-size: 12px;"></span>' +
-                '</div>' + '</div>' +
-                '<div class="col-sm-12 col-md-5 col-lg-5">' +
-                '<div class="form-group">' +
-                '<label>' + 'Jumlah:' + '</label>' +
-                '<input id="jumlah_alokasi_dana_' + bahan_angka_dynamic +
-                '" type="text" name="jumlah_alokasi_dana[]" class="form-control">' +
-                ' <span class="text-danger error-text jumlah_alokasi_dana_' + bahan_angka_dynamic +
-                '_error" style="font-size: 12px;"></span>' +
-                '</div>' + '</div>' +
-                '</div>';
+        var counter = 1; //declare count
+        $(".addAlokasiTahun").click(function() {
+            //add id=galery+counter
+            var test = (
+                '<div class="row justify-content-center my-3"><div class="col-sm-4 imgUp"><input id="gallery' +
+                counter +
+                '" class="form-control tahun_anggaran" placeholder="Tahun Alokasi"> <i class="fa fa-times del my-3"></i></div></div>'
+            );
+            $('#wew').append(test);
+            counter++; //increment
+        });
+        $(document).on("click", "i.del", function() {
+            $(this).parent().remove();
+            counter--; //decremnt count
+            reset(); //reseting ids
+        });
 
 
-            $('#rincian_uraian_selanjutnya').append(rincian_uraian);
+        function reset() {
+            counter = 1; //start count from 1
+            //loop
+            $(".tahun_anggaran").each(function() {
+                $(this).attr('id', 'gallery' + counter); //change ids
+                counter++; //increment
+            })
         }
     </script>
+
+
     <script>
         $(document).ready(function() {
             styleSelect2();
@@ -399,8 +381,6 @@
             $('.select2-container').addClass('form-control');
             $('.select2-selection').addClass('select2-remove-border');
         }
-
-        // $(".select2-container").addClass("form-control");
 
 
         $('#tahun').select2({
