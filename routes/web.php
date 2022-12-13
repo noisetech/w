@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\KomponenPembangunanController;
 use App\Http\Controllers\PerencanaanPembangunanController;
+use App\Http\Controllers\MonitoringPembangunanController;
 use App\Http\Controllers\PembangunanController;
 use App\Http\Controllers\PerencanaanPengambilanController;
 use Illuminate\Support\Facades\Auth;
@@ -507,8 +508,37 @@ Route::prefix('dashboard')
             ->name('perencanaan.pembangunan');
         Route::get('perencanaan_pembangunan/detail/{id_dpa}/{id_detail_ket_sub_dpa}', [PerencanaanPembangunanController::class, 'formDetail'])
             ->name('perencanaan.pembangunan.detail');
+        Route::post('perencanaan_pembangunan/insert_data_umum', [PerencanaanPembangunanController::class, 'insertDataUmum'])
+            ->name('perencanaan.pembangunan.insert_data_umum');
+        Route::post('perencanaan_pembangunan/update_data_umum', [PerencanaanPembangunanController::class, 'updateDataUmum'])
+            ->name('perencanaan.pembangunan.update_data_umum');
+        Route::post('perencanaan_pembangunan/insert_blanko', [PerencanaanPembangunanController::class, 'insertDataBlanko'])
+            ->name('perencanaan.pembangunan.insert_blanko');
+        Route::post('perencanaan_pembangunan/update_blanko', [PerencanaanPembangunanController::class, 'updateDataBlanko'])
+            ->name('perencanaan.pembangunan.update_blanko');
 
         // pembangunan
+        // monitoring pembangunan
+        Route::get('monitoring/pembangunan', [MonitoringPembangunanController::class, 'index'])
+            ->name('monitoring.pembangunan');
+        Route::get('monitoring/pembangunan/detail/{id_dpa}/{id_detail_ket_sub_dpa}', [MonitoringPembangunanController::class, 'formDetail'])
+            ->name('monitoring.pembangunan.detail');
+        Route::post('monitoring/pembangunan/update_data_umum', [MonitoringPembangunanController::class, 'updateDataUmum'])
+            ->name('monitoring.pembangunan.update_data_umum');
+        Route::post('monitoring/pembangunan/update_blanko', [MonitoringPembangunanController::class, 'updateDataBlanko'])
+            ->name('monitoring.pembangunan.update_blanko');
+        Route::post('monitoring/pembangunan/get_kondisi', [MonitoringPembangunanController::class, 'getKondisi'])
+            ->name('monitoring.pembangunan.get_kondisi');
+        Route::post('monitoring/pembangunan/create_dokumentasi', [MonitoringPembangunanController::class, 'createDokumentasi'])
+            ->name('monitoring.pembangunan.create_dokumentasi');
+        Route::post('monitoring/pembangunan/update_dokumentasi', [MonitoringPembangunanController::class, 'updateDokumentasi'])
+            ->name('monitoring.pembangunan.update_dokumentasi');
+        Route::post('monitoring/pembangunan/delete_dokumentasi', [MonitoringPembangunanController::class, 'deleteDokumentasi'])
+            ->name('monitoring.pembangunan.delete_dokumentasi');
+        Route::post('monitoring/pembangunan/find_dokumentasi', [MonitoringPembangunanController::class, 'findDokumentasi'])
+            ->name('monitoring.pembangunan.find_dokumentasi');
+        Route::post('monitoring/pembangunan/laporan',[MonitoringPembangunanController::class, 'laporan'])
+            ->name('monitoring.pembangunan.laporan');
         // master pembangunan
         Route::get('pembangunan', [PembangunanController::class, 'index'])
             ->name('pembangunan');

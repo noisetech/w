@@ -35,7 +35,7 @@
                                                 <td class="text-secondary text-sm {{ $kpn->parent == 0 ? 'fw-bold' : '' }}">
                                                     {{ $no++ }}</td>
                                                 <td class="text-secondary text-sm {{ $kpn->parent == 0 ? 'fw-bold' : '' }}">
-                                                    {{ $kpn->komponen }}
+                                                    <span class="wrap_longtext">{{ $kpn->komponen }}</span>
                                                 </td>
                                                 <td class="text-secondary text-xs font-weight-bold">
                                                     <div class="d-flex justify-content-center">
@@ -64,7 +64,7 @@
                                                             {{ $no++ }}</td>
                                                         <td
                                                             class="text-secondary text-xs {{ $ch->parent == 0 ? 'fw-bold' : '' }}">
-                                                            {{ $ch->komponen }}
+                                                            <span class="wrap_longtext">{{ $ch->komponen }}</span>
                                                         </td>
                                                         <td class="text-secondary text-xs font-weight-bold">
                                                             <div class="d-flex justify-content-center">
