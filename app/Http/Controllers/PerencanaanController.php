@@ -594,7 +594,7 @@ class PerencanaanController extends Controller
 
                 <div class='d-flex justify-content-start'>
             <a class='edit mx-2' title='Edit' href='#' id='" . encrypsi($data->id) . "' ' data-toggle='modal' data-target='#exampleModal2'><i class='fas fa-sm fa-pencil-alt text-warning'></i></a>";
-                    $button  .= "<a href='javascript:;' onclick='hapusDataProgram(this)' data-toggle='tooltip' title='Hapus'
+                    $button  .= "<a href='javascript:;' onclick='hapusSubKegiatan(this)' data-toggle='tooltip' title='Hapus'
                      data-id='" . encrypsi($data->id) . "'><i class='fas fa-sm fa-trash-alt text-danger'></i></a>
                 </div>
              ";
@@ -662,5 +662,20 @@ class PerencanaanController extends Controller
         return response()->json([
             'status' => 'success'
         ]);
+    }
+
+    public function hapusSubKegiatanPerencanaan(Request $request)
+    {
+        $id = decrypsi($request->id);
+
+        $sub_kegiatan = SubKegiatan::find($id);
+
+        $hapus =  $sub_kegiatan->delete();
+
+        if ($hapus) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
     }
 }

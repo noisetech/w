@@ -24,9 +24,7 @@ use App\Models\Unit;
 use App\Models\Urusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Nette\Utils\Json;
 
 class DpaController extends Controller
 {
@@ -148,6 +146,7 @@ class DpaController extends Controller
 
     public function listObjekRekening($id)
     {
+        // dd($id);
         $data = ObjekRekening::where('jenis_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
 
 
@@ -163,6 +162,13 @@ class DpaController extends Controller
         return response()->json($data);
     }
 
+    public function listSubRincianRekening($id)
+    {
+        $data = SubRincianObjekRekening::where('rincian_objek_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
+
+
+        return response()->json($data);
+    }
 
 
 
@@ -186,13 +192,12 @@ class DpaController extends Controller
                     $button = "
 
                 <div class='d-flex justify-content-start'>
-                <a class='edit btn btn btn-sm mx-1
-                btn-warning ' title='Edit' href='" . route('tahun.edit', $data->id) . "'><i class='fas fa-sm fa-pencil-alt'></i></a>";
-                    $button  .= "<button class='hapus btn btn-sm btn-danger' data-toggle='tooltip' title='Hapus'
-                     id='" . $data->id . "'><i class='fas fa-sm fa-trash-alt'></i></button>
-                </div>
-
-             ";
+                <a class='edit mx-2
+                ' title='Edit' href='" . route('tahun.edit', $data->id) . "'><i class='fas fa-sm fa-pencil-alt text-warning'></i></a>";
+                    $button  .= "<a href='javascript:;' onclick='hapusDpa(this)' data-toggle='tooltip' title='Hapus'
+                data-id='" . encrypsi($data->id) . "'><i class='fas fa-sm fa-trash-alt text-danger'></i></a>
+           </div>
+        ";;
                     return $button;
                 })
                 ->rawColumns(['urusan', 'aksi'])
@@ -212,9 +217,6 @@ class DpaController extends Controller
 
     public function h_tambah_sub_dpa($id)
     {
-        if (Session::get('dpa') == null) {
-            return redirect()->back();
-        }
 
         $dpa = Dpa::find($id);
 
@@ -229,8 +231,8 @@ class DpaController extends Controller
     }
 
     public function insert_dpa_to_session(Request $request)
-
     {
+
 
         $validator = Validator::make($request->all(), [
             'no_dpa' => 'required',
@@ -245,7 +247,7 @@ class DpaController extends Controller
             'indikator_capaian_program' => 'required',
             'target_capaian_program' => 'required',
             'tahun_alokasi.*' => 'required',
-            // 'jumlah_alokasi_dana.*' => 'required',
+            'jumlah_alokasi_dana.*' => 'required',
         ], [
             'tolak_ukur.*.required' => 'tidak boleh kosong',
             'kinerja.*.required' => 'tidak boleh kosong',
@@ -260,6 +262,7 @@ class DpaController extends Controller
             'indikator_capaian_program.required' => 'tidak boleh kosong',
             'target_capaian_program.required' => 'tidak boleh kosong',
             'tahun_alokasi.*.required' => 'tidak boleh kosong',
+            'jumlah_alokasi_dana.*.required' => 'tidak boleh kosong',
 
         ]);
 
@@ -292,18 +295,20 @@ class DpaController extends Controller
             'target' => $request->target_capaian_program,
         ];
 
-
         $tahun_alokasi = $request->tahun_alokasi;
-        $jumlah_alokasi_dana = $request->jumlah_lokasi_dana;
+        $jumlah_alokasi_dana = $request->jumlah_alokasi_dana;
+        // dd($jumlah_alokasi_dana);
 
-        $data_alokasi_tahun = [];
+        $data_alokasi_tahun = array();
 
         foreach ($tahun_alokasi as $key_tahun_alokasi => $value_tahun_alokasi) {
             $data_alokasi_tahun[] = [
-                'tahun' => $tahun_alokasi,
+                'tahun' => $value_tahun_alokasi,
                 'jumlah' => $jumlah_alokasi_dana[$key_tahun_alokasi]
             ];
         }
+
+
 
 
         $dpa = Dpa::create([
@@ -327,17 +332,26 @@ class DpaController extends Controller
         ]);
     }
 
+    public function hapusDPA(Request $request)
+    {
+        $id = decrypsi($request->id);
+
+        $hapus = DB::table('dpa')->where('id', $id)->delete();
+
+        if ($hapus) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+    }
+
     public function insert_lanjutan_dpa(Request $request)
     {
 
-
-        $data = $request->all();
-
-        // dd($data);
-
+        $dpa_id = $request->dpa_id;
 
         $data_sub_dpa = [
-            'dpa_id' => $request->session()->get('dpa')['id'],
+            'dpa_id' => $dpa_id,
             'sub_kegiatan_id' => $request->sub_kegiatan_id,
             'sumber_dana_id' => $request->sumber_dana_id,
             'lokasi' => $request->lokasi,
@@ -360,29 +374,31 @@ class DpaController extends Controller
         $bahan_data_ket_sub_dpa =  KetSubDpa::create($data_ket_sub_dpa);
 
 
+        $sub_rincian = $request->sub_rincian;
+        $jumlah_anggaran = $request->jumlah_anggaran;
 
-        if (count($data['sub_rincian']) > 0) {
-            foreach ($data['sub_rincian'] as $key => $value) {
-                $bahan_insert_sub_rincian = [
-                    'ket_sub_dpa_id' => $bahan_data_ket_sub_dpa->id,
-                    'sub_rincian_objek' => $data['sub_rincian'][$key],
-                    'jumlah_anggaran' => $data['jumlah_anggaran'][$key],
-                ];
+        $data_ket_sub_dpa = array();
 
-                DetailKetSubDpa::create($bahan_insert_sub_rincian);
-            }
+        foreach ($sub_rincian as $key_sub_rincian => $value_sub_rincian) {
+            $data_ket_sub_dpa[] = [
+                'ket_sub_dpa_id' => $bahan_data_ket_sub_dpa->id,
+                'sub_rincian_objek' => $value_sub_rincian,
+                'jumlah_anggaran' => $jumlah_anggaran[$key_sub_rincian]
+            ];
+        }
+
+        $simpan =   DB::table('detail_ket_sub_dpa')->insert($data_ket_sub_dpa);
+
+        if ($simpan) {
+            return response()->json([
+                'status' => 'success',
+                'bahan_id_dpa' => $dpa_id
+            ]);
         }
     }
 
 
-    public function berhenti_menambah_dpa()
-    {
-        Session::forget('dpa');
 
-        return response()->json([
-            'status' => 'success',
-        ]);
-    }
 
 
     public function recana_pengambilan_dpa($id)
@@ -419,14 +435,12 @@ class DpaController extends Controller
         }
 
 
-        // dd($data_rencana_penarikan);
-
         $ubah = Dpa::where('id', $dpa->id)
             ->update([
                 'rencana_penarikan' => json_encode($data_rencana_penarikan)
             ]);
 
-        // dd($ubah);
+
 
         if ($ubah) {
             return response()->json([
@@ -506,7 +520,11 @@ class DpaController extends Controller
 
     public function p_ttd_dpa(Request $request)
     {
+
+
         $id = $request->dpa_id;
+
+        // dd($id);
 
         $dpa = Dpa::find($id);
 
@@ -527,9 +545,11 @@ class DpaController extends Controller
             ];
         }
 
+        // dd(json_encode($data_ttd_dpa));
+
         $ubah = Dpa::where('id', $dpa->id)
             ->update([
-                'tim_anggaran' => json_encode($data_ttd_dpa)
+                'ttd_dpa' => json_encode($data_ttd_dpa)
             ]);
 
         if ($ubah) {

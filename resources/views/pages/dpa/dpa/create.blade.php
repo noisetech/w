@@ -59,7 +59,7 @@
             <div class="col-lg-10 col-md-9 col-sm-12">
                 <div class="card h-100 my-4">
                     <div class="card-header pb-4">
-                        <h6 class="font">DPA | Bagian Tambah Sub Dpa </h6>
+                        <h6 class="font">DPA | Bagian Tambah Dpa </h6>
                     </div>
                     <div class="card-body ">
                         <form action="#" method="post" id="form_dpa" class="form-inline">
@@ -114,7 +114,7 @@
 
                             <div class="row mt-4">
                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                    Pengambilan:
+                                    Bidang:
                                 </label>
                                 <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
                                     <select name="bidang_id" id="bidang" class="js-states form-control" disabled>
@@ -316,7 +316,7 @@
 
                             </div>
 
-                            <i class="fa fa-plus addAlokasiTahun my-4">ADD</i>
+                            <i class="fa fa-plus addAlokasiTahun my-4 mx-3"> Input Alokasi Tahun</i>
 
 
                             <div class="row mt-5">
@@ -343,47 +343,76 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        // ini ketika add
         var inputan_tahun_alokasi = 0;
+        var inputan_jumlah_alokasi_dana = 0;
         var validasi_tahun_alokasi = 0;
-        // var w = 0;
+        var validasi_jumlah_alokasi_dana = 0;
+
         $(".addAlokasiTahun").click(function() {
-            //add id=galery+counter
-            var test = (
-                '<div class="row justify-content-center my-3"><div class="col-sm-4 imgUp"><div class="form-group"><input id="tahun_alokasi_' +
+            var test =
+                '<div class="row justify-content-center mt-3"><div class="col-sm-4 imgUp"><div class="form-group"><input id="tahun_alokasi_' +
                 inputan_tahun_alokasi +
                 '" class="form-control tahun_alokasi_control" name="tahun_alokasi[]" placeholder="Tahun Alokasi"><span  class="gg text-danger error-text tahun_alokasi_' +
                 validasi_tahun_alokasi +
-                '_error" style="font-size: 12px;"></span><div class="span_baru"></div><br></div></div><div class="col-sm-2"><i class="fa fa-times del my-3"></i> </div></div>'
-            );
+                '_error" style="font-size: 12px;"></span><br></div></div><div class="col-sm-4 imgUp"><div class="form-group"><input id="jumlah_alokasi_dana_' +
+                inputan_jumlah_alokasi_dana +
+                '" class="form-control jumlah_alokasi_dana_control" name="jumlah_alokasi_dana[]" placeholder="Jumlah Alokasi Dana"><span  class="ww text-danger error-text jumlah_alokasi_dana_' +
+                validasi_jumlah_alokasi_dana +
+                '_error" style="font-size: 12px;"></span><br></div></div><div class="col-sm-2"><i class="fa fa-times del my-3"></i> </div></div>';
             $('#wew').append(test);
             inputan_tahun_alokasi++;
-            validasi_tahun_alokasi++; //increment
-            // w++; //increment
+            validasi_tahun_alokasi++;
+            inputan_jumlah_alokasi_dana++;
+            validasi_jumlah_alokasi_dana++;
         });
+
+        // ketika delete random
         $(document).on("click", "i.del", function() {
             $(this).parent().parent().remove();
             validasi_tahun_alokasi--;
             inputan_tahun_alokasi--;
-            // w--; //decremnt count
-            reset(); //reseting ids
+            inputan_jumlah_alokasi_dana--;
+            validasi_jumlah_alokasi_dana--;
+            reset();
         });
 
 
+        // fungsi reset dynamic
         function reset() {
-            var inputan_tahun_alokasi = 0; //declare count
+            var inputan_tahun_alokasi = 0;
             var validasi_tahun_alokasi = 0;
+            var inputan_jumlah_alokasi_dana = 0;
+            var validasi_jumlah_alokasi_dana = 0;
             $(".tahun_alokasi_control").each(function() {
-                $(this).attr('id', 'tahun_alokasi_' + inputan_tahun_alokasi); //change ids
-                inputan_tahun_alokasi++; //increment
+                $(this).attr('id', 'tahun_alokasi_' +
+                    inputan_tahun_alokasi);
+                inputan_tahun_alokasi++;
             });
 
+            $(".jumlah_alokasi_dana_control").each(function() {
+                $(this).attr('id', 'jumlah_alokasi_dana_' +
+                    inputan_jumlah_alokasi_dana);
+                inputan_jumlah_alokasi_dana++;
+            });
+
+
             $("span.gg").each(function() {
-                $(this).attr('class', 'gg'+ ' ' + 'tahun_alokasi_' +
+                $(this).attr('class', 'gg' + ' ' + 'tahun_alokasi_' +
                     validasi_tahun_alokasi + '_error');
                 validasi_tahun_alokasi++;
             });
 
             $('span.gg').addClass('text-danger');
+
+
+            $("span.ww").each(function() {
+                $(this).attr('class', 'ww' + ' ' + 'jumlah_alokasi_dana_' +
+                    validasi_jumlah_alokasi_dana + '_error');
+                validasi_jumlah_alokasi_dana++;
+            });
+
+            $('span.ww').addClass('text-danger');
         }
     </script>
 

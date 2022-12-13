@@ -35,11 +35,13 @@
                             </strong>
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team Anggaran
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
+                                Anggaran
                             </strong>
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda TAngan Dpa
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
+                                TAngan Dpa
                             </strong>
                         </div>
 
@@ -67,57 +69,6 @@
                                         <label>
                                             Kota:
                                         </label>
-                                        <input type="text" name="" class="sub_rincian form-control">
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Tanggal:
-                                        </label>
-                                        <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                            placeholder="Anggaran">
-                                        <span class="text-danger error-text bidang_id_error"
-                                            style="font-size: 12px;"></span>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Jabatan Pejabat:
-                                        </label>
-                                        <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                            placeholder="Anggaran">
-                                        <span class="text-danger error-text bidang_id_error"
-                                            style="font-size: 12px;"></span>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Nip:
-                                        </label>
-                                        <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                            placeholder="Anggaran">
-                                        <span class="text-danger error-text bidang_id_error"
-                                            style="font-size: 12px;"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>
-                                            Kota:
-                                        </label>
                                         <input type="text" name="kota[]" class="sub_rincian form-control">
                                     </div>
                                 </div>
@@ -128,8 +79,7 @@
                                         <label>
                                             Tanggal:
                                         </label>
-                                        <input type="text" class="form-control" name="tanggal[]"
-                                            placeholder="Anggaran">
+                                        <input type="date" class="form-control" name="tanggal[]" placeholder="Anggaran">
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -154,8 +104,56 @@
                                         <label>
                                             Nip:
                                         </label>
-                                        <input type="text" class="form-control" name="nip[]"
+                                        <input type="text" class="form-control" name="nip[]" placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Kota:
+                                        </label>
+                                        <input type="text" name="kota[]" class="sub_rincian form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Tanggal:
+                                        </label>
+                                        <input type="date" class="form-control" name="tanggal[]" placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Jabatan Pejabat:
+                                        </label>
+                                        <input type="text" class="form-control" name="jabatan_pejabat[]"
                                             placeholder="Anggaran">
+                                        <span class="text-danger error-text bidang_id_error"
+                                            style="font-size: 12px;"></span>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>
+                                            Nip:
+                                        </label>
+                                        <input type="text" class="form-control" name="nip[]" placeholder="Anggaran">
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -191,7 +189,7 @@
             e.preventDefault();
             const fd = new FormData(this);
             $.ajax({
-                url: '{{ route('dpa.insert_lanjutan_dpa') }}',
+                url: '{{ route('dpa.p_ttd_dpa') }}',
                 method: 'post',
                 data: fd,
                 cache: false,
@@ -213,17 +211,10 @@
                             timer: 1800,
                             showConfirmButton: false,
                         });
-
-                    } else {
-                        // $.each(data.error, function(prefix, val) {
-                        //     $.each(data.error, function(prefix, val) {
-                        //         $('span.' + prefix.replace(/\./g, '_') +
-                        //             '_error').text(
-                        //             val[0]);
-
-                        //     });
-
-                        // });
+                        setTimeout(function() {
+                            window.top.location =
+                                "{{ url('dashboard/dpa') }}"
+                        }, 1800);
                     }
 
                 }

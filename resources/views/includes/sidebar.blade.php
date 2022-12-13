@@ -403,6 +403,7 @@
                     <span class="nav-link-text ms-1">Satuan</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link  " href="{{ route('sumber_dana') }}">
                     <div
@@ -436,6 +437,7 @@
                     <span class="nav-link-text ms-1">Sumber Dana</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link  " href="{{ route('rekening') }}">
                     <div
@@ -469,6 +471,7 @@
                     <span class="nav-link-text ms-1">Rekening</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link  " href="{{ route('perencanaan') }}">
                     <div

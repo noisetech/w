@@ -12,4 +12,5 @@
     <link id="pagestyle" href="{{ asset('backend/assets/css/soft-ui-dashboard.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('backend/assets/dataTables/jquery.dataTables.min.css') }}">
 
+
     @stack('style')

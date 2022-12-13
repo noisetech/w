@@ -91,5 +91,45 @@
             $('#form-edit').empty();
             $('.btn-add').show();
         })
+
+        function hapusDpa(data) {
+            let id = $(data).data('id');
+            Swal.fire({
+                title: 'Anda ingin menghapus data?',
+                text: "Data telah dihapus tidak bisa di kembalikan!",
+                icon: 'warning',
+                confirmButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('dpa.hapusDPA') }}",
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(res, status) {
+                            if (status = '200') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Data telah dihapus',
+                                    title: 'Berhasil',
+                                    toast: true,
+                                    position: 'top-end',
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                                $('#dataTable').DataTable().ajax.reload();
+                            }
+                        },
+                    })
+                }
+            });
+        }
     </script>
 @endpush

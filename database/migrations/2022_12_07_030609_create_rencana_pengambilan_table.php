@@ -16,13 +16,13 @@ class CreateRencanaPengambilanTable extends Migration
         Schema::create('rencana_pengambilan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('dpa_id');
-            $table->foreignId('sub_kegiatan_id');
-            $table->text('rencana_pengambilan');
+            $table->text('rencana_pengambilan')->nullable();
+            $table->text('catatan')->nullable();
+            $table->string('realisasi')->nullable();
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('dpa_id')->references('id')
-                ->on('dpa')
+            $table->foreign('dpa_id')->references('id')->on('ket_sub_dpa')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

@@ -325,9 +325,8 @@
                         });
                         $('#form_tambah_sub_kegiatan')[0].reset();
                         $('#dataTable').DataTable().ajax.reload();
-                        $('#form_tambah_sub_kegiatan').hide();
+                        $('#form_tambah_sub_kegiatan').show();
                         $('.btn-add').show();
-
                     }
                 }
             });
@@ -363,13 +362,14 @@
                         $('#form-edit').hide();
                         $('.btn-add').show();
 
+
                     }
                 }
             });
         });
 
 
-        function hapusDataKegiatan(data) {
+        function hapusSubKegiatan(data) {
             let id = $(data).data('id');
             Swal.fire({
                 title: 'Anda ingin menghapus data?',
@@ -385,7 +385,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('perencanaan.hapusKegiatanPerencanaan') }}",
+                        url: "{{ route('perencanaan.hapusSubKegiatanPerencanaan') }}",
                         data: {
                             id: id,
                             _token: "{{ csrf_token() }}"
@@ -466,13 +466,10 @@
     <script>
         $('.btn-add').click(function() {
             $('#form-create').show();
-            $(this).hide();
+            $(this).show();
         });
 
-        $('.btn-add2').click(function() {
-            $('#form-create2').show();
-            $(this).hide();
-        });
+
         $('.btn-cancel').click(function() {
             $('#form-create').hide();
             $('.btn-add').show();

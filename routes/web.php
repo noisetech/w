@@ -279,6 +279,8 @@ Route::prefix('dashboard')
             ->name('perencanaan.subKegiatanById');
         Route::post('perencanaan.p_FormEditSubKegiatan', [PerencanaanController::class, 'p_FormEditSubKegiatan'])
             ->name('perencanaan.p_FormEditSubKegiatan');
+        Route::post('perencanaan.hapusSubKegiatanPerencanaan', [PerencanaanController::class, 'hapusSubKegiatanPerencanaan'])
+            ->name('perencanaan.hapusSubKegiatanPerencanaan');
 
 
 
@@ -353,6 +355,8 @@ Route::prefix('dashboard')
             ->name('dpa.h_tambah');
         Route::get('dpa/h_tambah_sub_dpa/{id}', [DpaController::class, 'h_tambah_sub_dpa'])
             ->name('dpa.h_tambah_sub_dpa ');
+        Route::post('dpa.hapusDpa', [DpaController::class, 'hapusDPA'])
+            ->name('dpa.hapusDPA');
         Route::get('dpa.list_urusan', [DpaController::class, 'listUrusan'])
             ->name('dpa.listUrusan');
         Route::get('dpa-list_bidang/{id}', [DpaController::class, 'listBidang']);
@@ -374,7 +378,7 @@ Route::prefix('dashboard')
             ->name('dpa.p_tim_anggaran');
         Route::get('dpa/ttd_dpa/{id}', [DpaController::class, 'ttd_dpa'])
             ->name('dpa.ttd_dpa');
-        Route::get('dpa.p_ttd_dpa', [DpaController::class, 'p_ttd_dpa'])
+        Route::post('dpa.p_ttd_dpa', [DpaController::class, 'p_ttd_dpa'])
             ->name('dpa.p_ttd_dpa');
         Route::get('dpa.listTahun', [DpaController::class, 'listTahun'])
             ->name('dpa.listTahun');
@@ -512,8 +516,8 @@ Route::prefix('dashboard')
         // perencanaan pengambilan
         Route::get('perencanaan_pengambilan', [PerencanaanPengambilanController::class, 'index'])
             ->name('perencanaan_pengambilan');
-        Route::get('perencanaan_pengambilan/h_tambah/{id_dpa}', [PerencanaanPengambilanController::class, 'h_tambah'])
-            ->name('perencaan_pengambilan.h_tambah');
+        Route::get('perencanaan_pengambilan/h_relaisasi/{id_dpa}', [PerencanaanPengambilanController::class, 'h_relaisasi'])
+            ->name('perencaan_pengambilan.h_relaisasi');
     });
 
 Auth::routes(['register' => false]);

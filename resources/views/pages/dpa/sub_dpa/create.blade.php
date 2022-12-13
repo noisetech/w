@@ -42,11 +42,13 @@
                             </strong>
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team Anggaran
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
+                                Anggaran
                             </strong>
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda TAngan Dpa
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
+                                TAngan Dpa
                             </strong>
                         </div>
 
@@ -342,12 +344,12 @@
                                             </div>
 
 
-                                            <div class="row mt-4">
+                                            <div class="row mt-3">
 
                                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                                     Sub Rincian Objek:
                                                 </label>
-                                                <div class="col-sm-12 col-md-4 col-lg-3 mx-0">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
                                                     <select name="sub_rincian[]" class="sub_rincian form-control"
                                                         disabled>
                                                         <option value="">--Pilih Objek Dahulu--</option>
@@ -359,11 +361,13 @@
                                                 <div class="col-sm-12 col-md-1 col-lg-1">
 
                                                 </div>
+                                            </div>
 
+                                            <div class="row mt-3">
                                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                                     Anggaran:
                                                 </label>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 mx-0">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
                                                     <input type="text" class="form-control" name="jumlah_anggaran[]"
                                                         placeholder="Anggaran">
                                                     <span class="text-danger error-text bidang_id_error"
@@ -378,7 +382,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn my-2 btn-sm btn-success btn-save">SIMPAN</button>
+                                    <button type="submit" class="btn my-4 btn-sm btn-success btn-save">SIMPAN</button>
                                 </div>
                             </form>
                         </div>
@@ -409,28 +413,30 @@
                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                                     Sub Rincian Objek:
                                                 </label>
-                                                <div class="col-sm-12 col-md-4 col-lg-3 mx-0">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
                                                     <select name="sub_rincian[]" class="sub_rincian form-control"
-                                                        >
+                                                        disabled>
                                                         <option value="">--Pilih Objek Dahulu--</option>
                                                     </select>
                                                     <span class="text-danger error-text bidang_id_error"
                                                         style="font-size: 12px;"></span>
                                                 </div>
 
-<div class="col-sm-12 col-md-1 col-lg-1">
+        <div class="row mt-4">
+            <div class="col-sm-12 col-md-1 col-lg-1">
 
 </div>
 
-<label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+<label class="col-sm-12 col-md-12 col-lg-12 my-2 mx-0">
     Anggaran:
 </label>
-<div class="col-sm-12 col-md-4 col-lg-4 mx-0">
+<div class="col-sm-12 col-md-12 col-lg-12 mx-0">
     <input type="text" class="form-control" name="jumlah_anggaran[]"
         placeholder="Anggaran">
     <span class="text-danger error-text bidang_id_error"
         style="font-size: 12px;"></span>
 </div>
+        </div>
 </div>`;
             $('#rincian_uraian_selanjutnya').append(rincian_uraian);
             $('.remove').on('click', function() {
@@ -515,7 +521,7 @@
                 allowClear: true,
                 width: '100%',
                 ajax: {
-                    url: "{{ url('dashboard/dpa-listKelompokRekening') }}/" + id,
+                    url: "{{ url('dashboard/dpa-listJenisRekening') }}/" + id,
                     dataType: 'json',
                     delay: 500,
                     processResults: function(data) {
@@ -611,7 +617,7 @@
                 allowClear: true,
                 width: '100%',
                 ajax: {
-                    url: "{{ url('dashboard/dpa-listRincianRekening') }}/" + id,
+                    url: "{{ url('dashboard/dpa-listSubRincianRekening') }}/" + id,
                     dataType: 'json',
                     delay: 500,
                     processResults: function(data) {
@@ -667,7 +673,7 @@
             width: '100%',
             ajax: {
                 url: "{{ route('dpa.listSubkegiatan') }}",
-                dataType: 'json',keg
+                dataType: 'json',
                 delay: 500,
                 processResults: function(data) {
                     return {
@@ -710,17 +716,14 @@
                             timer: 1800,
                             showConfirmButton: false,
                         });
+                        setTimeout(function() {
+                            window.top.location =
+                                "{{ url('dashboard/rencana-pengambilan/dpa') }}/" + data
+                                .bahan_dpa_id;
+                        }, 1800);
 
                     } else {
-                        // $.each(data.error, function(prefix, val) {
-                        //     $.each(data.error, function(prefix, val) {
-                        //         $('span.' + prefix.replace(/\./g, '_') +
-                        //             '_error').text(
-                        //             val[0]);
 
-                        //     });
-
-                        // });
                     }
 
                 }
