@@ -133,7 +133,7 @@
             // responsive: true,
             order: [],
             ajax: {
-                url: "{{ route('perencanaan.data_bidang') }}",
+                url: "{{ route('perencanaan_organisasi.data_bidang') }}",
                 data: {
                     id: "{{ encrypsi($segment) }}"
                 },

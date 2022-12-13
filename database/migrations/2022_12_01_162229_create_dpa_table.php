@@ -16,6 +16,7 @@ class CreateDpaTable extends Migration
         Schema::create('dpa', function (Blueprint $table) {
             $table->id();
             $table->string('no_dpa')->nullable();
+            $table->foreignId('tahun_id')->unsigned()->nullable();
             $table->foreignId('dinas_id')->nullable();
             $table->foreignId('urusan_id')->nullable();
             $table->foreignId('bidang_id')->nullable();
@@ -34,6 +35,11 @@ class CreateDpaTable extends Migration
             $table->timestamps();
 
 
+            $table->foreign('tahun_id')->references('id')
+                ->on('tahun')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+                
             $table->foreign('dinas_id')->references('id')
                 ->on('dinas')
                 ->onUpdate('cascade')
