@@ -6,7 +6,6 @@
 <script src="{{ asset('backend/assets/js/plugins/chartjs.min.js') }}"></script>
 <script src="{{ asset('backend/assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('backend/assets/dataTables/jquery.dataTables.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css">
 </script>
 
 <script>

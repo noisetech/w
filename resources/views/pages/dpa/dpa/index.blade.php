@@ -36,150 +36,6 @@
                             </table>
                         </div>
                     </div>
-
-
-                    {{-- <div class="container">
-                        <div id="form-create" style="display: none;">
-                            <form action="#" method="post" id="form_urusan_step" class="form-inline">
-                                @csrf
-
-
-                                <div class="row">
-
-                                    <label class="col-sm-1 my-2">
-                                        No Dpa
-                                    </label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="no_dpa" class="form-control" placeholder="No Dpa">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-4">
-
-                                    <label class="col-sm-1 my-2">
-                                        Urusan
-                                    </label>
-                                    <div class="col-sm-6">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-                                </div>
-
-
-                                <div class="row mt-3">
-
-                                    <label class="col-sm-2 my-2">
-                                        Capaian Program
-                                    </label>
-
-                                    <label class="col-sm-1 my-2" style="font-size: 12px;">
-                                        Indikator
-                                    </label>
-                                    <div class="col-sm-4">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-
-
-                                    <label class="col-sm-1 my-2" style="font-size: 12px;">
-                                        Target
-                                    </label>
-                                    <div class="col-sm-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="row mt-4">
-                                    <label class="col-sm-4 my-2">
-                                        Indikator
-                                    </label>
-
-                                    <label class="col-sm-4 my-2">
-                                        Tolak Ukur
-                                    </label>
-
-                                    <label class="col-sm-3 my-2">
-                                        Kinerja
-                                    </label>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-3 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-3 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-3 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-4 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-3 my-2">
-                                        <input type="text" name="no_dpa" class="form-control">
-                                    </div>
-
-                                </div>
-
-
-
-                                <div class="row justify-content-end">
-                                    <div class="col-sm-1">
-                                        <button type="submit" class="btn btn-sm btn-success btn-save"><i
-                                                class="fas fa-save"></i></button>
-                                        <button type="button" class="btn btn-sm btn-danger btn-cancel"><i
-                                                class="fas fa-times"></i></button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div id="form-edit">
-
-                        </div>
-                    </div> --}}
                 </div>
 
             </div>
@@ -192,7 +48,34 @@
 
 
     <script>
-        $('#dataTable').DataTable();
+        $('#dataTable').DataTable({
+            processing: true,
+            serverSide: true,
+            pageLength: 5,
+            lengthMenu: [
+                [5, 10, 20, -1],
+                [5, 10, 20, "50"]
+            ],
+            // responsive: true,
+            order: [],
+            ajax: {
+                url: "{{ route('dpa.data_table_dpa') }}"
+            },
+            columns: [{
+                    data: 'no_dpa',
+                    name: 'no_dpa'
+                },
+                {
+                    data: 'urusan',
+                    name: 'urusan'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
+            ]
+
+        });
     </script>
     <script>
         $('.btn-add').click(function() {
@@ -208,5 +91,45 @@
             $('#form-edit').empty();
             $('.btn-add').show();
         })
+
+        function hapusDpa(data) {
+            let id = $(data).data('id');
+            Swal.fire({
+                title: 'Anda ingin menghapus data?',
+                text: "Data telah dihapus tidak bisa di kembalikan!",
+                icon: 'warning',
+                confirmButton: true,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('dpa.hapusDPA') }}",
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(res, status) {
+                            if (status = '200') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    text: 'Data telah dihapus',
+                                    title: 'Berhasil',
+                                    toast: true,
+                                    position: 'top-end',
+                                    timer: 3000,
+                                    showConfirmButton: false,
+                                });
+                                $('#dataTable').DataTable().ajax.reload();
+                            }
+                        },
+                    })
+                }
+            });
+        }
     </script>
 @endpush

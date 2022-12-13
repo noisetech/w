@@ -135,7 +135,7 @@
             ajax: {
                 url: "{{ route('perencanaan_organisasi.data_bidang') }}",
                 data: {
-                    id: "{{ encrypsi($segment) }}"
+                    id: "{{ $segment }}"
                 },
             },
             columns: [{

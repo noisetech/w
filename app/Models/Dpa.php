@@ -13,7 +13,7 @@ class Dpa extends Model
 
     protected $fillable = [
         'no_dpa', 'urusan_id', 'bidang_id', 'program_id', 'kegiatan_id', 'organisasi_id',
-        'unit_id', 'sasaran_program', 'capain_program', 'alokasi_tahun', 'indikator_kinerja',
+        'unit_id', 'sasaran_program', 'capaian_program', 'alokasi_tahun', 'indikator_kinerja',
         'kelompok_sasaran_kegiatan', 'rencana_penarikan', 'tim_anggaran', 'ttd_dpa'
     ];
 

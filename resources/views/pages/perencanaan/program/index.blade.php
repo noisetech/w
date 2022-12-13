@@ -151,7 +151,8 @@
                     name: 'DT_RowIndex',
                     className: 'text-secondary text-xs font-weight-bold',
                     render: function(data, type, row) {
-                        return '<a href="/dashboard/perencanaan/kegiatan/program/' + row.id + '" >' + data +
+                        return '<a href="/dashboard/perencanaan/kegiatan/program/' + encrypsi(row.id) +
+                            '" >' + data +
                             '</a>';
                     }
                 },

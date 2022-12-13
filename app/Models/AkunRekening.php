@@ -19,4 +19,9 @@ class AkunRekening extends Model
     {
         return $this->hasMany(KelompokRekening::class, 'akun_rekening_id');
     }
+
+    public function ket_sub_dpa()
+    {
+        return $this->hasMany(KetSubDpa::class, 'akun');
+    }
 }

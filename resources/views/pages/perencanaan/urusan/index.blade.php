@@ -192,7 +192,8 @@
                     name: 'DT_RowIndex',
                     className: 'text-secondary text-xs font-weight-bold',
                     render: function(data, type, row) {
-                        return '<a href="/dashboard/perencanaan/bidang/urusan/' + row.id + '" >' + data +
+                        return '<a href="/dashboard/perencanaan/bidang/urusan/' + encrypsi(row.id) + '" >' +
+                            data +
                             '</a>';
                     }
                 },

@@ -24,42 +24,42 @@
 
     <div class="container-fluid py-4">
         <div class="row my-2">
-
-            <div class="col-lg-2 col-md-3 col-sm-12 h-100">
+            <div class="col-sm-12 col-md-2 col-lg-2">
                 <div class="card">
                     <div class="card-body p-3">
                         <div class="alert alert-dark">
                             <strong class="text-white">DPA</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'bidang' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'bidang' ? 'white' : 'black' }}">SUB DPA
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">SUB
+                                DPA
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
+                                Penarikan
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
+                                Anggaran
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
+                                TAngan Dpa
                             </strong>
                         </div>
 
-                        <div class="alert alert-{{ isset($active) && $active == 'program' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'program' ? 'white' : 'black' }}">Program
-                            </strong>
-                        </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'kegiatan' ? 'dark' : 'light' }}">
-                            <strong
-                                class="text-{{ isset($active) && $active == 'kegiatan' ? 'white' : 'black' }}">Kegiatan</strong>
-                        </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub kegiatan' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub kegiatan' ? 'white' : 'black' }}">Sub
-                                Kegiatan</strong>
-                        </div>
+
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-10 col-md-9 col-sm-12">
                 <div class="card h-100 my-4">
-                    <div class="card-header pb-0">
-                        <div class="d-flex justify-content-end align-items-center">
-                            <div class="btn btn-info">
-                                <span class="text-white font-weight-bold">Bagian tambah dpa</span>
-                            </div>
-                        </div>
+                    <div class="card-header pb-4">
+                        <h6 class="font">DPA | Bagian Tambah Dpa </h6>
                     </div>
                     <div class="card-body ">
                         <form action="#" method="post" id="form_dpa" class="form-inline">
@@ -75,6 +75,29 @@
                                 <div class="col-sm-12 col-md-9 col-lg-9">
                                     <input type="text" name="no_dpa" class="form-control" placeholder="No Dpa">
                                     <span class="text-danger error-text no_dpa_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Dinas:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="dinas_id" id="dinas" class="js-states form-control"></select>
+                                    <span class="text-danger error-text dinas_id_error" style="font-size: 12px;"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mt-4">
+
+                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                    Tahun:
+                                </label>
+                                <div class="col-sm-12 col-md-9 col-lg-9 mx-0">
+                                    <select name="tahun_id" id="tahun" class="js-states form-control"></select>
+                                    <span class="text-danger error-text tahun_id_error" style="font-size: 12px;"></span>
                                 </div>
                             </div>
 
@@ -285,6 +308,16 @@
                             </div>
 
 
+                            <div class="listAlokasiTahun">
+
+                            </div>
+
+                            <div id="wew">
+
+                            </div>
+
+                            <i class="fa fa-plus addAlokasiTahun my-4 mx-3"> Input Alokasi Tahun</i>
+
 
                             <div class="row mt-5">
                                 <div class="col-sm-2">
@@ -308,6 +341,82 @@
 
 @push('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // ini ketika add
+        var inputan_tahun_alokasi = 0;
+        var inputan_jumlah_alokasi_dana = 0;
+        var validasi_tahun_alokasi = 0;
+        var validasi_jumlah_alokasi_dana = 0;
+
+        $(".addAlokasiTahun").click(function() {
+            var test =
+                '<div class="row justify-content-center mt-3"><div class="col-sm-4 imgUp"><div class="form-group"><input id="tahun_alokasi_' +
+                inputan_tahun_alokasi +
+                '" class="form-control tahun_alokasi_control" name="tahun_alokasi[]" placeholder="Tahun Alokasi"><span  class="gg text-danger error-text tahun_alokasi_' +
+                validasi_tahun_alokasi +
+                '_error" style="font-size: 12px;"></span><br></div></div><div class="col-sm-4 imgUp"><div class="form-group"><input id="jumlah_alokasi_dana_' +
+                inputan_jumlah_alokasi_dana +
+                '" class="form-control jumlah_alokasi_dana_control" name="jumlah_alokasi_dana[]" placeholder="Jumlah Alokasi Dana"><span  class="ww text-danger error-text jumlah_alokasi_dana_' +
+                validasi_jumlah_alokasi_dana +
+                '_error" style="font-size: 12px;"></span><br></div></div><div class="col-sm-2"><i class="fa fa-times del my-3"></i> </div></div>';
+            $('#wew').append(test);
+            inputan_tahun_alokasi++;
+            validasi_tahun_alokasi++;
+            inputan_jumlah_alokasi_dana++;
+            validasi_jumlah_alokasi_dana++;
+        });
+
+        // ketika delete random
+        $(document).on("click", "i.del", function() {
+            $(this).parent().parent().remove();
+            validasi_tahun_alokasi--;
+            inputan_tahun_alokasi--;
+            inputan_jumlah_alokasi_dana--;
+            validasi_jumlah_alokasi_dana--;
+            reset();
+        });
+
+
+        // fungsi reset dynamic
+        function reset() {
+            var inputan_tahun_alokasi = 0;
+            var validasi_tahun_alokasi = 0;
+            var inputan_jumlah_alokasi_dana = 0;
+            var validasi_jumlah_alokasi_dana = 0;
+            $(".tahun_alokasi_control").each(function() {
+                $(this).attr('id', 'tahun_alokasi_' +
+                    inputan_tahun_alokasi);
+                inputan_tahun_alokasi++;
+            });
+
+            $(".jumlah_alokasi_dana_control").each(function() {
+                $(this).attr('id', 'jumlah_alokasi_dana_' +
+                    inputan_jumlah_alokasi_dana);
+                inputan_jumlah_alokasi_dana++;
+            });
+
+
+            $("span.gg").each(function() {
+                $(this).attr('class', 'gg' + ' ' + 'tahun_alokasi_' +
+                    validasi_tahun_alokasi + '_error');
+                validasi_tahun_alokasi++;
+            });
+
+            $('span.gg').addClass('text-danger');
+
+
+            $("span.ww").each(function() {
+                $(this).attr('class', 'ww' + ' ' + 'jumlah_alokasi_dana_' +
+                    validasi_jumlah_alokasi_dana + '_error');
+                validasi_jumlah_alokasi_dana++;
+            });
+
+            $('span.ww').addClass('text-danger');
+        }
+    </script>
+
+
     <script>
         $(document).ready(function() {
             styleSelect2();
@@ -318,7 +427,33 @@
             $('.select2-selection').addClass('select2-remove-border');
         }
 
-        // $(".select2-container").addClass("form-control");
+
+        $('#tahun').select2({
+            // containerCssClass: "form-control",
+            minimumInputLength: 1,
+            // dropdownParent: $('#exampleModal'),
+            maximumInputLength: 50,
+            allowClear: true,
+            placeholder: '-- Pilih Tahun--',
+            width: '100%',
+            ajax: {
+                url: "{{ route('dpa.listTahun') }}",
+                dataType: 'json',
+                delay: 500,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.tahun,
+                                id: item.id
+                            }
+                        })
+                    };
+
+
+                }
+            }
+        });
 
         $('#urusan').select2({
             // containerCssClass: "form-control",
@@ -345,7 +480,34 @@
 
                 }
             }
-        }).addClass('form-control');
+        });
+
+        $('#dinas').select2({
+            // containerCssClass: "form-control",
+            minimumInputLength: 1,
+            // dropdownParent: $('#exampleModal'),
+            maximumInputLength: 50,
+            allowClear: true,
+            placeholder: '-- Pilih Dinas--',
+            width: '100%',
+            ajax: {
+                url: "{{ route('dpa.listDinas') }}",
+                dataType: 'json',
+                delay: 500,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.dinas,
+                                id: item.id
+                            }
+                        })
+                    };
+
+
+                }
+            }
+        });
 
         $('#urusan').change(function() {
 
@@ -537,7 +699,9 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ route('dpa.h_tambah_sub_dpa ') }}"
+                            window.top.location =
+                                "{{ url('dashboard/dpa/h_tambah_sub_dpa') }}/" + data
+                                .bahan_dpa_id;
                         }, 1800);
                     } else {
                         $.each(data.error, function(prefix, val) {

@@ -36,6 +36,21 @@
                                 DPA
                             </strong>
                         </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
+                                Penarikan
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
+                                Anggaran
+                            </strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
+                                TAngan Dpa
+                            </strong>
+                        </div>
 
 
                     </div>
@@ -55,28 +70,37 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Sub Dpa</th>
 
                                         <th
                                             class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Jumlah Anggaran</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        </th>
+                                            Employed</th>
+                                        <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    {{-- @foreach ($data['sub_kegiatan'] as $key => $d)
                                     <tr>
-                                        <td>{{ $d['sub_kegiatan_id'] }}</td>
-                                        <td>{{ $d['sub_kegiatan_id'] }}</td>
-                                        <td>{{ $d['sub_kegiatan_id'] }}</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td></td>
                                     </tr>
-                                @endforeach --}}
+
                                 </tbody>
                             </table>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="row my-3 justify-content-end">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-dark" href="{{ route('dpa.recana_pengambilan_dpa', $dpa->id) }}">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,7 +111,6 @@
 
         <div class="collapse" id="collapseExample3">
             <div class="row my-2">
-
                 <div class="col-lg-2 col-md-3 col-sm-12 h-100">
 
                 </div>
@@ -98,6 +121,9 @@
                         <div class="card-body ">
                             <form action="#" method="post" id="form_tambah" class="form-inline">
                                 @csrf
+
+
+                                <input type="hidden" name="dpa_id" value="{{ $dpa->id }}">
 
                                 <div id="bahan_dynamic_sub_dpa">
 
@@ -263,7 +289,7 @@
                                                 Jenis:
                                             </label>
                                             <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="bidang_id" id="jenis" class="form-control" disabled>
+                                                <select name="jenis" id="jenis" class="form-control" disabled>
                                                     <option value="">--Pilih Kelompok Dahulu--</option>
                                                 </select>
                                                 <span class="text-danger error-text bidang_id_error"
@@ -277,7 +303,7 @@
                                                 Objek:
                                             </label>
                                             <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="bidang_id" id="objek" class="form-control" disabled>
+                                                <select name="objek" id="objek" class="form-control" disabled>
                                                     <option value="">--Pilih Jenis Dahulu--</option>
                                                 </select>
                                                 <span class="text-danger error-text bidang_id_error"
@@ -291,7 +317,7 @@
                                                 Rincian Objek:
                                             </label>
                                             <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="bidang_id" id="rincian_objek" class="form-control"
+                                                <select name="rincian_objek" id="rincian_objek" class="form-control"
                                                     disabled>
                                                     <option value="">--Pilih Objek Dahulu--</option>
                                                 </select>
@@ -318,14 +344,16 @@
                                             </div>
 
 
-                                            <div class="row mt-4">
+                                            <div class="row mt-3">
 
                                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                                     Sub Rincian Objek:
                                                 </label>
-                                                <div class="col-sm-12 col-md-4 col-lg-3 mx-0">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Sub Rincian Objek">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
+                                                    <select name="sub_rincian[]" class="sub_rincian form-control"
+                                                        disabled>
+                                                        <option value="">--Pilih Objek Dahulu--</option>
+                                                    </select>
                                                     <span class="text-danger error-text bidang_id_error"
                                                         style="font-size: 12px;"></span>
                                                 </div>
@@ -333,12 +361,15 @@
                                                 <div class="col-sm-12 col-md-1 col-lg-1">
 
                                                 </div>
+                                            </div>
 
+                                            <div class="row mt-3">
                                                 <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
                                                     Anggaran:
                                                 </label>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 mx-0">
-                                                    <input type="text" class="form-control" placeholder="Anggaran">
+                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
+                                                    <input type="text" class="form-control" name="jumlah_anggaran[]"
+                                                        placeholder="Anggaran">
                                                     <span class="text-danger error-text bidang_id_error"
                                                         style="font-size: 12px;"></span>
                                                 </div>
@@ -350,15 +381,19 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-3" style="float: right">
-                                    <button type="submit" class="btn my-5 btn-sm btn-success btn-save">SIMPAN</button>
+                                <div class="col-sm-6">
+                                    <button type="submit" class="btn my-4 btn-sm btn-success btn-save">SIMPAN</button>
                                 </div>
                             </form>
                         </div>
+
                     </div>
                 </div>
 
+
             </div>
+
+
         </div>
 
 
@@ -373,26 +408,35 @@
 
     <script>
         function dynamic_rincian_uraian() {
-            var rincian_uraian = `  <div class="row mt-4">
-<label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-    Sub Rincian Objek:
-</label>
-<div class="col-sm-12 col-md-4 col-lg-3 mx-0">
-    <input type="text" class="form-control"
-        placeholder="Sub Rincian Objek">
-    <span class="text-danger error-text bidang_id_error"
-        style="font-size: 12px;"></span>
+            var rincian_uraian = `      <div class="row mt-4">
+
+                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                                    Sub Rincian Objek:
+                                                </label>
+                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
+                                                    <select name="sub_rincian[]" class="sub_rincian form-control"
+                                                        disabled>
+                                                        <option value="">--Pilih Objek Dahulu--</option>
+                                                    </select>
+                                                    <span class="text-danger error-text bidang_id_error"
+                                                        style="font-size: 12px;"></span>
+                                                </div>
+
+        <div class="row mt-4">
+            <div class="col-sm-12 col-md-1 col-lg-1">
+
 </div>
-<div class="col-sm-12 col-md-1 col-lg-1">
-</div>
-<label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+
+<label class="col-sm-12 col-md-12 col-lg-12 my-2 mx-0">
     Anggaran:
 </label>
-<div class="col-sm-12 col-md-4 col-lg-4 mx-0">
-    <input type="text" class="form-control" placeholder="Anggaran">
+<div class="col-sm-12 col-md-12 col-lg-12 mx-0">
+    <input type="text" class="form-control" name="jumlah_anggaran[]"
+        placeholder="Anggaran">
     <span class="text-danger error-text bidang_id_error"
         style="font-size: 12px;"></span>
 </div>
+        </div>
 </div>`;
             $('#rincian_uraian_selanjutnya').append(rincian_uraian);
             $('.remove').on('click', function() {
@@ -477,7 +521,7 @@
                 allowClear: true,
                 width: '100%',
                 ajax: {
-                    url: "{{ url('dashboard/dpa-listKelompokRekening') }}/" + id,
+                    url: "{{ url('dashboard/dpa-listJenisRekening') }}/" + id,
                     dataType: 'json',
                     delay: 500,
                     processResults: function(data) {
@@ -542,6 +586,38 @@
                 width: '100%',
                 ajax: {
                     url: "{{ url('dashboard/dpa-listRincianRekening') }}/" + id,
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.kode + " " + item.uraian_akun,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    }
+                }
+            })
+
+        });
+
+        $('#rincian_objek').change(function() {
+
+            let id = $('#rincian_objek').val();
+
+
+            $('.sub_rincian').removeAttr('disabled');
+
+            $('.sub_rincian').select2({
+                minimumInputLength: 1,
+                // dropdownParent: $('#exampleModal'),
+                maximumInputLength: 50,
+                allowClear: true,
+                width: '100%',
+                ajax: {
+                    url: "{{ url('dashboard/dpa-listSubRincianRekening') }}/" + id,
                     dataType: 'json',
                     delay: 500,
                     processResults: function(data) {
@@ -640,17 +716,14 @@
                             timer: 1800,
                             showConfirmButton: false,
                         });
+                        setTimeout(function() {
+                            window.top.location =
+                                "{{ url('dashboard/rencana-pengambilan/dpa') }}/" + data
+                                .bahan_dpa_id;
+                        }, 1800);
 
                     } else {
-                        // $.each(data.error, function(prefix, val) {
-                        //     $.each(data.error, function(prefix, val) {
-                        //         $('span.' + prefix.replace(/\./g, '_') +
-                        //             '_error').text(
-                        //             val[0]);
 
-                        //     });
-
-                        // });
                     }
 
                 }

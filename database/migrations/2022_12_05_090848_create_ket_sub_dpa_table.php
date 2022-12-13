@@ -16,16 +16,44 @@ class CreateKetSubDpaTable extends Migration
         Schema::create('ket_sub_dpa', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sub_dpa_id');
-            $table->bigInteger('akun');
-            $table->bigInteger('kelompok');
-            $table->bigInteger('jenis');
-            $table->bigInteger('objek');
-            $table->bigInteger('rincian_objek');
+            $table->foreignId('akun');
+            $table->foreignId('kelompok');
+            $table->foreignId('jenis');
+            $table->foreignId('objek');
+            $table->foreignId('rincian_objek');
             $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('sub_dpa_id')->references('id')
                 ->on('sub_dpa')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('akun')->references('id')
+                ->on('akun_rekening')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('kelompok')->references('id')
+                ->on('kelompok_rekening')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('jenis')->references('id')
+                ->on('jenis_rekening')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('objek')->references('id')
+                ->on('objek_rekening')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+
+            $table->foreign('rincian_objek')->references('id')
+                ->on('rincian_objek_rekening')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });

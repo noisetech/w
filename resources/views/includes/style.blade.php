@@ -16,6 +16,7 @@
             white-space: normal;
         }
 
+<<<<<<< HEAD
         .select2-selection--single {
             border: 1px solid #d2d6da !important;
             border-radius: 7px !important;
@@ -61,4 +62,7 @@
             transform: translateY(-50%);
         }
     </style>
+=======
+
+>>>>>>> a63f6c0badbf53b7aba18a98f4263c53097480f6
     @stack('style')
