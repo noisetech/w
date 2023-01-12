@@ -24,11 +24,17 @@ class CreateRencanaPembangunan extends Migration
             $table->text('lokasi_realisasi_anggaran')->nullable();
             $table->integer('jangka_waktu')->nullable();
             $table->date('mulai_kerja')->nullable();
-            $table->text('realisasi_pelaksanaan')->nullable();
             $table->longText('kendala_hambatan')->nullable();
             $table->integer('tenaga_kerja')->nullable();
             $table->enum('penerapan_k3', ['ya', 'tidak'])->nullable();
+            $table->longText('keterangan')->nullable();
+            $table->integer('progress_pelaksanaan')->nullable();
+            $table->integer('rencana_pelaksanaan')->nullable();
+            $table->integer('realisasi_pelaksanaan')->nullable();
+            $table->integer('deviasi_pelaksanaan')->nullable();
+            $table->longText('keselamatan_kontruksi')->nullable();
             $table->longText('catatan')->nullable();
+            $table->longText('tim_monitoring')->nullable();
             $table->timestamps();
 
             $table->foreign('detail_ket_sub_dpa_id')->references('id')

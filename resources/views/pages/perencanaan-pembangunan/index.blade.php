@@ -54,7 +54,7 @@
                                                     @endphp
                                                     @if ($kegiatan->count() > 0)
                                                         @foreach ($kegiatan as $kg)
-                                                            <tr class="cursor-pointer collapse"
+                                                            <tr class="cursor-pointer k"
                                                                 onclick="collapseNomenklatur(this)">
                                                                 <td class="text-secondary text-sm">
                                                                     <i class="fas fa-plus-circle text-success"
@@ -73,14 +73,15 @@
                                                             </tr>
                                                             @if ($dp->dpa_id != null)
                                                                 @php
-                                                                    $sub_kegiatan = DB::table('sub_kegiatan')
-                                                                        ->select('id', 'kode as kode_sub_kegiatan', 'nomenklatur as nama_sub_kegiatan')
-                                                                        ->where('id', $dp->sub_kegiatan_id)
+                                                                    $sub_kegiatan = DB::table('sub_dpa')
+                                                                        ->join('sub_kegiatan', 'sub_kegiatan.id', '=', 'sub_dpa.sub_kegiatan_id')
+                                                                        ->select('sub_dpa.id as sub_dpa_id', 'sub_kegiatan.id', 'kode as kode_sub_kegiatan', 'nomenklatur as nama_sub_kegiatan')
+                                                                        ->where('dpa_id', $dp->dpa_id)
                                                                         ->get();
                                                                 @endphp
                                                                 @foreach ($sub_kegiatan as $sk)
                                                                     <tr class="cursor-pointer collapse"
-                                                                        onclick="detailRencanaPembangunan('{{encrypsi($dp->dpa_id)}}', '{{encrypsi($sk->id)}}')">
+                                                                        onclick="collapseNomenklatur(this)">
                                                                         <td class="text-secondary text-sm">
                                                                             <i class="fas fa-plus-circle text-success"
                                                                                 role="button" title="Tambah"></i>
@@ -94,8 +95,41 @@
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        <td class="text-primary text-sm">{{($dp->jumlah_anggaran == NULL) ? '0,00' : $dp->jumlah_anggaran}}</td>
+                                                                        <td class="text-primary text-sm">
+                                                                            {{ $dp->total_anggaran == null ? '0,00' : $dp->total_anggaran }}
+                                                                        </td>
                                                                     </tr>
+                                                                    {{-- @if ($sub_kegiatan->count() > 0)
+                                                                        @php
+                                                                            $rekening = DB::table('ket_sub_dpa')
+                                                                                ->join('detail_ket_sub_dpa', 'detail_ket_sub_dpa.ket_sub_dpa_id', '=', 'ket_sub_dpa.id')
+                                                                                ->join('sub_rincian_objek_rekening', 'sub_rincian_objek_rekening.id', '=', 'detail_ket_sub_dpa.sub_rincian_objek')
+                                                                                ->select('detail_ket_sub_dpa.id', 'kode', 'uraian_akun')
+                                                                                ->where('sub_dpa_id', $sk->sub_dpa_id)
+                                                                                ->get();
+                                                                        @endphp
+                                                                        @foreach ($rekening as $r)
+                                                                            <tr class="cursor-pointer collapse"
+                                                                                onclick="detailRencanaPembangunan('{{encrypsi($dp->dpa_id)}}', '{{encrypsi($dp->detail_ket_sub_dpa_id)}}')">
+                                                                                <td class="text-secondary text-sm">
+                                                                                    <i class="fas fa-plus-circle text-success"
+                                                                                        role="button" title="Tambah"></i>
+                                                                                </td>
+                                                                                <td class="text-secondary text-sm"
+                                                                                    style="white-space:normal;">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-2"></div>
+                                                                                        <div class="col-sm-10">
+                                                                                            {{ $r->kode . ' | ' . $r->uraian_akun }}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td class="text-primary text-sm">
+                                                                                    {{ $dp->total_anggaran == null ? '0,00' : $dp->total_anggaran }}
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    @endif --}}
                                                                 @endforeach
                                                             @else
                                                                 <tr class="cursor-pointer collapse">
@@ -145,7 +179,7 @@
         }
 
         function detailRencanaPembangunan(id_dpa, id_detail_ket_sub_dpa) {
-            window.location.href = "/dashboard/perencanaan_pembangunan/detail/" + id_dpa +"/"+id_detail_ket_sub_dpa;
+            window.location.href = "/dashboard/perencanaan_pembangunan/detail/" + id_dpa + "/" + id_detail_ket_sub_dpa;
         }
     </script>
 @endpush

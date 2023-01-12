@@ -22,10 +22,10 @@ class PerencanaanOrganisasiController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan_organisasi.bidang', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan_organisasi.bidang', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
-                    return '<a href="' . route('perencanaan_organisasi.bidang', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    return '<a href="' . route('perencanaan_organisasi.bidang', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
                 ->addColumn('aksi', function ($data) {
                     $button = "
@@ -153,11 +153,11 @@ class PerencanaanOrganisasiController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan_organisasi.organisasi', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan_organisasi.organisasi', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-                    ="' . route('perencanaan_organisasi.organisasi', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    ="' . route('perencanaan_organisasi.organisasi', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
 
                 ->addColumn('aksi', function ($data) {
@@ -287,11 +287,11 @@ class PerencanaanOrganisasiController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan_organisasi.unit', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan_organisasi.unit', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-                    ="' . route('perencanaan_organisasi.unit', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    ="' . route('perencanaan_organisasi.unit', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
 
                 ->addColumn('aksi', function ($data) {

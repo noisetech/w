@@ -25,10 +25,17 @@
                                     </a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link mb-0 px-0 py-1 {{ $data_umum == null ? 'disabled' : '' }}"
+                                    <a class="nav-link mb-0 px-0 py-1 {{ ($data_umum == null && $rencana_pembangunan == null) ? 'disabled' : '' }}"
                                         data-bs-toggle="tab" href="#dokumentasi" role="tab" aria-controls="dashboard"
                                         aria-selected="false">
                                         Dokumentasi
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link mb-0 px-0 py-1 {{ ($data_umum == null && $rencana_pembangunan == null) ? 'disabled' : '' }}"
+                                        data-bs-toggle="tab" href="#informasi-pembangunan" role="tab"
+                                        aria-controls="dashboard" aria-selected="false">
+                                        Informasi Pembangunan & Catatan
                                     </a>
                                 </li>
                             </ul>
@@ -152,37 +159,40 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label">Progress Pelaksanaan</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="progress_pelaksanaan"
-                                                placeholder="Progress Pelaksanaan" name="progress_pelaksanaan"
-                                                value="{{ $data_umum != null ? $data_umum->progress_pelaksanaan : '' }}">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label">Rencana Pelaksanaan</label>
+                                            <label class="col-form-label">Rencana Pelaksanaan (%)</label>
                                         </div>
                                         <div class="col-sm-9">
                                             <input type="number" class="form-control" id="rencana_pelaksanaan"
                                                 placeholder="Rencana Pelaksanaan" name="rencana_pelaksanaan"
-                                                value="{{ $data_umum != null ? $data_umum->rencana_pelaksanaan : '' }}">
+                                                value="{{ $data_umum != null ? $data_umum->rencana_pelaksanaan : '' }}"
+                                                onblur="hitungDeviasi(event)">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label">Realisasi Pelaksanaan</label>
+                                            <label class="col-form-label">Progress Pelaksanaan (%)</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" id="progress_pelaksanaan"
+                                                placeholder="Progress Pelaksanaan" name="progress_pelaksanaan"
+                                                value="{{ $data_umum != null ? $data_umum->progress_pelaksanaan : '' }}"
+                                                onblur="hitungDeviasi(event)">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Realisasi Pelaksanaan (%)</label>
                                         </div>
                                         <div class="col-sm-9">
                                             <input type="number" class="form-control" id="realisasi_pelaksanaan"
                                                 placeholder="Realisasi Pelaksanaan" name="realisasi_pelaksanaan"
-                                                value="{{ $data_umum != null ? $data_umum->realisasi_pelaksanaan : '' }}">
+                                                value="{{ $data_umum != null ? $data_umum->realisasi_pelaksanaan : '' }}"
+                                                onblur="hitungDeviasi(event)">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label">Deviasi Pelaksanaan</label>
+                                            <label class="col-form-label">Deviasi Pelaksanaan (%)</label>
                                         </div>
                                         <div class="col-sm-9">
                                             <input type="number" class="form-control" id="deviasi_pelaksanaan"
@@ -205,7 +215,7 @@
                                             <label class="col-form-label">Tenaga Kerja</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="tenaga_kerja"
+                                            <input type="number" class="form-control" id="tenaga_kerja"
                                                 placeholder="Tenaga Kerja" name="tenaga_kerja"
                                                 value="{{ $data_umum != null ? $data_umum->tenaga_kerja : '' }}">
                                         </div>
@@ -216,19 +226,24 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <select name="penerapan_k3" id="penerapan_k3" class="form-control">
-                                                <option value="ya" {{ ($data_umum != null && isset($data_umum->penerapan_k3) && $data_umum->penerapan_k3 == 'ya') ? 'selected' : '' }}>Ya
+                                                <option value="ya"
+                                                    {{ $data_umum != null && isset($data_umum->penerapan_k3) && $data_umum->penerapan_k3 == 'ya' ? 'selected' : '' }}>
+                                                    Ya
                                                 </option>
-                                                <option value="tidak" {{ ($data_umum != null && isset($data_umum->penerapan_k3) && $data_umum->penerapan_k3 == 'tidak') ? 'selected' : '' }}>Tidak
+                                                <option value="tidak"
+                                                    {{ $data_umum != null && isset($data_umum->penerapan_k3) && $data_umum->penerapan_k3 == 'tidak' ? 'selected' : '' }}>
+                                                    Tidak
                                                 </option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label">Catatan</label>
+                                            <label class="col-form-label">Keterangan</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <textarea name="catatan" id="catatan" cols="10" placeholder="Catatan" class="form-control" name="catatan">{{ $data_umum != null ? $data_umum->catatan : '' }}</textarea>
+                                            <textarea name="keterangan" id="keterangan" cols="10" placeholder="Keterangan" class="form-control"
+                                                name="keterangan">{{ $data_umum != null ? $data_umum->keterangan : '' }}</textarea>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
@@ -450,8 +465,8 @@
                                                                 Selected
                                                         </div>
                                                     </div>
-                                                    <button type="button"
-                                            class="btn btn-danger btn-lg w-100 mt-4" onclick="batalCreate()">Batal</button>
+                                                    <button type="button" class="btn btn-danger btn-lg w-100 mt-4"
+                                                        onclick="batalCreate()">Batal</button>
                                                     <button type="submit"
                                                         class="btn btn-primary btn-lg w-100 mt-4">Simpan</button>
                                                 </div>
@@ -468,10 +483,11 @@
                                                     <div class="card">
                                                         <div class="card-header p-0 mx-3 mt-3 position-relative z-index-1">
                                                             <a href="{{ asset('dokumentasi-pembangunan/' . $rp->dokumentasi) }}"
-                                                                target="_blank" class="dokumentasi-href-{{$rp->dokumentasi_id}}">
+                                                                target="_blank"
+                                                                class="dokumentasi-href-{{ $rp->dokumentasi_id }}">
                                                                 <img src="{{ asset('dokumentasi-pembangunan/' . $rp->dokumentasi) }}"
-                                                                    class="border-radius-lg dokumentasi-{{$rp->dokumentasi_id}}" width="100%"
-                                                                    height="251px">
+                                                                    class="border-radius-lg dokumentasi-{{ $rp->dokumentasi_id }}"
+                                                                    width="100%" height="251px">
                                                             </a>
                                                         </div>
 
@@ -502,7 +518,9 @@
                                                         </div>
                                                         <div class="d-flex justify-content-end">
                                                             <span class="badge badge-danger m-2 cursor-pointer"
-                                                                style="color:#17c1e8;" onclick="editDokumentasi('{{ $rp->dokumentasi_id }}', event, this)"><i class="fas fa-edit"></i></span>
+                                                                style="color:#17c1e8;"
+                                                                onclick="editDokumentasi('{{ $rp->dokumentasi_id }}', event, this)"><i
+                                                                    class="fas fa-edit"></i></span>
                                                             <span class="badge badge-danger m-2 cursor-pointer"
                                                                 style="color:#ea0606;"
                                                                 onclick="deleteDokumentasi('{{ $rp->dokumentasi_id }}', event, this)"><i
@@ -512,8 +530,470 @@
                                                 </div>
                                             @endif
                                         @endforeach
+                                    @else
+                                        <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h6 class="card-description text-center my-4">Belum ada dokumentasi
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
+                            </div>
+                            {{-- Informasi pembangunan & catatan --}}
+                            <div class="tab-pane fade" id="informasi-pembangunan" role="tabpanel"
+                                aria-labelledby="informasi-pembangunan-tab">
+                                <form action="" method="post" id="formDataInformasiPembangunan">
+                                    @csrf
+                                    <input type="hidden" name="id"
+                                        value="{{ $data_umum != null ? $data_umum->id : '' }}">
+                                    <label>Keselamatan Pekerja Konstruksi</label>
+                                    @if ($data_umum != null && $data_umum->keselamatan_kontruksi != null)
+                                        @php
+                                            $keselamatan_kontruksi = json_decode($data_umum->keselamatan_kontruksi);
+                                        @endphp
+                                        @foreach ($keselamatan_kontruksi as $key_ks => $value_ks)
+                                            <div class="row mb-3">
+                                                <div class="col-sm-7">
+                                                    <label class="col-form-label">{{ $key_ks }}</label>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="hidden" name="key_keselamatan_pekerja[]"
+                                                        value="{{ $key_ks }}">
+                                                    <select name="value_keselamatan_pekerja[]"
+                                                        class="form-control value_keselamatan_pekerja">
+                                                        <option value="ya" {{ $value_ks == 'ya' ? 'selected' : '' }}>
+                                                            Ya
+                                                        </option>
+                                                        <option value="tidak"
+                                                            {{ $value_ks == 'tidak' ? 'selected' : '' }}>
+                                                            Tidak
+                                                        </option>
+                                                        @if ($key_ks == 'Semua Pekerja Dilindungi Dengan Asuransi Kesehatan')
+                                                            <option value="sebagian"
+                                                                {{ $value_ks == 'sebagian' ? 'selected' : '' }}>
+                                                                Sebagian
+                                                            </option>
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Semua Pekerja Dilindungi Dengan Asuransi
+                                                    Kesehatan</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="hidden" name="key_keselamatan_pekerja[]"
+                                                    value="Semua Pekerja Dilindungi Dengan Asuransi Kesehatan">
+                                                <select name="value_keselamatan_pekerja[]"
+                                                    class="form-control value_keselamatan_pekerja">
+                                                    <option value="ya">
+                                                        Ya
+                                                    </option>
+                                                    <option value="tidak">
+                                                        Tidak
+                                                    </option>
+                                                    <option value="sebagian">
+                                                        Sebagian
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Kalau Terjadi Kecelakaan Kerja Sudah Ada
+                                                    Rencana</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="hidden" name="key_keselamatan_pekerja[]"
+                                                    value="Kalau Terjadi Kecelakaan Kerja Sudah Ada Rencana">
+                                                <select name="value_keselamatan_pekerja[]"
+                                                    class="form-control value_keselamatan_pekerja">
+                                                    <option value="ya">
+                                                        Ya
+                                                    </option>
+                                                    <option value="belum">
+                                                        Belum
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Dilokasi Kerja Sudah Tersedia Kotak
+                                                    P3K</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="hidden" name="key_keselamatan_pekerja[]"
+                                                    value="Dilokasi Kerja Sudah Tersedia Kotak P3K">
+                                                <select name="value_keselamatan_pekerja[]"
+                                                    class="form-control value_keselamatan_pekerja">
+                                                    <option value="ya">
+                                                        Ya
+                                                    </option>
+                                                    <option value="belum">
+                                                        Belum
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Dilokasi Kerja Sudah Ada Rambu
+                                                    Keselamatan/Petunjuk</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="hidden" name="key_keselamatan_pekerja[]"
+                                                    value="Dilokasi Kerja Sudah Ada Rambu Keselamatan/Petunjuk">
+                                                <select name="value_keselamatan_pekerja[]"
+                                                    class="form-control value_keselamatan_pekerja">
+                                                    <option value="ya">
+                                                        Ya
+                                                    </option>
+                                                    <option value="belum">
+                                                        Belum
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Ada Keluhan Dari Warga Sekitar Terkait akibat
+                                                    Pelaksanaan Pembangunan </label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="hidden" name="key_keselamatan_pekerja[]"
+                                                    value="Ada Keluhan Dari Warga Sekitar Terkait akibat Pelaksanaan Pembangunan ">
+                                                <select name="value_keselamatan_pekerja[]"
+                                                    class="form-control value_keselamatan_pekerja">
+                                                    <option value="ya">
+                                                        Ya
+                                                    </option>
+                                                    <option value="belum">
+                                                        Belum
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <label class="my-4">Catatan</label>
+                                    @if ($data_umum != null && $data_umum->catatan != null)
+                                        @php
+                                            $catatan = json_decode($data_umum->catatan);
+                                        @endphp
+                                        @foreach ($catatan as $key_c => $value_c)
+
+                                            @if ($key_c == 'Kepala Tukang Berasal')
+                                                <div class="row mb-3">
+                                                    <div class="col-sm-7">
+                                                        <label class="col-form-label">{{ $key_c }}</label>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="row">
+                                                            @if ($value_c != null)
+                                                                @foreach ($value_c as $key_kc => $value_kc)
+
+                                                                    @if ($key_kc == 'Punya SKT/SKK ?')
+                                                                        <div class="col-sm-6">
+                                                                            <label>{{ $key_kc }}</label>
+                                                                            <input type="hidden"
+                                                                                name="key_catatan['Kepala Tukang Berasal'][]"
+                                                                                value="{{ $key_kc }}">
+                                                                            <select
+                                                                                name="value_catatan['Kepala Tukang Berasal'][]"
+                                                                                class="form-control value_catatan">
+                                                                                <option value="ya"
+                                                                                    {{ $value_kc == 'ya' ? 'selected' : '' }}>
+                                                                                    Ya
+                                                                                </option>
+                                                                                <option value="tidak"
+                                                                                    {{ $value_kc == 'tidak' ? 'selected' : '' }}>
+                                                                                    Tidak
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    @elseif ($key_kc == 'Asal')
+                                                                        <div class="col-sm-6">
+                                                                            <label>{{ $key_kc }}</label>
+                                                                            <input type="hidden"
+                                                                                name="key_catatan['Kepala Tukang Berasal'][]"
+                                                                                value="{{ $key_kc }}">
+                                                                            <input type="text"
+                                                                                name="value_catatan['Kepala Tukang Berasal'][]"
+                                                                                class="form-control value_catatan"
+                                                                                value="{{ $value_kc }}">
+                                                                        </div>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @elseif ($key_c == 'Material Berasal Dari')
+                                                <div class="row mb-3">
+                                                    <div class="col-sm-7">
+                                                        <label class="col-form-label">{{ $key_c }}</label>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="row">
+                                                            @if ($value_c != null)
+                                                                @foreach ($value_c as $key_vc => $value_vc)
+                                                                    <div class="col-sm-6">
+                                                                        <label>{{ $key_vc }}</label>
+                                                                        <input type="hidden"
+                                                                            name="key_catatan['Material Berasal Dari'][]"
+                                                                            value="{{ $key_vc }}">
+                                                                        <input type="number"
+                                                                            name="value_catatan['Material Berasal Dari'][]"
+                                                                            class="form-control value_catatan"
+                                                                            value="{{ $value_vc }}">
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="row mb-3">
+                                                    <div class="col-sm-7">
+                                                        <label class="col-form-label">{{ $key_c }}</label>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                        <div class="row">
+                                                            <input type="hidden" name="key_catatan[]"
+                                                                value="{{ $key_c }}">
+                                                            <div class="col-sm-12">
+                                                                <label>Orang</label>
+                                                                <input type="number" name="value_catatan[]"
+                                                                    class="form-control value_catatan"
+                                                                    value="{{ $value_c }}">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Kepala Tukang Berasal</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Asal</label>
+                                                        <input type="hidden"
+                                                            name="key_catatan['Kepala Tukang Berasal'][]" value="Asal">
+                                                        <input type="text"
+                                                            name="value_catatan['Kepala Tukang Berasal'][]"
+                                                            class="form-control value_catatan">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Punya SKT/SKK ?</label>
+                                                        <input type="hidden"
+                                                            name="key_catatan['Kepala Tukang Berasal'][]"
+                                                            value="Punya SKT/SKK ?">
+                                                        <select name="value_catatan['Kepala Tukang Berasal'][]"
+                                                            class="form-control value_catatan">
+                                                            <option value="ya">
+                                                                Ya
+                                                            </option>
+                                                            <option value="tidak">
+                                                                Tidak
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Jumlah Pekerja</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="row">
+                                                    <input type="hidden" name="key_catatan[]" value="Jumlah Pekerja">
+                                                    <div class="col-sm-12">
+                                                        <label>Orang</label>
+                                                        <input type="number" name="value_catatan[]"
+                                                            class="form-control value_catatan">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Pekerja Berasal Dari Kabupaten Pesisir
+                                                    Barat</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="row">
+                                                    <input type="hidden" name="key_catatan[]"
+                                                        value="Pekerja Berasal Dari Kabupaten Pesisir Barat">
+                                                    <div class="col-sm-12">
+                                                        <label>Orang</label>
+                                                        <input type="number" name="value_catatan[]"
+                                                            class="form-control value_catatan">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Pekerja Berasal Dari Luar Kabupaten Pesisir
+                                                    Barat</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="row">
+                                                    <input type="hidden" name="key_catatan[]"
+                                                        value="Pekerja Berasal Dari Luar Kabupaten Pesisir Barat">
+                                                    <div class="col-sm-12">
+                                                        <label>Orang</label>
+                                                        <input type="number" name="value_catatan[]"
+                                                            class="form-control value_catatan">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-7">
+                                                <label class="col-form-label">Material Berasal Dari</label>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="row">
+                                                    {{-- <input type="hidden" name="key_catatan[]" value="Material Berasal Dari"> --}}
+                                                    <div class="col-sm-6">
+                                                        <label>Pesisir Barat</label>
+                                                        <input type="hidden"
+                                                            name="key_catatan['Material Berasal Dari'][]"
+                                                            value="Pesisir Barat">
+                                                        <input type="number"
+                                                            name="value_catatan['Material Berasal Dari'][]"
+                                                            class="form-control value_catatan">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <label>Luar Pesisir Barat</label>
+                                                        <input type="hidden"
+                                                            name="key_catatan['Material Berasal Dari'][]"
+                                                            value="Luar Pesisir Barat">
+                                                        <input type="number"
+                                                            name="value_catatan['Material Berasal Dari'][]"
+                                                            class="form-control value_catatan">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    <label class="my-4">Tim Monitoring</label>
+                                    @if ($data_umum != null && $data_umum->tim_monitoring != null)
+                                        @php
+                                            $tim_monitoring = json_decode($data_umum->tim_monitoring);
+                                            $inc = 1;
+                                        @endphp
+                                        @foreach ($tim_monitoring as $key_tm => $value_tm)
+                                            <div class="row mb-3 {{ $key_tm != 0 ? 'timAnggaran' : 0 }}">
+                                                <div class="col-sm-3">
+                                                    <label class="col-form-label">Tim Anggaran {{ $inc++ }}</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="row align-items-end">
+                                                        <div class="col-sm-4">
+                                                            <label>Nama</label>
+                                                            <input type="text" name="nama_tim_anggaran[]"
+                                                                class="form-control nama"
+                                                                value="{{ $value_tm->nama_tim_anggaran }}">
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label>NIP</label>
+                                                            <input type="text" name="nip_tim_anggaran[]"
+                                                                class="form-control nip"
+                                                                value="{{ $value_tm->nip_tim_anggaran }}">
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <label>Jabatan</label>
+                                                            <input type="text" name="jabatan_tim_anggaran[]"
+                                                                class="form-control jabatan"
+                                                                value="{{ $value_tm->jabatan_tim_anggaran }}">
+                                                        </div>
+                                                        @if ($key_tm == 0)
+                                                            <div class="col-sm-1">
+                                                                <a href="javascript:;"
+                                                                    class="btn btn-sm btn-success btn-icon-only"
+                                                                    onclick="addTimAnggaran()">
+                                                                    <span class="btn-inner--icon"><i
+                                                                            class="fas fa-plus"></i></span>
+                                                                </a>
+                                                            </div>
+                                                        @else
+                                                            <div class="col-sm-1">
+                                                                <a href="javascript:;"
+                                                                    class="btn btn-sm btn-danger btn-icon-only"
+                                                                    onclick="deleteTimAnggaran(this)">
+                                                                    <span class="btn-inner--icon"><i
+                                                                            class="fas fa-trash"></i></span>
+                                                                </a>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                        <div class="addTimAnggaran" data-inc="1"></div>
+                                    @else
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <label class="col-form-label">Tim Anggaran 1</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="row align-items-end">
+                                                    <div class="col-sm-4">
+                                                        <label>Nama</label>
+                                                        <input type="text" name="nama_tim_anggaran[]"
+                                                            class="form-control nama">
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label>NIP</label>
+                                                        <input type="text" name="nip_tim_anggaran[]"
+                                                            class="form-control nip">
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <label>Jabatan</label>
+                                                        <input type="text" name="jabatan_tim_anggaran[]"
+                                                            class="form-control jabatan">
+                                                    </div>
+                                                    <div class="col-sm-1">
+                                                        <a href="javascript:;"
+                                                            class="btn btn-sm btn-success btn-icon-only"
+                                                            onclick="addTimAnggaran()">
+                                                            <span class="btn-inner--icon"><i
+                                                                    class="fas fa-plus"></i></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="addTimAnggaran" data-inc="1"></div>
+                                    @endif
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fas fa-save me-sm-2" aria-hidden="true"></i> Simpan Data
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -531,6 +1011,7 @@
             saveDataKomponen();
             saveDataDokumentasi();
             updateDataDokumentasi();
+            saveDataInformasiPembangunan()
 
             $('.det_rencana_pembangunan').change(function() {
                 $.ajax({
@@ -543,9 +1024,10 @@
                     dataType: 'json',
                     success: function(data) {
                         if (data.status == 'success') {
-                            $('.show-persen').html(data.data + '%');
-                            $('.show-progress').attr('aria-valuenow', data.data);
-                            $('.show-progress').css('width', data.data + '%');
+                            let kondisi = (data.data == null) ? 0 : data.data;
+                            $('.show-persen').html(kondisi + '%');
+                            $('.show-progress').attr('aria-valuenow', kondisi);
+                            $('.show-progress').css('width', kondisi + '%');
                         }
                     }
                 });
@@ -711,7 +1193,8 @@
                                     timer: 1800,
                                     showConfirmButton: false,
                                 });
-                                let link = "{{ asset('dokumentasi-pembangunan') }}" + '/' + data.dokumentasi;
+                                let link = "{{ asset('dokumentasi-pembangunan') }}" + '/' + data
+                                    .dokumentasi;
                                 $('.dokumentasi-href-' + data.dokumentasi_id).attr('href', link);
                                 $('.dokumentasi-' + data.dokumentasi_id).attr('src', link);
 
@@ -720,6 +1203,39 @@
                         }
                     });
                 }
+            });
+        }
+
+        function saveDataInformasiPembangunan() {
+            $("#formDataInformasiPembangunan").submit(function(e) {
+                e.preventDefault();
+                const form = $(this)[0];
+                const data = new FormData(form);
+                $.ajax({
+                    url: "{{ url('/dashboard/monitoring/pembangunan/update_informasi_pembangunan') }}",
+                    method: 'post',
+                    data: data,
+                    cache: false,
+                    processData: false,
+                    dataType: 'json',
+                    contentType: false,
+                    beforeSend: function() {
+                        $(document).find('span.error-text').text('');
+                    },
+                    success: function(data) {
+                        if (data.status == 'success') {
+                            Swal.fire({
+                                icon: 'success',
+                                text: 'Data telah disimpan',
+                                title: 'Berhasil',
+                                toast: true,
+                                position: 'top-end',
+                                timer: 1800,
+                                showConfirmButton: false,
+                            });
+                        }
+                    }
+                });
             });
         }
 
@@ -831,7 +1347,8 @@
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <span class="badge badge-danger m-2 cursor-pointer"
-                                            style="color:#17c1e8;" onclick="editDokumentasi('` + data.data_dokumentasi.dokumentasi_id + `', event, this)"><i class="fas fa-edit"></i></span>
+                                            style="color:#17c1e8;" onclick="editDokumentasi('` + data.data_dokumentasi
+                            .dokumentasi_id + `', event, this)"><i class="fas fa-edit"></i></span>
                                         <span class="badge badge-danger m-2 cursor-pointer"
                                             style="color:#ea0606;"
                                             onclick="deleteDokumentasi('` + data.data_dokumentasi.dokumentasi_id + `', event, this)"><i
@@ -875,7 +1392,7 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="sub_kegiatan"
                                                     placeholder="Sub Kegiatan"
-                                                    value="`+data.data_dpa.pekerjaan+`" readonly>
+                                                    value="` + data.data_dpa.pekerjaan + `" readonly>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -885,7 +1402,7 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="lokasi"
                                                     placeholder="Lokasi"
-                                                    value="`+data.data_umum.lokasi_realisasi_anggaran+`"
+                                                    value="` + data.data_umum.lokasi_realisasi_anggaran + `"
                                                     readonly>
                                             </div>
                                         </div>
@@ -896,7 +1413,8 @@
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="lokasi"
                                                     placeholder="Tahun nggaran"
-                                                    value="`+data.data_dpa.tahun+`" readonly>
+                                                    value="` + data.data_dpa.tahun +
+                            `" readonly>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -904,8 +1422,10 @@
                                                 <label class="col-form-label">Pekerjaan</label>
                                             </div>
                                             <div class="col-sm-9">
-                                                <input type="hidden" name="det_rencana_pembangunan" id="det_rencana_pembangunan" value="`+data.data_dokumentasi.id+`">
-                                                <input class="form-control" value="`+data.data_dokumentasi.komponen+`" readonly>
+                                                <input type="hidden" name="det_rencana_pembangunan" id="det_rencana_pembangunan" value="` +
+                            data.data_dokumentasi
+                            .id + `">
+                                                <input class="form-control" value="` + data.data_dokumentasi.komponen + `" readonly>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
@@ -917,14 +1437,16 @@
                                                     <div class="progress-info">
                                                         <div class="progress-percentage">
                                                             <span
-                                                                class="text-sm font-weight-bold show-persen">`+data.data_dokumentasi.persentase+`%</span>
+                                                                class="text-sm font-weight-bold show-persen">` + data
+                            .data_dokumentasi.persentase + `%</span>
                                                         </div>
                                                     </div>
                                                     <div class="progress">
                                                         <div class="progress-bar bg-gradient-primary show-progress"
-                                                            role="progressbar" aria-valuenow="`+data.data_dokumentasi.persentase+`"
+                                                            role="progressbar" aria-valuenow="` + data.data_dokumentasi
+                            .persentase + `"
                                                             aria-valuemin="0" aria-valuemax="100"
-                                                            style="width: `+data.data_dokumentasi.persentase+`%;"></div>
+                                                            style="width: ` + data.data_dokumentasi.persentase + `%;"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -946,7 +1468,8 @@
                                         <div class="card">
                                             <div class="card-header p-0 mx-3 position-relative z-index-1">
                                                 <a href="javascript:;" class="d-block">
-                                                    <img src="{{ asset('dokumentasi-pembangunan') }}` + '/' + data.data_dokumentasi.dokumentasi + `"
+                                                    <img src="{{ asset('dokumentasi-pembangunan') }}` + '/' + data
+                            .data_dokumentasi.dokumentasi + `"
                                                         class="img-fluid border-radius-lg show-image">
                                                 </a>
                                             </div>
@@ -980,6 +1503,64 @@
 
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        function hitungDeviasi(event) {
+            let rencana_pelaksanaan = $('#rencana_pelaksanaan').val();
+            let progress_pelaksanaan = $('#progress_pelaksanaan').val();
+            let realisasi_pelaksanaan = $('#realisasi_pelaksanaan').val();
+
+            if (rencana_pelaksanaan != '' && progress_pelaksanaan != '' && realisasi_pelaksanaan != '') {
+                let deviasi_pelaksanaan = parseInt(rencana_pelaksanaan) - (parseInt(realisasi_pelaksanaan) + parseInt(
+                    progress_pelaksanaan));
+                $('#deviasi_pelaksanaan').val(deviasi_pelaksanaan);
+            }
+        }
+
+        function addTimAnggaran() {
+            let inc = $('.addTimAnggaran').data('inc');
+            inc++;
+            let html = `
+                <div class="row mb-3 timAnggaran">
+                    <div class="col-sm-3">
+                        <label class="col-form-label">Tim Anggaran ${inc}</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="row align-items-end">
+                            <div class="col-sm-4">
+                                <label>Nama</label>
+                                <input type="text" name="nama_tim_anggaran[]"
+                                    class="form-control nama">
+                            </div>
+                            <div class="col-sm-3">
+                                <label>NIP</label>
+                                <input type="text" name="nip_tim_anggaran[]"
+                                    class="form-control nip">
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Jabatan</label>
+                                <input type="text" name="jabatan_tim_anggaran[]"
+                                    class="form-control jabatan">
+                            </div>
+                            <div class="col-sm-1">
+                                <a href="javascript:;" class="btn btn-sm btn-danger btn-icon-only" onclick="deleteTimAnggaran(this)">
+                                    <span class="btn-inner--icon"><i class="fas fa-trash"></i></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $('.addTimAnggaran').data('inc', inc);
+            $('.addTimAnggaran').append(html);
+        }
+
+        function deleteTimAnggaran(data) {
+            let inc = $('.addTimAnggaran').data('inc');
+            inc--;
+            $('.addTimAnggaran').data('inc', inc);
+            $(data).parents('.timAnggaran').remove();
         }
 
         $(document).on("change", ".dokumentasi", function(e) {
