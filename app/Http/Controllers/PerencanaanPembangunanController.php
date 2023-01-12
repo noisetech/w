@@ -15,10 +15,10 @@ class PerencanaanPembangunanController extends Controller
     {
         $id_dinas = auth()->user()->dinas_id;
         $dpa = DB::table('dpa')
-            ->select('dpa.*', 'sub_dpa.*', 'ket_sub_dpa.*', 'detail_ket_sub_dpa.*', DB::raw('SUM(detail_ket_sub_dpa.jumlah_anggaran) as jumlah_anggaran'))
-            ->join('sub_dpa', 'dpa.id', '=', 'sub_dpa.dpa_id', 'left')
-            ->join('ket_sub_dpa', 'sub_dpa.id', '=', 'ket_sub_dpa.sub_dpa_id', 'left')
-            ->join('detail_ket_sub_dpa', 'ket_sub_dpa.id', '=', 'detail_ket_sub_dpa.ket_sub_dpa_id', 'left')
+            ->select('dpa.*', 'sub_dpa.*', 'ket_sub_dpa.*', 'detail_ket_sub_dpa.*', 'detail_ket_sub_dpa.id as detail_ket_sub_dpa_id', DB::raw('SUM(detail_ket_sub_dpa.jumlah_anggaran) as total_anggaran'))
+            ->join('sub_dpa', 'dpa.id', '=', 'sub_dpa.dpa_id')
+            ->join('ket_sub_dpa', 'sub_dpa.id', '=', 'ket_sub_dpa.sub_dpa_id')
+            ->join('detail_ket_sub_dpa', 'ket_sub_dpa.id', '=', 'detail_ket_sub_dpa.ket_sub_dpa_id')
             ->where('dpa.dinas_id', $id_dinas)
             ->groupBy('detail_ket_sub_dpa.ket_sub_dpa_id')
             ->get();
@@ -28,7 +28,7 @@ class PerencanaanPembangunanController extends Controller
         // $kegiatan = DB::table('dpa')->join('kegiatan', 'dpa.kegiatan_id', '=', 'kegiatan.id')->select('dpa.kegiatan_id', 'kegiatan.kode as kode_kegiatan', 'kegiatan.nomenklatur as nama_kegiatan')->where('dpa.dinas_id', $id_dinas)->get();
         // $sub_kegiatan = DB::table('dpa')->join('sub_dpa', 'dpa.id', '=', 'sub_dpa.dpa_id')->join('sub_kegiatan', 'sub_dpa.sub_kegiatan_id', '=', 'sub_kegiatan.id')->select('dpa.id', 'sub_dpa.sub_kegiatan_id', 'sub_kegiatan.kode as kode_sub_kegiatan', 'sub_kegiatan.nomenklatur as nama_sub_kegiatan')->where('dpa.dinas_id', $id_dinas)->get();
 
-        // dd($urusan->count());
+        // dd($dpa);
         $data = [
             'dpa' => $dpa
         ];

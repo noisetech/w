@@ -31,10 +31,10 @@ class PerencanaanController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan.bidang', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan.bidang', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
-                    return '<a href="' . route('perencanaan.bidang', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    return '<a href="' . route('perencanaan.bidang', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
                 ->addColumn('aksi', function ($data) {
                     $button = "
@@ -166,11 +166,11 @@ class PerencanaanController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan.program', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan.program', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-                    ="' . route('perencanaan.program', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                    ="' . route('perencanaan.program', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
 
                 ->addColumn('aksi', function ($data) {
@@ -308,11 +308,11 @@ class PerencanaanController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan.kegiatan', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan.kegiatan', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-                ="' . route('perencanaan.kegiatan', $data->id) . '">' . $data->nomenklatur . ' </a>';
+                ="' . route('perencanaan.kegiatan', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
                 ->addColumn('aksi', function ($data) {
                     $button = "
@@ -443,11 +443,11 @@ class PerencanaanController extends Controller
 
             return datatables()->of($data)
                 ->editColumn('kode', function ($data) {
-                    return '<a href="' . route('perencanaan.sub_kegiatan', $data->id) . '">' . $data->kode . ' </a>';
+                    return '<a href="' . route('perencanaan.sub_kegiatan', encrypsi($data->id)) . '">' . $data->kode . ' </a>';
                 })
                 ->editColumn('nomenklatur', function ($data) {
                     return '<a href
-            ="' . route('perencanaan.sub_kegiatan', $data->id) . '">' . $data->nomenklatur . ' </a>';
+            ="' . route('perencanaan.sub_kegiatan', encrypsi($data->id)) . '">' . $data->nomenklatur . ' </a>';
                 })
                 ->addColumn('aksi', function ($data) {
                     $button = "

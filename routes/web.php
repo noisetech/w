@@ -537,6 +537,9 @@ Route::prefix('dashboard')
             ->name('monitoring.pembangunan.delete_dokumentasi');
         Route::post('monitoring/pembangunan/find_dokumentasi', [MonitoringPembangunanController::class, 'findDokumentasi'])
             ->name('monitoring.pembangunan.find_dokumentasi');
+        Route::post('monitoring/pembangunan/update_informasi_pembangunan', [MonitoringPembangunanController::class, 'updateDataInformasiPembangunan'])
+            ->name('monitoring.pembangunan.update_informasi_pembangunan');
+
         Route::post('monitoring/pembangunan/laporan',[MonitoringPembangunanController::class, 'laporan'])
             ->name('monitoring.pembangunan.laporan');
         // master pembangunan

@@ -58,7 +58,6 @@ class MonitoringPembangunanController extends Controller
                 ->join('dokumentasi_pekerjaan_pembangunan', 'dokumentasi_pekerjaan_pembangunan.det_rencana_pembangunan', '=', 'det_rencana_pembangunan.id', 'right')
                 ->join('komponen_pembangunan', 'komponen_pembangunan.id', '=', 'det_rencana_pembangunan.komponen_pembangunan_id')
                 ->where('rencana_pembangunan_id', $data_umum->id)->get();
-
         } else {
             $rencana_pembangunan = [];
         }
@@ -248,6 +247,57 @@ class MonitoringPembangunanController extends Controller
         if ($hapus) {
             return response()->json([
                 'status' => 'success'
+            ]);
+        }
+    }
+
+    public function updateDataInformasiPembangunan(Request $request)
+    {
+        $simpan = RencanaPembangunan::find($request->id);
+
+        $data = $request->all();
+        // dd($data);
+        $keselamatan_pekerja = array();
+        $tim_anggaran = array();
+        $catatan = array();
+
+        // keselamatan pekerja
+        foreach ($request->key_keselamatan_pekerja as $key_kkp => $value_kkp) {
+            $keselamatan_pekerja[$value_kkp] = $request->value_keselamatan_pekerja[$key_kkp];
+        }
+
+        // tim anggaran
+        foreach ($request->nama_tim_anggaran as $key_nama_tim_anggaran => $value_nama_tim_anggaran) {
+            $tim_anggaran[] = [
+                'nama_tim_anggaran' => $value_nama_tim_anggaran,
+                'nip_tim_anggaran' => $request->nip_tim_anggaran[$key_nama_tim_anggaran],
+                'jabatan_tim_anggaran' => $request->jabatan_tim_anggaran[$key_nama_tim_anggaran],
+            ];
+        }
+
+        // catatan
+        foreach ($request->key_catatan as $key_kc => $value_kc) {
+            if(gettype($value_kc) == 'array'){
+                $tmp_value_catatan = array();
+                foreach ($value_kc as $key => $value) {
+                    $tmp_value_catatan[$value] = $request->value_catatan[$key_kc][$key];
+                }
+                // dd($key_kc);
+                $catatan[str_replace("'", "", $key_kc)] = $tmp_value_catatan;
+            }else {
+                $catatan[$value_kc] = $request->value_catatan[$key_kc];
+            }
+
+        }
+
+        $data['keselamatan_kontruksi'] = json_encode($keselamatan_pekerja);
+        $data['catatan'] = json_encode($catatan);
+        $data['tim_monitoring'] = json_encode($tim_anggaran);
+        $ubah = $simpan->update($data);
+        if ($ubah) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil disimpan!'
             ]);
         }
     }
