@@ -7,158 +7,176 @@
 
     <div class="container-fluid py-4">
 
+        <div class="card shadow">
+            <div class="card-header">
+                <h6>Form Realisasi</h6>
+            </div>
+            <div class="card-body">
+                <form action="#" method="POST">
+                    @csrf
 
-        <div class="row mt-3">
-            <div class="col-sm-12">
-                <div class="card shadow">
-                    <h6 class="mx-4 mt-3">Detail</h6>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Bidang &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp; {{ $dpa->kode_bidang }}</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Kegiatan &nbsp; &nbsp; : &nbsp; asdasdad</h6>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Program &nbsp; &nbsp; &nbsp;: &nbsp;asdasdad</h6>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Bulan</label>
+                                <input type="text" class="form-control" name="bulan" readonly>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Organisasi &nbsp;: &nbsp;asdasdad</h6>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Rencana Penarikan</label>
+                                <input type="text" class="form-control" readonly>
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Unit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : asdasdad</h6>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Pengambilan</label>
+                                <input type="text" class="form-control" name="pengambilan" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Realisasi</label>
+                                <input type="text" class="form-control" name="realisasi" placeholder="Realisasi">
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="row">
+                        <h5 class="mt-3 mb-4">Anggaran</h5>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Belanja Modal</label>
+                                <input type="text" name="kelompok" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Belanja Modal</label>
+                                <input type="text" name="kelompok" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Belanja Modal</label>
+                                <input type="text" name="kelompok" class="form-control" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Belanja Modal</label>
+                                <input type="text" name="kelompok" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h5 class="mt-3 mb-3">Pelaksanaan</h5>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">Status</label>
+                                <select name="status" class="form-control">
+                                    <option value="a">A. Perencanaan ( 1% <= progess 11% )</option>
+                                    <option value="b">B. Perencanaan ( 11% <= progess 26% )</option>
+                                    <option value="c">C. Perencanaan ( 26% <= progess 100% )</option>
+                                    <option value="d">D. Perencanaan ( Selesai 100% )</option>
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="">Persentase(%)</label>
+                                        <input type="text" name="persentase" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="">Status Kemanfaatan</label>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="radio" name="status_kemanfaatan"
+                                                id="customRadio1" value="belum di manfaatkan">
+                                            <label class="custom-control-label" for="customRadio1">Belum
+                                                dimanfaatkan</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="status_kemanfaatan"
+                                                id="customRadio2" value="sudah dimanfaatkan">
+                                            <label class="custom-control-label" for="customRadio2">Sudah
+                                                dimanfaatkan</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <textarea name="keterangan_status" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h5 class="mt-3 mb-3">Permasalahan</h5>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="">Keterangan</label>
+                                <textarea name="permasalahan" class="form-control" cols="30" rows="10"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">Dokumen</label>
+                                <br>
+                                <input type="file" name="dokumen" class="form-control-file" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">Foto</label>
+                                <br>
+                                <input type="file" name="dokumen" class="form-control-file" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="">Video</label>
+                                <br>
+                                <input type="file" name="dokumen" class="form-control-file" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-sm-4">
+                            <button class="btn btn-sm btn-dark" type="submit">
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
 
-        <div class="row mt-3">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Realisasi</h6>
-                    </div>
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center justify-content-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Bulan</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Jumlah</th>
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Relaisasi</th>
-
-                                        {{-- <th></th>/ --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0 px-3">Januari</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">Rp. 30.000.000</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">30%</span>
-                                        </td>
-
-                                        {{-- <td class="align-middle">
-                                            <button class="btn btn-link text-success mb-0">
-                                                Proses
-                                            </button>
-                                        </td> --}}
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0 px-3">Februari</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">Rp. 45.000.000</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">40%</span>
-                                        </td>
-
-                                        {{-- <td class="align-middle">
-                                            <button class="btn btn-link text-success mb-0">
-                                                Proses
-                                            </button>
-                                        </td> --}}
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0 px-3">Maret</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-sm font-weight-bold mb-0">Rp. 25.000.000</p>
-                                        </td>
-                                        <td>
-                                            <span class="text-xs font-weight-bold">35%</span>
-                                        </td>
-
-                                        {{-- <td class="align-middle">
-                                            <button class="btn btn-link text-success mb-0">
-                                                Proses
-                                            </button>
-                                        </td> --}}
-                                    </tr>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="container">
-                            <div class="row mt-3">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Catatan Kendala">
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" placeholder="Realisasi">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container">
-                            <div class="row mt-4">
-                                <div class="col-sm-2">
-                                    <button class="btn btn-success" type="submit">
-                                        Proses
-                                    </button>
-                                </div>
-
-                                <div class="col-sm-2">
-                                    <button class="btn btn-dark" type="submit">
-                                        Simpan
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
     </div>
@@ -166,25 +184,4 @@
 
 @push('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $(document).ready(function() {});
-
-        function collapseNomenklatur(data) {
-            let next = $(data).next();
-            next.collapse('toggle');
-            if (next.hasClass('terbuka') == false) {
-                $(data).children().children('i').removeClass('fas fa-plus-circle text-success');
-                $(data).children().children('i').addClass('fas fa-minus-circle text-warning');
-                next.addClass('terbuka');
-            } else {
-                next.removeClass('terbuka');
-                $(data).children().children('i').removeClass('fas fa-minus-circle text-warning');
-                $(data).children().children('i').addClass('fas fa-plus-circle text-success');
-            }
-        }
-
-        function detailRencanaPembangunan(id_dpa) {
-            window.location.href = "/dashboard/perencanaan_pengambilan/h_tambah/" + id_dpa;
-        }
-    </script>
 @endpush

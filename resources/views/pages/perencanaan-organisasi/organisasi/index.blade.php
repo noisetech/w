@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Organisasi')
 @section('content')
-    {{ navbar('Perencanaan', 'List Perencanaan') }}
+    {{ navbar('Perencanaan', 'List Perencanaan Organisasi') }}
 
     <div class="container-fluid py-4">
         <div class="row my-2">

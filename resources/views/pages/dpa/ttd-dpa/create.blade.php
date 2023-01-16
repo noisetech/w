@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'DPA')
 @section('content')
-    {{ navbar('DPA', 'Form Tambah DPA') }}
+    {{ navbar('DPA', 'Form Tambah Tanda Tangan') }}
 
     <style>
         .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -24,24 +24,18 @@
                         <div class="alert alert-dark">
                             <strong class="text-white">DPA</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">SUB
-                                DPA
-                            </strong>
+                        <div class="alert alert-dark">
+                            <strong class="text-white">Sub Dpa</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
-                                Penarikan
-                            </strong>
+                        <div class="alert alert-dark">
+                            <strong class="text-white">Rencana Penarikan</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
-                                Anggaran
-                            </strong>
+                        <div class="alert alert-dark">
+                            <strong class="text-white">Team Anggaran</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
-                                TAngan Dpa
+                        <div class="alert alert-{{ isset($active) && $active == 'tanda tangan' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'tanda tangan' ? 'white' : 'black' }}">Tanda
+                                Tangan Dpa
                             </strong>
                         </div>
 
@@ -79,7 +73,7 @@
                                         <label>
                                             Tanggal:
                                         </label>
-                                        <input type="date" class="form-control" name="tanggal[]" placeholder="Anggaran">
+                                        <input type="date" class="form-control" name="tanggal[]">
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -92,7 +86,7 @@
                                             Jabatan Pejabat:
                                         </label>
                                         <input type="text" class="form-control" name="jabatan_pejabat[]"
-                                            placeholder="Anggaran">
+                                           >
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -104,7 +98,7 @@
                                         <label>
                                             Nip:
                                         </label>
-                                        <input type="text" class="form-control" name="nip[]" placeholder="Anggaran">
+                                        <input type="text" class="form-control" name="nip[]">
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -128,7 +122,7 @@
                                         <label>
                                             Tanggal:
                                         </label>
-                                        <input type="date" class="form-control" name="tanggal[]" placeholder="Anggaran">
+                                        <input type="date" class="form-control" name="tanggal[]">
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -141,7 +135,7 @@
                                             Jabatan Pejabat:
                                         </label>
                                         <input type="text" class="form-control" name="jabatan_pejabat[]"
-                                            placeholder="Anggaran">
+                                        >
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>
@@ -153,7 +147,7 @@
                                         <label>
                                             Nip:
                                         </label>
-                                        <input type="text" class="form-control" name="nip[]" placeholder="Anggaran">
+                                        <input type="text" class="form-control" name="nip[]">
                                         <span class="text-danger error-text bidang_id_error"
                                             style="font-size: 12px;"></span>
                                     </div>

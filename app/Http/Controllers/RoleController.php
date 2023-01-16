@@ -28,24 +28,16 @@ class RoleController extends Controller
 
                 ->editColumn('aksi', function ($data) {
                     if ($data->name == 'admin') {
-                        $button = "
-
-                        <div class='d-flex justify-content-start'>
-                        <a class='edit btn btn btn-sm mx-1
-                        btn-warning ' title='Edit Role' href='" . route('role.edit', $data->id) . "'>Edit</a>";
-
-                        $button .= "
-
-                        <div class='d-flex justify-content-start'>
-                        <a class='edit btn btn btn-sm mx-1
-                        btn-info ' title='Detail Role' href='" . route('role.h_detail', $data->id) . "'>Detail</a>";
-                        return $button;
+                        return "";
                     }
                     $button = "
 
                     <div class='d-flex justify-content-start'>
                     <a class='edit btn btn btn-sm mx-1
-                    btn-warning ' title='Edit' href='#'>Edit</a>";
+                    btn-info ' title='Detail Role' href='" . route('role.h_detail', $data->id) . "'>Detail</a>";
+
+                    $button .= "   <a class='edit btn btn btn-sm mx-1
+                    btn-warning ' title='Edit Role' href='" . route('role.edit', $data->id) . "'>Edit</a>";
                     $button  .= "<button class='hapus btn btn-sm btn-danger' data-toggle='tooltip' title='Hapus'
                          id='" . $data->id . "'>Hapus</button>
                     </div>

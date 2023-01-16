@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Bidang')
 @section('content')
-    {{ navbar('Perencanaan', 'List Perencanaan') }}
+    {{ navbar('Perencanaan', 'List Perencanaan Organisasi') }}
 
     <div class="container-fluid py-4">
         <div class="row my-2">
@@ -20,7 +20,8 @@
                                 class="text-{{ isset($active) && $active == 'kegiatan' ? 'white' : 'black' }}">Organisasi</strong>
                         </div>
                         <div class="alert alert-{{ isset($active) && $active == 'sub kegiatan' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub kegiatan' ? 'white' : 'black' }}">Unit</strong>
+                            <strong
+                                class="text-{{ isset($active) && $active == 'sub kegiatan' ? 'white' : 'black' }}">Unit</strong>
                         </div>
                     </div>
                 </div>
@@ -143,7 +144,8 @@
                     name: 'DT_RowIndex',
                     className: 'text-secondary text-xs font-weight-bold',
                     render: function(data, type, row) {
-                        return '<a href="/dashboard/perencanaan_organisasi/organisasi/bidang/' + encrypsi(row.id) +
+                        return '<a href="/dashboard/perencanaan_organisasi/organisasi/bidang/' + encrypsi(
+                                row.id) +
                             '" >' + data +
                             '</a>';
                     }

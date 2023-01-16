@@ -24,22 +24,20 @@
                         <div class="alert alert-dark">
                             <strong class="text-white">DPA</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">SUB
-                                DPA
+                        <div class="alert alert-dark">
+                            <strong class="text-white">Sub Dpa</strong>
+                        </div>
+                        <div class="alert alert-dark">
+                            <strong class="text-white">Rencana Penarikan</strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'tim anggaran' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'tim anggaran' ? 'white' : 'black' }}">Team
+                                Anggaran
                             </strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
-                                Penarikan
-                            </strong>
-                        </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team Anggaran
-                            </strong>
-                        </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda TAngan Dpa
+                        <div class="alert alert-{{ isset($active) && $active == 'tanda tangan ' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'tanda tangan' ? 'white' : 'black' }}">Tanda
+                                Tangan Dpa
                             </strong>
                         </div>
 
@@ -218,7 +216,8 @@
                             showConfirmButton: false,
                         });
                         setTimeout(function() {
-                            window.top.location = "{{ url('dashboard/dpa/ttd_dpa') }}/" + data.bahan_id_dpa
+                            window.top.location = "{{ url('dashboard/dpa/ttd_dpa') }}/" + data
+                                .bahan_id_dpa
 
                         }, 1800);
                     } else {

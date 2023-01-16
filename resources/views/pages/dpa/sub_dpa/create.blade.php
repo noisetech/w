@@ -36,19 +36,19 @@
                                 DPA
                             </strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
+                        <div class="alert alert-{{ isset($active) && $active == 'penarikan' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'penarikan' ? 'white' : 'black' }}">Rencana
                                 Penarikan
                             </strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team
+                        <div class="alert alert-{{ isset($active) && $active == 'team anggaran' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'team anggaran' ? 'white' : 'black' }}">Team
                                 Anggaran
                             </strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda
-                                TAngan Dpa
+                        <div class="alert alert-{{ isset($active) && $active == 'tanda tangan' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'tanda tangan' ? 'white' : 'black' }}">Tanda
+                                Tangan Dpa
                             </strong>
                         </div>
 
@@ -59,49 +59,36 @@
             <div class="col-sm-12 col-md-10 col-lg-10">
                 <div class="card my-4">
                     <div class="card-header">
-                        <a class="btn btn-sm btn-info mt-5" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3"
-                            style="float: right">
-                            Tambah Sub Dpa
-                        </a>
+
+                        @php
+                            $cek_tambah_sub_dpa = DB::table('sub_dpa')
+                                ->select('*')
+                                ->join('dpa', 'dpa.id', '=', 'sub_dpa.dpa_id')
+                                ->where('dpa.id', $dpa->id)
+                                ->first();
+                        @endphp
+                        @if (empty($cek_tambah_sub_dpa))
+                            <a class="btn btn-sm btn-info mt-5" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3"
+                                style="float: right">
+                                Isi Sub Dpa
+                            </a>
+                        @else
+                        @endif
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                    <tr>
 
-                                        <th
-                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Sub Dpa</th>
+                        @if (!empty($cek_tambah_sub_dpa))
+                            <a class="btn btn-dark" href="#" id="input_kembali">
+                                Tambah Sub Dpa
+                            </a>
 
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Employed</th>
-                                        <th class="text-secondary opacity-7"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td></td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-
-
-                        <div class="container">
-                            <div class="row my-3 justify-content-end">
-                                <div class="col-sm-2">
-                                    <a class="btn btn-dark" href="{{ route('dpa.recana_pengambilan_dpa', $dpa->id) }}">
-                                        Next
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                            <a class="btn btn-dark" href="{{ route('dpa.recana_pengambilan_dpa', $dpa->id) }}"
+                                id="next">
+                                Rencana Penarikan
+                            </a>
+                        @else
+                        @endif
                     </div>
                 </div>
             </div>
@@ -198,7 +185,7 @@
                                         </label>
 
                                         <div class="col-sm-6 my-2 mx-0">
-                                            <select class="form-control" disabled></select>
+                                            <input type="text" class="form-control" id="indikator" readonly>
                                         </div>
 
                                         <div class="col-sm-3 my-2 mx-0">
@@ -236,150 +223,91 @@
                                         </div>
                                     </div>
 
+                                    <div class="row mt-4">
 
-
-
-                                    {{--
-                                <div class="row mt-4 justify-content-end">
-                                    <div class="col-sm-2">
-                                        <button class="btn btn-success" id="btn_save_sub_dpa">
-                                            <i class="fas fa-save"></i>
-                                        </button>
-                                    </div>
-                                </div> --}}
-
-                                    <button class="btn btn-sm btn-info mt-5" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseExample" aria-expanded="false"
-                                        aria-controls="collapseExample">
-                                        Uraian
-                                    </button>
-
-                                    <div class="collapse" id="collapseExample">
-
-                                        <div class="row mt-4">
-
-                                            <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                Akun:
-                                            </label>
-                                            <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="akun" id="akun" class="form-control">
-                                                </select>
-                                                <span class="text-danger error-text bidang_id_error"
-                                                    style="font-size: 12px;"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-
-                                            <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                Kelompok:
-                                            </label>
-                                            <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="kelompok" id="kelompok" class="form-control" disabled>
-                                                    <option value="">--Pilih Akun Dahulu--</option>
-                                                </select>
-                                                <span class="text-danger error-text bidang_id_error"
-                                                    style="font-size: 12px;"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-
-                                            <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                Jenis:
-                                            </label>
-                                            <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="jenis" id="jenis" class="form-control" disabled>
-                                                    <option value="">--Pilih Kelompok Dahulu--</option>
-                                                </select>
-                                                <span class="text-danger error-text bidang_id_error"
-                                                    style="font-size: 12px;"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-
-                                            <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                Objek:
-                                            </label>
-                                            <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="objek" id="objek" class="form-control" disabled>
-                                                    <option value="">--Pilih Jenis Dahulu--</option>
-                                                </select>
-                                                <span class="text-danger error-text bidang_id_error"
-                                                    style="font-size: 12px;"></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-
-                                            <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                Rincian Objek:
-                                            </label>
-                                            <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
-                                                <select name="rincian_objek" id="rincian_objek" class="form-control"
-                                                    disabled>
-                                                    <option value="">--Pilih Objek Dahulu--</option>
-                                                </select>
-                                                <span class="text-danger error-text bidang_id_error"
-                                                    style="font-size: 12px;"></span>
-                                            </div>
-                                        </div>
-
-                                        <button class="btn btn-sm btn-info mt-5" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseExample2" aria-expanded="false"
-                                            aria-controls="collapseExample">
-                                            Rincian Uraian
-                                        </button>
-
-                                        <div class="collapse" id="collapseExample2">
-
-
-
-                                            <div class="row justify-content-end my-4">
-                                                <div class="col-sm-4">
-                                                    <a href="#" onclick="dynamic_rincian_uraian()"
-                                                        class="btn btn-sm btn-primary"> Tambah Rincian Uraian</a>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row mt-3">
-
-                                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                    Sub Rincian Objek:
-                                                </label>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
-                                                    <select name="sub_rincian[]" class="sub_rincian form-control"
-                                                        disabled>
-                                                        <option value="">--Pilih Objek Dahulu--</option>
-                                                    </select>
-                                                    <span class="text-danger error-text bidang_id_error"
-                                                        style="font-size: 12px;"></span>
-                                                </div>
-
-                                                <div class="col-sm-12 col-md-1 col-lg-1">
-
-                                                </div>
-                                            </div>
-
-                                            <div class="row mt-3">
-                                                <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
-                                                    Anggaran:
-                                                </label>
-                                                <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
-                                                    <input type="text" class="form-control" name="jumlah_anggaran[]"
-                                                        placeholder="Anggaran">
-                                                    <span class="text-danger error-text bidang_id_error"
-                                                        style="font-size: 12px;"></span>
-                                                </div>
-                                            </div>
-
-                                            <div id="rincian_uraian_selanjutnya">
-
-                                            </div>
+                                        <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                            Akun:
+                                        </label>
+                                        <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
+                                            <select name="akun" id="akun" class="form-control">
+                                            </select>
+                                            <span class="text-danger error-text bidang_id_error"
+                                                style="font-size: 12px;"></span>
                                         </div>
                                     </div>
+
+                                    <div class="row mt-4">
+
+                                        <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                            Kelompok:
+                                        </label>
+                                        <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
+                                            <select name="kelompok" id="kelompok" class="form-control" disabled>
+                                                <option value="">--Pilih Akun Dahulu--</option>
+                                            </select>
+                                            <span class="text-danger error-text bidang_id_error"
+                                                style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+
+                                        <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                            Jenis:
+                                        </label>
+                                        <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
+                                            <select name="jenis" id="jenis" class="form-control" disabled>
+                                                <option value="">--Pilih Kelompok Dahulu--</option>
+                                            </select>
+                                            <span class="text-danger error-text bidang_id_error"
+                                                style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+
+                                        <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                            Objek:
+                                        </label>
+                                        <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
+                                            <select name="objek" id="objek" class="form-control" disabled>
+                                                <option value="">--Pilih Jenis Dahulu--</option>
+                                            </select>
+                                            <span class="text-danger error-text bidang_id_error"
+                                                style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4">
+
+                                        <label class="col-sm-12 col-md-2 col-lg-2 my-2 mx-0">
+                                            Rincian Objek:
+                                        </label>
+                                        <div class="col-sm-12 col-md-10 col-lg-10 mx-0">
+                                            <select name="rincian_objek" id="rincian_objek" class="form-control"
+                                                disabled>
+                                                <option value="">--Pilih Objek Dahulu--</option>
+                                            </select>
+                                            <span class="text-danger error-text bidang_id_error"
+                                                style="font-size: 12px;"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row justify-content-end my-4">
+                                        <div class="col-sm-4">
+                                            <a href="#" onclick="dynamic_rincian_uraian()"
+                                                class="btn btn-sm btn-primary bahan_id_rincian" id="bahan_rincian">Sub
+                                                Rincian Rekening</a>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="rincian_uraian_selanjutnya">
+
+                                    </div>
+
+
                                 </div>
                                 <div class="col-sm-6">
                                     <button type="submit" class="btn my-4 btn-sm btn-success btn-save">SIMPAN</button>
@@ -431,8 +359,8 @@
     Anggaran:
 </label>
 <div class="col-sm-12 col-md-12 col-lg-12 mx-0">
-    <input type="text" class="form-control" name="jumlah_anggaran[]"
-        placeholder="Anggaran">
+    <input type="text" class="anggaran form-control" name="jumlah_anggaran[]"
+        placeholder="Anggaran" disabled>
     <span class="text-danger error-text bidang_id_error"
         style="font-size: 12px;"></span>
 </div>
@@ -471,6 +399,10 @@
                     };
                 }
             }
+        })
+
+        $(document).on('click', '#lanjut', function(e) {
+
         })
 
         $('#akun').change(function() {
@@ -605,33 +537,43 @@
 
         $('#rincian_objek').change(function() {
 
-            let id = $('#rincian_objek').val();
+            let bahan_id = $('#rincian_objek').val();
 
 
-            $('.sub_rincian').removeAttr('disabled');
+            $('.bahan_id_rincian').attr('id', bahan_id);
 
-            $('.sub_rincian').select2({
-                minimumInputLength: 1,
-                // dropdownParent: $('#exampleModal'),
-                maximumInputLength: 50,
-                allowClear: true,
-                width: '100%',
-                ajax: {
-                    url: "{{ url('dashboard/dpa-listSubRincianRekening') }}/" + id,
-                    dataType: 'json',
-                    delay: 500,
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.kode + " " + item.uraian_akun,
-                                    id: item.id
-                                }
-                            })
-                        };
+
+            $(document).on('click', '.bahan_id_rincian', function(e) {
+                e.preventDefault();
+                let id = $(this).attr('id');
+
+                $('.sub_rincian').removeAttr('disabled');
+                $('.anggaran').removeAttr('disabled');
+
+                $('.sub_rincian').select2({
+                    minimumInputLength: 1,
+                    // dropdownParent: $('#exampleModal'),
+                    maximumInputLength: 50,
+                    allowClear: true,
+                    width: '100%',
+                    ajax: {
+                        url: "{{ url('dashboard/dpa-listSubRincianRekening') }}/" + id,
+                        dataType: 'json',
+                        delay: 500,
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: item.kode + " " + item.uraian_akun,
+                                        id: item.id
+                                    }
+                                })
+                            };
+                        }
                     }
-                }
-            })
+                })
+            });
+
 
         });
 
@@ -687,6 +629,24 @@
                 }
             }
         })
+
+
+        $('#sub_kegiatan').change(function() {
+
+            let id = $('#sub_kegiatan').val();
+
+            $.ajax({
+                url: '{{ route('dpaSubKegiatanById') }}',
+                method: 'get',
+                data: {
+                    sub_kegiatan_id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    $('#indikator').val(data.indikator);
+                }
+            });
+        });
     </script>
 
     <script>
@@ -713,21 +673,30 @@
                             title: 'Berhasil',
                             toast: true,
                             position: 'top-end',
-                            timer: 1800,
+                            timer: 1000,
                             showConfirmButton: false,
                         });
+                        $("#sub_kegiatan").val('').trigger("change");
+                        $("#sumber_dana").val('').trigger("change");
+                        $("#akun").val('').trigger("change");
+                        $("#kelompok").val('').trigger("change");
+                        $("#jenis").val('').trigger("change");
+                        $("#objek").val('').trigger("change");
+                        $("#rincian_objek").val('').trigger("change");
+                        $(".sub_rincian").val('').trigger("change");
+                        $('#form_tambah')[0].reset();
                         setTimeout(function() {
-                            window.top.location =
-                                "{{ url('dashboard/rencana-pengambilan/dpa') }}/" + data
-                                .bahan_dpa_id;
-                        }, 1800);
-
-                    } else {
-
+                            window.location.reload();
+                        }, 1000);
                     }
 
                 }
             });
         });
+
+        $(document).on('click', '#input_kembali', function(e) {
+            e.preventDefault();
+            $('#collapseExample3').collapse('show');
+        })
     </script>
 @endpush

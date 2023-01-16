@@ -385,6 +385,8 @@ Route::prefix('dashboard')
             ->name('dpa.listTahun');
         Route::get('dpa.listDinas', [DpaController::class, 'listDinas'])
             ->name('dpa.listDinas');
+        Route::get('dpa.subKegiatanById', [DpaController::class, 'dpaSubKegiatanById'])
+            ->name('dpaSubKegiatanById');
 
         // datatable index dpa
         Route::get('dpa.data_table', [DpaController::class, 'data_table_dpa'])
@@ -540,7 +542,7 @@ Route::prefix('dashboard')
         Route::post('monitoring/pembangunan/update_informasi_pembangunan', [MonitoringPembangunanController::class, 'updateDataInformasiPembangunan'])
             ->name('monitoring.pembangunan.update_informasi_pembangunan');
 
-        Route::post('monitoring/pembangunan/laporan',[MonitoringPembangunanController::class, 'laporan'])
+        Route::post('monitoring/pembangunan/laporan', [MonitoringPembangunanController::class, 'laporan'])
             ->name('monitoring.pembangunan.laporan');
         // master pembangunan
         Route::get('pembangunan', [PembangunanController::class, 'index'])
@@ -549,8 +551,11 @@ Route::prefix('dashboard')
         // perencanaan pengambilan
         Route::get('perencanaan_pengambilan', [PerencanaanPengambilanController::class, 'index'])
             ->name('perencanaan_pengambilan');
-        Route::get('perencanaan_pengambilan/h_relaisasi/{id_dpa}', [PerencanaanPengambilanController::class, 'h_relaisasi'])
+        Route::get('perencanaan_pengambilan/h_realisasi/{id_dpa}', [PerencanaanPengambilanController::class, 'h_relaisasi'])
             ->name('perencaan_pengambilan.h_relaisasi');
+        Route::get('perencanaan_pengambilan/c_realisasi/{id_dpa}', [PerencanaanPengambilanController::class, 'tambah_realisasi'])->name('perencanaan_pengambilan.c_realisasi');
+        Route::get('perencanaan_pengambilan/form_relaisasi/{id_dpa}/{id_bulan}', [PerencanaanPengambilanController::class, 'tambah_realisasi'])
+            ->name('perencanaan_pengambilan.tambah_realisasi');
     });
 
 Auth::routes(['register' => false]);

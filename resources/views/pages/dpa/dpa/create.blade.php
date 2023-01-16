@@ -287,7 +287,7 @@
 
                             </div>
 
-                            <div class="row">
+                            <div class="row mb-5">
                                 <div class="col-sm-2 my-2">
                                     <input type="text" readonly name="indikator[]" class="form-control"
                                         value="Hasil">
@@ -316,7 +316,7 @@
 
                             </div>
 
-                            <i class="fa fa-plus addAlokasiTahun my-4 mx-3"> Input Alokasi Tahun</i>
+                            <i class="fa fa-plus addAlokasiTahun my-4 mx-3"> Inputan Alokasi Tahun</i>
 
 
                             <div class="row mt-5">
@@ -351,7 +351,7 @@
 
         $(".addAlokasiTahun").click(function() {
             var test =
-                '<div class="row justify-content-center mt-3"><div class="col-sm-4 imgUp"><div class="form-group"><input id="tahun_alokasi_' +
+                '<div class="row justify-content-center"><div class="col-sm-4 imgUp"><div class="form-group"><input id="tahun_alokasi_' +
                 inputan_tahun_alokasi +
                 '" class="form-control tahun_alokasi_control" name="tahun_alokasi[]" placeholder="Tahun Alokasi"><span  class="gg text-danger error-text tahun_alokasi_' +
                 validasi_tahun_alokasi +
@@ -512,6 +512,7 @@
         $('#urusan').change(function() {
 
             let id = $('#urusan').val();
+
 
 
             $('#bidang').removeAttr('disabled');

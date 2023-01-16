@@ -162,9 +162,11 @@ class DpaController extends Controller
         return response()->json($data);
     }
 
-    public function listSubRincianRekening($id)
+    public function listSubRincianRekening(Request $request)
     {
-        $data = SubRincianObjekRekening::where('rincian_objek_rekening_id', $id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
+
+        // dd($id);
+        $data = SubRincianObjekRekening::where('rincian_objek_rekening_id', $request->id)->where('kode', 'LIKE', '%' . request('q') . '%')->get();
 
 
         return response()->json($data);
@@ -236,6 +238,8 @@ class DpaController extends Controller
 
         $validator = Validator::make($request->all(), [
             'no_dpa' => 'required',
+            'dinas_id' => 'required',
+            'tahun_id' => 'required',
             'urusan_id' => 'required',
             'bidang_id' => 'required',
             'program_id' => 'required',
@@ -250,6 +254,8 @@ class DpaController extends Controller
             'jumlah_alokasi_dana.*' => 'required',
         ], [
             'tolak_ukur.*.required' => 'tidak boleh kosong',
+            'dinas_id.required' => 'tidak boleh kosong',
+            'tahun_id.required' => 'tidak boleh kosong',
             'kinerja.*.required' => 'tidak boleh kosong',
             'jumlah_alokasi_dana.*.required' => 'tidak boleh kosong',
             'no_dpa.required' => 'tidak boleh kosong',
@@ -313,6 +319,8 @@ class DpaController extends Controller
 
         $dpa = Dpa::create([
             'no_dpa' => $request->no_dpa,
+            'dinas_id' => $request->dinas_id,
+            'tahun_id' => $request->tahun_id,
             'urusan_id' => $request->urusan_id,
             'bidang_id' => $request->bidang_id,
             'program_id' => $request->program_id,
@@ -404,7 +412,7 @@ class DpaController extends Controller
     public function recana_pengambilan_dpa($id)
     {
         $dpa = Dpa::find($id);
-        $active = 'rencana pengambilan';
+        $active = 'penarikan';
         $segement = $id;
 
         return view('pages.dpa.pengambilan.create', [
@@ -508,7 +516,7 @@ class DpaController extends Controller
     public function ttd_dpa($id)
     {
         $dpa = Dpa::find($id);
-        $active = 'ttd dpa';
+        $active = 'tanda tangan';
         $segment = $id;
 
         return view('pages.dpa.ttd-dpa.create', [
@@ -558,5 +566,12 @@ class DpaController extends Controller
                 'bahan_id_dpa' => $dpa->id
             ]);
         }
+    }
+
+    public function dpaSubKegiatanById(Request $request)
+    {
+        $sub_kegiatan = SubKegiatan::find($request->sub_kegiatan_id);
+
+        return response()->json($sub_kegiatan);
     }
 }

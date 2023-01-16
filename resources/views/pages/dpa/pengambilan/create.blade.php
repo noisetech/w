@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'DPA')
 @section('content')
-    {{ navbar('DPA', 'Form Tambah DPA') }}
+    {{ navbar('DPA', 'Form Tambah Rencana Penarikan') }}
 
     <style>
         .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -23,14 +23,22 @@
                         <div class="alert alert-dark">
                             <strong class="text-white">DPA</strong>
                         </div>
-                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">SUB
-                                DPA
+                        <div class="alert alert-dark">
+                            <strong class="text-white">Sub Dpa</strong>
+                        </div>
+                        <div class="alert alert-{{ isset($active) && $active == 'penarikan' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'penarikan' ? 'white' : 'black' }}">Rencana
+                                Penarikan
                             </strong>
                         </div>
+
                         <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
-                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Rencana
-                                Pengambilan
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Team Anggaran
+                            </strong>
+                        </div>
+
+                        <div class="alert alert-{{ isset($active) && $active == 'sub_dpa' ? 'dark' : 'light' }}">
+                            <strong class="text-{{ isset($active) && $active == 'sub_dpa' ? 'white' : 'black' }}">Tanda Tangan
                             </strong>
                         </div>
 
