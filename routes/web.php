@@ -16,6 +16,7 @@ use App\Http\Controllers\TahunController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\KomponenPembangunanController;
+use App\Http\Controllers\LaporanAnggaranController;
 use App\Http\Controllers\PerencanaanPembangunanController;
 use App\Http\Controllers\MonitoringPembangunanController;
 use App\Http\Controllers\PembangunanController;
@@ -553,9 +554,13 @@ Route::prefix('dashboard')
             ->name('perencanaan_pengambilan');
         Route::get('perencanaan_pengambilan/h_realisasi/{id_dpa}', [PerencanaanPengambilanController::class, 'h_relaisasi'])
             ->name('perencaan_pengambilan.h_relaisasi');
-        Route::get('perencanaan_pengambilan/c_realisasi/{id_dpa}', [PerencanaanPengambilanController::class, 'tambah_realisasi'])->name('perencanaan_pengambilan.c_realisasi');
-        Route::get('perencanaan_pengambilan/form_relaisasi/{id_dpa}/{id_bulan}', [PerencanaanPengambilanController::class, 'tambah_realisasi'])
-            ->name('perencanaan_pengambilan.tambah_realisasi');
+        Route::get('perencanaan_pengambilan/c_realisasi/{id_sub_dpa}/{id_bulan}', [PerencanaanPengambilanController::class, 'tambah_realisasi'])
+            ->name('perencanaan_pengambilan.c_realisasi');
+        Route::post('perencanaan_pengambilan.store', [PerencanaanPengambilanController::class, 'proses_tambah_realisasi'])
+            ->name('perencanaan_pengambilan.store');
+
+        // laporan anggaran
+        Route::get('laporan-anggaran', [LaporanAnggaranController::class, 'index'])->name('laporan_anggaran');
     });
 
 Auth::routes(['register' => false]);

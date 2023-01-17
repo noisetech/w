@@ -3,7 +3,7 @@
 
 @section('title', 'Realisasi')
 @section('content')
-    {{ navbar('Realisasi', 'Realisasi') }}
+    {{ navbar('Realisasi', 'Detail Sub kegiatan') }}
 
     <div class="container-fluid py-4">
 
@@ -15,31 +15,20 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Bidang &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp;
-                                    {{ $dpa->kode_bidang . ' ' . $dpa->nomenklatur_bidang }}</h6>
+                                <h6>Program &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp;
+                                    {{ $sub_dpa->program_kode . ' ' . $sub_dpa->program_nomenklatur }}</h6>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Kegiatan &nbsp; &nbsp; : &nbsp;
-                                    {{ $dpa->kode_kegiatan . ' ' . $dpa->nomenklatur_kegiatan }}</h6>
+                                <h6>Kegiatan&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp;
+                                    {{ $sub_dpa->kegiatan_kode . ' ' . $sub_dpa->kegiatan_nomenklatur }}</h6>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Program &nbsp; &nbsp; &nbsp;: &nbsp; {{ $dpa->kode_program . ' '. $dpa->nomenklatur_program }}</h6>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Organisasi &nbsp;: &nbsp;asdasdad</h6>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
-                                <h6>Unit &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : asdasdad</h6>
+                                <h6>Sub Kegiatan &nbsp; &nbsp; &nbsp;: &nbsp;
+                                    {{ $sub_dpa->sub_kegiatan_kode . ' ' . $sub_dpa->sub_kegiatan_nomenklatur }}</h6>
                             </div>
                         </div>
                     </div>
@@ -73,9 +62,21 @@
                                                 <p class="text-sm font-weight-bold mb-0 px-3">
                                                     {{ Str::ucfirst($bulan->bulan) }}</p>
                                             </td>
+
+                                            @php
+                                                $cek = DB::table('rencana_pengambilan')
+                                                    ->join('sub_dpa', 'sub_dpa.id', '=', 'rencana_pengambilan.sub_dpa_id')
+                                                    ->whereIn('bulan', [$bulan->bulan])
+                                                    ->get();
+                                            @endphp
                                             <td>
-                                                <a href="{{ route('perencanaan_pengambilan.tambah_realisasi', [$dpa->id_dpa, $bulan->id]) }}"
-                                                    class="btn btn-sm btn-info">Input Realisasi</a>
+
+                                                @if (count($cek) > 0)
+                                                @else
+                                                    <a href="{{ route('perencanaan_pengambilan.c_realisasi', [$sub_dpa->sub_dpa_id, $bulan->id]) }}"
+                                                        class="btn btn-sm btn-info">Input Realisasi</a>
+                                                @endif
+
                                             </td>
                                         </tr>
                                     @endforeach
