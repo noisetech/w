@@ -99,7 +99,7 @@
                                                                             {{ $dp->total_anggaran == null ? '0,00' : $dp->total_anggaran }}
                                                                         </td>
                                                                     </tr>
-                                                                    {{-- @if ($sub_kegiatan->count() > 0)
+                                                                    @if ($sub_kegiatan->count() > 0)
                                                                         @php
                                                                             $rekening = DB::table('ket_sub_dpa')
                                                                                 ->join('detail_ket_sub_dpa', 'detail_ket_sub_dpa.ket_sub_dpa_id', '=', 'ket_sub_dpa.id')
@@ -129,7 +129,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                         @endforeach
-                                                                    @endif --}}
+                                                                    @endif
                                                                 @endforeach
                                                             @else
                                                                 <tr class="cursor-pointer collapse">
