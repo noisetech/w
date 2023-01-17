@@ -101,7 +101,7 @@
                                                     @foreach ($bahan_kedua as $bahan_kedua)
                                                         @php
                                                             $bahan_rencana_pengambilan = DB::table('rencana_pengambilan')
-                                                                ->select('pengambilan')
+                                                                ->select(DB::raw('sum(pengambilan) as pengambilan'))
                                                                 ->join('sub_dpa', 'sub_dpa.id', '=', 'rencana_pengambilan.sub_dpa_id')
                                                                 ->get();
                                                         @endphp
@@ -125,13 +125,13 @@
 
                                                     @php
                                                         $bahan_rencana_pengambilan = DB::table('rencana_pengambilan')
-                                                            ->select('persentase')
+                                                            ->select(DB::raw('sum(persentase) as persentase'))
                                                             ->join('sub_dpa', 'sub_dpa.id', '=', 'rencana_pengambilan.sub_dpa_id')
                                                             ->get();
                                                     @endphp
 
                                                     @foreach ($bahan_rencana_pengambilan as $bahan_rencana_pengambilan)
-                                                        {{ $bahan_rencana_pengambilan->persentase }}
+                                                        {{ $bahan_rencana_pengambilan->persentase . '%' }}
                                                     @endforeach
                                                 @endif
                                             </td>
@@ -188,7 +188,7 @@
                                                             @if (!empty($bahan_kedua))
                                                                 @php
                                                                     $bahan_rencana_pengambilan = DB::table('rencana_pengambilan')
-                                                                        ->select('pengambilan')
+                                                                        ->select(DB::raw('sum(pengambilan) as pengambilan'))
                                                                         ->join('sub_dpa', 'sub_dpa.id', '=', 'rencana_pengambilan.sub_dpa_id')
                                                                         ->get();
                                                                 @endphp
@@ -222,13 +222,13 @@
                                                             @if (!empty($bahan_kedua))
                                                                 @php
                                                                     $bahan_rencana_pengambilan = DB::table('rencana_pengambilan')
-                                                                        ->select('persentase')
+                                                                        ->select(DB::raw('sum(persentase) as persentase'))
                                                                         ->join('sub_dpa', 'sub_dpa.id', '=', 'rencana_pengambilan.sub_dpa_id')
                                                                         ->get();
                                                                 @endphp
 
                                                                 @foreach ($bahan_rencana_pengambilan as $bahan_rencana_pengambilan)
-                                                                    {{ $bahan_rencana_pengambilan->persentase }}
+                                                                    {{ $bahan_rencana_pengambilan->persentase . '%' }}
                                                                 @endforeach
                                                             @endif
                                                         @else
@@ -392,7 +392,7 @@
                                                             @if (!empty($bahan_kedua))
                                                                 @php
                                                                     $bahan_rencana_pengambilan = DB::table('rencana_pengambilan')
-                                                                        ->select('pengambilan')
+                                                                        ->select(DB::raw('sum(pengambilan) as pengambilan'))
                                                                         ->join('sub_dpa', 'sub_dpa.id', '=', 'rencana_pengambilan.sub_dpa_id')
                                                                         ->get();
                                                                 @endphp
