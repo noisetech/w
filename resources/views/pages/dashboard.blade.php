@@ -161,7 +161,7 @@
     </nav>
 
     <div class="container-fluid py-4">
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
                     <div class="card-body p-3">
@@ -250,7 +250,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row mt-4">
             <div class="col-lg-6 col-md-6 col-sm-12 mb-lg-0 mb-4">
                 <div class="card">
@@ -321,7 +321,6 @@
             },
             yAxis: {
                 min: 0,
-                allowDecimals: false,
                 title: {
                     text: 'Nilai'
                 }
@@ -346,7 +345,7 @@
                     194.1, 95.6, 54.4
                 ]
 
-            },]
+            }, ]
         });
 
 
@@ -386,7 +385,7 @@
                     y: 68.77,
                     sliced: true,
                     selected: true
-                },{
+                }, {
                     name: 'Belum di Serap',
                     y: 30.28
                 }]
