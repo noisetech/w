@@ -80,6 +80,7 @@
                                                             ->select(DB::raw('sum(jumlah_anggaran) as jumlah_anggaran'))
                                                             ->join('ket_sub_dpa', 'ket_sub_dpa.id', '=', 'detail_ket_sub_dpa.ket_sub_dpa_id')
                                                             ->get();
+
                                                     @endphp
 
                                                     @foreach ($bahan_total_anggaran as $bahan_total_anggaran)

@@ -123,7 +123,7 @@ class PerencanaanPengambilanController extends Controller
 
         $data = $request->all();
 
-        DB::table('rencana_pengambilan')
+        $simpan =    DB::table('rencana_pengambilan')
             ->insert([
                 'sub_dpa_id' => $request->sub_dpa_id,
                 'bulan' => $request->bulan,
@@ -135,5 +135,11 @@ class PerencanaanPengambilanController extends Controller
                 'status_kemanfaatan' => $request->status_kemanfaatan,
                 'keterangan_permasalahan' => $request->permasalahan
             ]);
+
+        if ($simpan) {
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
     }
 }

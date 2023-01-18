@@ -16,7 +16,7 @@ class TahunController extends Controller
     public function data()
     {
         if (request()->ajax()) {
-            $data = Tahun::orderBy('tahun', 'DESC')->get();
+             $data = Tahun::orderBy('tahun', 'DESC')->get();
 
             return datatables()->of($data)
 
